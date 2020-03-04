@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B232B9FA241000BC00309FD9 /* GolfGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = B232B9F9241000BC00309FD9 /* GolfGame.swift */; };
+		B232BA00241001D600309FD9 /* PlayerScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B232B9FF241001D600309FD9 /* PlayerScore.swift */; };
+		B232BA022410021100309FD9 /* Hole.swift in Sources */ = {isa = PBXBuildFile; fileRef = B232BA012410021100309FD9 /* Hole.swift */; };
+		B232BA0424101D2A00309FD9 /* HoleScoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B232BA0324101D2A00309FD9 /* HoleScoreViewController.swift */; };
+		B2336DCF240EDEB500482D80 /* GolferScoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2336DCE240EDEB500482D80 /* GolferScoreTableViewCell.swift */; };
+		B236FC67240B04EF0011BF05 /* NewGolferTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B236FC66240B04EF0011BF05 /* NewGolferTableViewCell.swift */; };
+		B236FC69240B06150011BF05 /* NewGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B236FC68240B06150011BF05 /* NewGameViewController.swift */; };
 		B23C1F0023FBBC1B00B7308A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B23C1EFF23FBBC1B00B7308A /* AppDelegate.swift */; };
 		B23C1F0223FBBC1B00B7308A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B23C1F0123FBBC1B00B7308A /* SceneDelegate.swift */; };
 		B23C1F0723FBBC1B00B7308A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B23C1F0523FBBC1B00B7308A /* Main.storyboard */; };
@@ -27,6 +34,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B232B9F9241000BC00309FD9 /* GolfGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GolfGame.swift; sourceTree = "<group>"; };
+		B232B9FF241001D600309FD9 /* PlayerScore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerScore.swift; sourceTree = "<group>"; };
+		B232BA012410021100309FD9 /* Hole.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hole.swift; sourceTree = "<group>"; };
+		B232BA0324101D2A00309FD9 /* HoleScoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoleScoreViewController.swift; sourceTree = "<group>"; };
+		B2336DCE240EDEB500482D80 /* GolferScoreTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GolferScoreTableViewCell.swift; sourceTree = "<group>"; };
+		B236FC66240B04EF0011BF05 /* NewGolferTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGolferTableViewCell.swift; sourceTree = "<group>"; };
+		B236FC68240B06150011BF05 /* NewGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGameViewController.swift; sourceTree = "<group>"; };
 		B23C1EFC23FBBC1B00B7308A /* Skins.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Skins.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B23C1EFF23FBBC1B00B7308A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B23C1F0123FBBC1B00B7308A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -58,6 +72,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B2336DCD240ED38D00482D80 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B232B9F9241000BC00309FD9 /* GolfGame.swift */,
+				B232B9FF241001D600309FD9 /* PlayerScore.swift */,
+				B232BA012410021100309FD9 /* Hole.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		B236FC65240B04CE0011BF05 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				B236FC66240B04EF0011BF05 /* NewGolferTableViewCell.swift */,
+				B2336DCE240EDEB500482D80 /* GolferScoreTableViewCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		B23C1EF323FBBC1B00B7308A = {
 			isa = PBXGroup;
 			children = (
@@ -79,6 +112,7 @@
 		B23C1EFE23FBBC1B00B7308A /* Skins */ = {
 			isa = PBXGroup;
 			children = (
+				B2336DCD240ED38D00482D80 /* Model */,
 				B23C1F2323FBBD6900B7308A /* Views */,
 				B23C1EFF23FBBC1B00B7308A /* AppDelegate.swift */,
 				B23C1F0123FBBC1B00B7308A /* SceneDelegate.swift */,
@@ -102,7 +136,10 @@
 		B23C1F2323FBBD6900B7308A /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				B236FC65240B04CE0011BF05 /* Cells */,
 				B23C1F2123FBBD5900B7308A /* StartUpViewController.swift */,
+				B236FC68240B06150011BF05 /* NewGameViewController.swift */,
+				B232BA0324101D2A00309FD9 /* HoleScoreViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -210,7 +247,14 @@
 			files = (
 				B23C1F0023FBBC1B00B7308A /* AppDelegate.swift in Sources */,
 				B23C1F2223FBBD5900B7308A /* StartUpViewController.swift in Sources */,
+				B232B9FA241000BC00309FD9 /* GolfGame.swift in Sources */,
+				B236FC69240B06150011BF05 /* NewGameViewController.swift in Sources */,
+				B2336DCF240EDEB500482D80 /* GolferScoreTableViewCell.swift in Sources */,
 				B23C1F0223FBBC1B00B7308A /* SceneDelegate.swift in Sources */,
+				B236FC67240B04EF0011BF05 /* NewGolferTableViewCell.swift in Sources */,
+				B232BA00241001D600309FD9 /* PlayerScore.swift in Sources */,
+				B232BA022410021100309FD9 /* Hole.swift in Sources */,
+				B232BA0424101D2A00309FD9 /* HoleScoreViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
