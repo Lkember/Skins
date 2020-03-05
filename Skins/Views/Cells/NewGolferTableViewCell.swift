@@ -9,7 +9,6 @@
 import UIKit
 
 class NewGolferTableViewCell: UITableViewCell {
-    
     @IBOutlet weak var golferLabel: UILabel!
     @IBOutlet weak var nameField: UITextField!
     
@@ -26,5 +25,12 @@ class NewGolferTableViewCell: UITableViewCell {
     
     func setGolferNumber(_ num: Int) {
         golferLabel.text = "Golfer #\(num)"
+    }
+    
+    func getGolferName() -> String {
+        if (nameField.text != nil) {
+            return nameField.text!
+        }
+        return ""
     }
 }

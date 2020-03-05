@@ -12,6 +12,7 @@ class NewGameViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     var golfers: [NewGolferTableViewCell] = []
     var numGolfersSelected: Int = 0
+    var passbackDelegate: GolfGamePassback?
     @IBOutlet weak var golferTableView: UITableView!
     @IBOutlet weak var oneButton: UIButton!
     @IBOutlet weak var twoButton: UIButton!
@@ -38,6 +39,17 @@ class NewGameViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     */
     
+    // MARK: - Create Game
+    // Create new game, and then dismiss view controller
+    @IBAction func createGameClicked(_ sender: Any) {
+        var names: [String] = []
+        for golfer in golfers {
+            names.append(golfer.getGolferName())
+        }
+        
+        passbackDelegate?.createNewGame(golfers: names)
+        dismiss(animated: true, completion: nil)
+    }
     
     // MARK: - TableUpdater
     @IBAction func oneGolferSelected(_ sender: Any) {

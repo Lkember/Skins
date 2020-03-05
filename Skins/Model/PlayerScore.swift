@@ -14,10 +14,16 @@ class PlayerScore: NSObject {
     
     override init() {
         playerName = ""
+        super.init()
+        
+        self.createNextHole(1)
     }
     
     init(name: String) {
         playerName = name
+        super.init()
+        
+        self.createNextHole(1)
     }
     
     func getStrokeCount() -> Int {
@@ -45,8 +51,17 @@ class PlayerScore: NSObject {
         return skins
     }
     
-    func createNextHole() {
-        let hole = Hole.init(holeNumber: holes.count + 1)
+    func createNextHole(_ holeNumber: Int) {
+        let hole = Hole.init(holeNumber: holeNumber)
         holes.append(hole)
     }
+    
+//    func playerWonHole(_ holeNumber: Int) {
+//        if (holeNumber < holes.count) {
+//            holes[holeNumber-1].wonHole(<#T##carryOverSkins: Int##Int#>)
+//        }
+//        else {
+//            print("\(#file) / \(#function) / ERROR hole doesn't exist")
+//        }
+//    }
 }

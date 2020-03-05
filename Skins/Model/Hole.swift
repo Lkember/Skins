@@ -14,11 +14,13 @@ class Hole: NSObject {
     var longestDrive: Bool
     var closestToPin: Bool
     var par: Int
+    var skins: Int
     
     override init() {
         holeNumber = 0
         strokes = 0
         par = 0
+        skins = 0
         longestDrive = false
         closestToPin = false
     }
@@ -27,11 +29,28 @@ class Hole: NSObject {
         self.holeNumber = holeNumber
         strokes = 0
         par = 0
+        skins = 0
         longestDrive = false
         closestToPin = false
     }
     
     func updatePar(par: Int) {
         self.par = par
+    }
+    
+    func awardSkins() {
+        if (strokes <= par) {
+            if (longestDrive) {
+                skins += 1
+            }
+            if (closestToPin) {
+                skins += 1
+            }
+        }
+    }
+    
+    func wonHole(_ carryOverSkins: Int) {
+        skins += 1
+        skins += carryOverSkins
     }
 }
