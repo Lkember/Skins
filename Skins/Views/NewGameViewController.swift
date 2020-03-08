@@ -12,7 +12,7 @@ class NewGameViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     var golfers: [NewGolferTableViewCell] = []
     var numGolfersSelected: Int = 0
-    var passbackDelegate: GolfGamePassback?
+    var passbackDelegate: GolfGameCallback?
     @IBOutlet weak var golferTableView: UITableView!
     @IBOutlet weak var oneButton: UIButton!
     @IBOutlet weak var twoButton: UIButton!
@@ -95,6 +95,8 @@ class NewGameViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         updateButtonSelection()
     }
+    
+    // MARK: - Golfer Helper
     
     func removeExcessGolfers() {
         while (golfers.count != numGolfersSelected) {

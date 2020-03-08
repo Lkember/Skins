@@ -10,47 +10,39 @@ import UIKit
 
 class Hole: NSObject {
     var holeNumber: Int
-    var strokes: Int
-    var longestDrive: Bool
-    var closestToPin: Bool
-    var par: Int
-    var skins: Int
+    var par: Int = 0
+    var carryOverSkins: Int = 0
+    var golfers: [PlayerScore] = []
     
     override init() {
-        holeNumber = 0
-        strokes = 0
+        holeNumber = 1
         par = 0
-        skins = 0
-        longestDrive = false
-        closestToPin = false
     }
     
-    init(holeNumber: Int) {
+    init(holeNumber: Int, players: [String]) {
         self.holeNumber = holeNumber
-        strokes = 0
-        par = 0
-        skins = 0
-        longestDrive = false
-        closestToPin = false
+        for player in players {
+            golfers.append(PlayerScore.init(name: player))
+        }
+        par = 4
     }
+    
+//    init(holeNumber: Int) {
+//        self.holeNumber = holeNumber
+//        par = 4
+//    }
     
     func updatePar(par: Int) {
         self.par = par
     }
     
-    func awardSkins() {
-        if (strokes <= par) {
-            if (longestDrive) {
-                skins += 1
-            }
-            if (closestToPin) {
-                skins += 1
-            }
+    func getListOfPlayers() -> [String] {
+        var output: [String] = []
+        
+        for golfer in golfers {
+            output.append(golfer.playerName)
         }
-    }
-    
-    func wonHole(_ carryOverSkins: Int) {
-        skins += 1
-        skins += carryOverSkins
+        
+        return output
     }
 }

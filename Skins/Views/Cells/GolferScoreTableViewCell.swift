@@ -8,7 +8,7 @@
 
 import UIKit
 
-class GolferScoreTableViewCell: UITableViewCell {
+class GolferScoreTableViewCell: UITableViewCell, UITextFieldDelegate {
     @IBOutlet weak var golferName: UILabel!
     @IBOutlet weak var numberOfStrokes: UITextField!
     @IBOutlet weak var longestDriveSwitch: UISwitch!
@@ -31,6 +31,8 @@ class GolferScoreTableViewCell: UITableViewCell {
         numberOfStrokes.text = "\(strokes)"
         longestDriveSwitch.isOn = ld
         closestToPinSwitch.isOn = ctp
+        
+        numberOfStrokes.delegate = self
     }
     
     func deselectLD() {
@@ -40,4 +42,17 @@ class GolferScoreTableViewCell: UITableViewCell {
     func deselectCP() {
         closestToPinSwitch.isOn = false
     }
+    
+    @IBAction func longestDriveSwitched(_ sender: Any) {
+        callback?.longestDriveSelected(cell: self)
+    }
+    
+    @IBAction func closestToPinSwitched(_ sender: Any) {
+        callback?.closestToPinSelected(cell: self)
+    }
+    
+    @IBAction func strokesUpdated(_ sender: Any) {
+        callback?.strokesUpdated(cell: self, strokes: Int.init(numberOfStrokes.text ?? "0") ?? 0)
+    }
+    
 }

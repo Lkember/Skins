@@ -18,12 +18,10 @@ class HoleScoreViewController: UIViewController, UITableViewDelegate, UITableVie
     
     @IBOutlet weak var golferTableView: UITableView!
     @IBOutlet weak var parForHole: UISegmentedControl!
-    @IBOutlet weak var nextHoleButton: UIButton!
-    @IBOutlet weak var endGameButton: UIButton!
     @IBOutlet weak var numSkinsLabel: UILabel!
-    var passbackDelegate: GolfGamePassback?
-    var game: GolfGame = GolfGame.init()
-    var par: Int = 4
+    var golfGameCallback: GolfGameCallback?
+    var titlePassback: TitleUpdateCallback?
+    var currHole: Hole = Hole.init()
     
     // MARK: - Creation
     override func viewDidLoad() {
@@ -32,72 +30,68 @@ class HoleScoreViewController: UIViewController, UITableViewDelegate, UITableVie
         // Do any additional setup after loading the view.
         golferTableView.delegate = self
         golferTableView.dataSource = self
+        
+        updateUI()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        par = game.golfers.first!.holes.last!.par
-        navigationController?.title = "Hole \(game.currentHole)"
-        parForHole.selectedSegmentIndex = par - 3
+    override func viewDidAppear(_ animated: Bool) {
+        titlePassback?.updateTitle(hole: currHole.holeNumber)
+    }
+    
+    func updateHole(hole: Hole) {
+        currHole = hole
+    }
+    
+    func updateUI() {
+        parForHole.selectedSegmentIndex = currHole.par - 3
         
+        numSkinsLabel.text = "\(currHole.carryOverSkins) skins carried over"
+        navigationItem.title = "Hole \(currHole.holeNumber)"
+    }
+    
+    // MARK: - View
+    override func viewWillAppear(_ animated: Bool) {
         navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        passbackDelegate?.updateCurrentGame(game: self.game)
-    }
-    
-    func createNewGame(names: [String]) {
-        game = GolfGame.init(names: names)
-    }
-    
-    func continueGameInProgress(game: GolfGame) {
-        self.game = game
-        
-        if (game.golfers.count > 0 && game.golfers.first!.holes.count > 0) {
-            self.par = game.golfers.first!.holes.last!.par
-        }
+        golfGameCallback?.updateHole(hole: currHole)
     }
     
     // MARK: - TableView
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return game.golfers.count
+        return currHole.golfers.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellIdentifier = "GolferScoreTableViewCell"
         let cell = golferTableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath as IndexPath) as! GolferScoreTableViewCell
-        let currHole = game.golfers[indexPath.row].holes.last
-        let name = game.golfers[indexPath.row].playerName
         
-        cell.updateCell(name: name, strokes: currHole?.strokes ?? 0, ld: currHole?.longestDrive ?? false, ctp: currHole?.closestToPin ?? false)
-        
+        let golfer = currHole.golfers[indexPath.row]
+        cell.updateCell(name: golfer.playerName, strokes: golfer.strokes, ld: golfer.longestDrive, ctp: golfer.closestToPin)
         cell.callback = self
         return cell
     }
     
     // MARK: - Actions
     @IBAction func parWasChanged(_ sender: Any) {
-        par = parForHole.selectedSegmentIndex + 3
-        
-        for golfer in game.golfers {
-            golfer.holes.last!.updatePar(par: par)
-        }
+        currHole.par = parForHole.selectedSegmentIndex + 3
     }
     
     // MARK: - HoleScoreCallback
     func longestDriveSelected(cell: GolferScoreTableViewCell) {
         var indexPath = IndexPath.init(row: 0, section: 0)
         
-        for i in 0..<game.golfers.count {
+        for i in 0..<currHole.golfers.count {
             indexPath.row = i
-            
+
             if let tCell = golferTableView.cellForRow(at: indexPath) as? GolferScoreTableViewCell {
                 if (tCell != cell) {
                     tCell.deselectLD()
-                    game.golfers[i].holes.last!.longestDrive = false
+                    currHole.golfers[i].longestDrive = false
                 }
                 else {
-                    game.golfers[i].holes.last!.longestDrive = true
+                    currHole.golfers[i].longestDrive = true
                 }
             }
         }
@@ -106,16 +100,16 @@ class HoleScoreViewController: UIViewController, UITableViewDelegate, UITableVie
     func closestToPinSelected(cell: GolferScoreTableViewCell) {
         var indexPath = IndexPath.init(row: 0, section: 0)
         
-        for i in 0..<game.golfers.count {
+        for i in 0..<currHole.golfers.count {
             indexPath.row = i
             
             if let tCell = golferTableView.cellForRow(at: indexPath) as? GolferScoreTableViewCell {
                 if (tCell != cell) {
                     tCell.deselectCP()
-                    game.golfers[i].holes.last!.closestToPin = false
+                    currHole.golfers[i].closestToPin = false
                 }
                 else {
-                    game.golfers[i].holes.last!.closestToPin = true
+                    currHole.golfers[i].closestToPin = true
                 }
             }
         }
@@ -123,7 +117,7 @@ class HoleScoreViewController: UIViewController, UITableViewDelegate, UITableVie
     
     func strokesUpdated(cell: GolferScoreTableViewCell, strokes: Int) {
         if let indexPath = golferTableView.indexPath(for: cell) {
-            game.golfers[indexPath.row].holes.last!.strokes = strokes
+            currHole.golfers[indexPath.row].strokes = strokes
         }
     }
     
