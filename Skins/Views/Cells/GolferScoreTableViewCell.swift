@@ -18,6 +18,8 @@ class GolferScoreTableViewCell: UITableViewCell, UITextFieldDelegate {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
+        numberOfStrokes.delegate = self
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -55,4 +57,13 @@ class GolferScoreTableViewCell: UITableViewCell, UITextFieldDelegate {
         callback?.strokesUpdated(cell: self, strokes: Int.init(numberOfStrokes.text ?? "0") ?? 0)
     }
     
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        if (textField.text != "") {
+            self.contentView.endEditing(false)
+        }
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.text = ""
+    }
 }

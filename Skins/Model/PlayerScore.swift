@@ -33,6 +33,21 @@ class PlayerScore: NSObject {
         super.init()
     }
     
+    func awardSkins(par: Int, wonHole: Bool) {
+        if (strokes <= par) {
+            if (longestDrive) {
+                skins += 1
+            }
+            if (closestToPin) {
+                skins += 1
+            }
+        }
+        
+        if (wonHole) {
+            skins += 1
+        }
+    }
+    
 //    func getStrokeCount() -> Int {
 //        var strokes = 0
 //

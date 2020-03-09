@@ -402,7 +402,7 @@
                                                         <constraint firstAttribute="height" constant="34" id="rM6-b2-m1B"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                                    <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                                                     <connections>
                                                         <action selector="strokesUpdated:" destination="skg-QG-2KM" eventType="editingDidEnd" id="ojr-wH-zJq"/>
                                                     </connections>

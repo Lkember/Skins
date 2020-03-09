@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NewGameViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class NewGameViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
     
     var golfers: [NewGolferTableViewCell] = []
     var numGolfersSelected: Int = 0
@@ -114,6 +114,8 @@ class NewGameViewController: UIViewController, UITableViewDelegate, UITableViewD
         for _ in 0..<diff {
             let newGolfer = golferTableView.dequeueReusableCell(withIdentifier: "NewGolferTableViewCell") as! NewGolferTableViewCell
             newGolfer.setGolferNumber(golfers.count+1)
+            newGolfer.nameField.delegate = self
+            
             golfers.append(newGolfer)
             
 //            let indexPath = IndexPath.init(row: golfers.count-1, section: 0)
@@ -160,5 +162,10 @@ class NewGameViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         return golfers[indexPath.row]
+    }
+    
+    // MARK: - UITextFieldDelegate
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(false)
     }
 }

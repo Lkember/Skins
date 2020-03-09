@@ -27,11 +27,6 @@ class Hole: NSObject {
         par = 4
     }
     
-//    init(holeNumber: Int) {
-//        self.holeNumber = holeNumber
-//        par = 4
-//    }
-    
     func updatePar(par: Int) {
         self.par = par
     }
