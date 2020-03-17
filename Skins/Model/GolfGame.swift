@@ -8,6 +8,16 @@
 
 import UIKit
 
+struct GolfSummary {
+    var totalStrokes: Int
+    var totalSkins: Int
+    
+    init(_ strokes: Int, _ skins: Int) {
+        totalStrokes = strokes
+        totalSkins = skins
+    }
+}
+
 class GolfGame: NSObject {
     var holes: [Hole] = []
 //    var golfers: [PlayerScore]
@@ -71,5 +81,17 @@ class GolfGame: NSObject {
         if (holes.first != nil) {
             holes.append(Hole.init(holeNumber: holes.last!.holeNumber + 1, players: holes.last!.getListOfPlayers()))
         }
+    }
+    
+    func getTotals(_ golfer: Int) -> GolfSummary {
+        var strokes = 0
+        var skins = 0
+        
+        for hole in holes {
+            strokes += hole.golfers[golfer].strokes
+            skins += hole.golfers[golfer].skins
+        }
+        
+        return GolfSummary(strokes, skins)
     }
 }

@@ -38,6 +38,9 @@ class HoleScoreHelperViewController: UIViewController, TitleUpdateCallback {
         _ = navigationController?.popViewController(animated: true)
     }
     
+    @IBAction func viewScorecardTouched(_ sender: Any) {
+        game.summarizeAllHoles()
+    }
     
     // MARK: - UpdateTitleCallback
     func updateTitle(hole: Int) {
@@ -54,6 +57,9 @@ class HoleScoreHelperViewController: UIViewController, TitleUpdateCallback {
             vc.game = self.game
             self.pageControlCallback = vc
             vc.holeScoreHelperVC = self
+        }
+        else if let dvc = segue.destination as? ScoresheetViewController {
+            dvc.game = self.game
         }
     }
 

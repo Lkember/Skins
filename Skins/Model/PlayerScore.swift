@@ -34,6 +34,8 @@ class PlayerScore: NSObject {
     }
     
     func awardSkins(par: Int, wonHole: Bool) {
+        skins = 0
+        
         if (strokes <= par) {
             if (longestDrive) {
                 skins += 1
@@ -47,43 +49,4 @@ class PlayerScore: NSObject {
             skins += 1
         }
     }
-    
-//    func getStrokeCount() -> Int {
-//        var strokes = 0
-//
-//        for hole in holes {
-//            strokes += hole.strokes
-//        }
-//
-//        return strokes
-//    }
-    
-//    func getSkinCount() -> Int {
-//        var skins = 0
-//
-//        for hole in holes {
-//            if (hole.longestDrive) {
-//                skins += 1
-//            }
-//            if (hole.closestToPin) {
-//                skins += 1
-//            }
-//        }
-//
-//        return skins
-//    }
-    
-//    func createNextHole(_ holeNumber: Int) {
-//        let hole = Hole.init(holeNumber: holeNumber)
-//        holes.append(hole)
-//    }
-    
-//    func playerWonHole(_ holeNumber: Int) {
-//        if (holeNumber < holes.count) {
-//            holes[holeNumber-1].wonHole(<#T##carryOverSkins: Int##Int#>)
-//        }
-//        else {
-//            print("\(#file) / \(#function) / ERROR hole doesn't exist")
-//        }
-//    }
 }

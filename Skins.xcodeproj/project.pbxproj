@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B23247E2241B119900409AD1 /* ScoresheetViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B23247E1241B119900409AD1 /* ScoresheetViewLayout.swift */; };
+		B23247E4241B136C00409AD1 /* ScoresheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B23247E3241B136C00409AD1 /* ScoresheetViewController.swift */; };
 		B232B9FA241000BC00309FD9 /* GolfGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = B232B9F9241000BC00309FD9 /* GolfGame.swift */; };
 		B232BA00241001D600309FD9 /* PlayerScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B232B9FF241001D600309FD9 /* PlayerScore.swift */; };
 		B232BA022410021100309FD9 /* Hole.swift in Sources */ = {isa = PBXBuildFile; fileRef = B232BA012410021100309FD9 /* Hole.swift */; };
@@ -22,6 +24,7 @@
 		B23C1F0C23FBBC1C00B7308A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B23C1F0A23FBBC1C00B7308A /* LaunchScreen.storyboard */; };
 		B23C1F1723FBBC1C00B7308A /* SkinsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B23C1F1623FBBC1C00B7308A /* SkinsTests.swift */; };
 		B23C1F2223FBBD5900B7308A /* StartUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B23C1F2123FBBD5900B7308A /* StartUpViewController.swift */; };
+		B26AB396241FE226008DCC65 /* ScoresheetCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B26AB395241FE226008DCC65 /* ScoresheetCollectionViewCell.swift */; };
 		B27A9E6A2412E6FE008AFD96 /* HolePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27A9E692412E6FE008AFD96 /* HolePageViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -36,6 +39,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B23247E1241B119900409AD1 /* ScoresheetViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ScoresheetViewLayout.swift; path = Skins/Views/ScoresheetViewLayout.swift; sourceTree = SOURCE_ROOT; };
+		B23247E3241B136C00409AD1 /* ScoresheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoresheetViewController.swift; sourceTree = "<group>"; };
 		B232B9F9241000BC00309FD9 /* GolfGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GolfGame.swift; sourceTree = "<group>"; };
 		B232B9FF241001D600309FD9 /* PlayerScore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerScore.swift; sourceTree = "<group>"; };
 		B232BA012410021100309FD9 /* Hole.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hole.swift; sourceTree = "<group>"; };
@@ -55,6 +60,7 @@
 		B23C1F1623FBBC1C00B7308A /* SkinsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkinsTests.swift; sourceTree = "<group>"; };
 		B23C1F1823FBBC1C00B7308A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B23C1F2123FBBD5900B7308A /* StartUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartUpViewController.swift; sourceTree = "<group>"; };
+		B26AB395241FE226008DCC65 /* ScoresheetCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoresheetCollectionViewCell.swift; sourceTree = "<group>"; };
 		B27A9E692412E6FE008AFD96 /* HolePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HolePageViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -101,6 +107,7 @@
 			children = (
 				B236FC66240B04EF0011BF05 /* NewGolferTableViewCell.swift */,
 				B2336DCE240EDEB500482D80 /* GolferScoreTableViewCell.swift */,
+				B26AB395241FE226008DCC65 /* ScoresheetCollectionViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -154,6 +161,8 @@
 				B236FC65240B04CE0011BF05 /* Cells */,
 				B23C1F2123FBBD5900B7308A /* StartUpViewController.swift */,
 				B236FC68240B06150011BF05 /* NewGameViewController.swift */,
+				B23247E3241B136C00409AD1 /* ScoresheetViewController.swift */,
+				B23247E1241B119900409AD1 /* ScoresheetViewLayout.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -264,6 +273,7 @@
 				B232B9FA241000BC00309FD9 /* GolfGame.swift in Sources */,
 				B27A9E6A2412E6FE008AFD96 /* HolePageViewController.swift in Sources */,
 				B236FC69240B06150011BF05 /* NewGameViewController.swift in Sources */,
+				B23247E2241B119900409AD1 /* ScoresheetViewLayout.swift in Sources */,
 				B2336DCF240EDEB500482D80 /* GolferScoreTableViewCell.swift in Sources */,
 				B23C1F0223FBBC1B00B7308A /* SceneDelegate.swift in Sources */,
 				B236FC67240B04EF0011BF05 /* NewGolferTableViewCell.swift in Sources */,
@@ -271,6 +281,8 @@
 				B2348D5B24141163003EBAE5 /* HoleScoreHelperViewController.swift in Sources */,
 				B232BA022410021100309FD9 /* Hole.swift in Sources */,
 				B232BA0424101D2A00309FD9 /* HoleScoreViewController.swift in Sources */,
+				B26AB396241FE226008DCC65 /* ScoresheetCollectionViewCell.swift in Sources */,
+				B23247E4241B136C00409AD1 /* ScoresheetViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -433,6 +445,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = X2RHS589XN;
 				INFOPLIST_FILE = Skins/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -451,6 +464,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = X2RHS589XN;
 				INFOPLIST_FILE = Skins/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

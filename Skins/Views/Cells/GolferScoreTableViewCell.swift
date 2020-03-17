@@ -10,7 +10,8 @@ import UIKit
 
 class GolferScoreTableViewCell: UITableViewCell, UITextFieldDelegate {
     @IBOutlet weak var golferName: UILabel!
-    @IBOutlet weak var numberOfStrokes: UITextField!
+    @IBOutlet weak var numberOfStrokes: UILabel!
+    @IBOutlet weak var numStrokesStepper: UIStepper!
     @IBOutlet weak var longestDriveSwitch: UISwitch!
     @IBOutlet weak var closestToPinSwitch: UISwitch!
     var callback: HoleScoreCallback?
@@ -18,8 +19,6 @@ class GolferScoreTableViewCell: UITableViewCell, UITextFieldDelegate {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        
-        numberOfStrokes.delegate = self
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -30,11 +29,20 @@ class GolferScoreTableViewCell: UITableViewCell, UITextFieldDelegate {
     
     func updateCell(name: String, strokes: Int, ld: Bool, ctp: Bool) {
         golferName.text = name
-        numberOfStrokes.text = "\(strokes)"
+        
         longestDriveSwitch.isOn = ld
         closestToPinSwitch.isOn = ctp
-        
-        numberOfStrokes.delegate = self
+        numStrokesStepper.value = Double(strokes)
+        updateStrokesLabel(numStrokes: strokes)
+    }
+    
+    func updateStrokesLabel(numStrokes: Int) {
+        if (numStrokes == 1) {
+            numberOfStrokes.text = "1 stroke"
+        }
+        else {
+            numberOfStrokes.text = "\(numStrokes) strokes"
+        }
     }
     
     func deselectLD() {
@@ -53,17 +61,10 @@ class GolferScoreTableViewCell: UITableViewCell, UITextFieldDelegate {
         callback?.closestToPinSelected(cell: self)
     }
     
-    @IBAction func strokesUpdated(_ sender: Any) {
-        callback?.strokesUpdated(cell: self, strokes: Int.init(numberOfStrokes.text ?? "0") ?? 0)
-    }
-    
-    func textFieldDidChangeSelection(_ textField: UITextField) {
-        if (textField.text != "") {
-            self.contentView.endEditing(false)
-        }
-    }
-    
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        textField.text = ""
+    @IBAction func numStrokesChanged(_ sender: Any) {
+        let numStrokes = Int.init(numStrokesStepper.value)
+        callback?.strokesUpdated(cell: self, strokes: numStrokes)
+        
+        updateStrokesLabel(numStrokes: numStrokes)
     }
 }

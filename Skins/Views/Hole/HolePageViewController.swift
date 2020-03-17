@@ -48,15 +48,15 @@ class HolePageViewController: UIPageViewController , UIPageViewControllerDataSou
         return holeVC
     }
     
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
-    }
-    */
+//    }
+    
 
     // MARK: - TitleUpdateCallback
     
@@ -64,7 +64,12 @@ class HolePageViewController: UIPageViewController , UIPageViewControllerDataSou
     func PageCountChanged() {
         if let controllers = self.viewControllers {
             if controllers.count > 0 {
-                self.setViewControllers(controllers, direction: .forward, animated: false, completion: nil)
+                let holeVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "HoleScoreViewController") as! HoleScoreViewController
+                
+                holeVC.updateHole(hole: game.holes.last!)
+                holeVC.titlePassback = holeScoreHelperVC
+                
+                self.setViewControllers([holeVC], direction: .forward, animated: true, completion: nil)
             }
         }
     }
