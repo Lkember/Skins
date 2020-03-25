@@ -33,7 +33,7 @@ class PlayerScore: NSObject {
         super.init()
     }
     
-    func awardSkins(par: Int, wonHole: Bool) {
+    func awardSkins(par: Int, wonHole: Bool, _ carryOverSkins: Int) {
         skins = 0
         
         if (strokes <= par) {
@@ -46,6 +46,7 @@ class PlayerScore: NSObject {
         }
         
         if (wonHole) {
+            skins += carryOverSkins
             skins += 1
         }
     }

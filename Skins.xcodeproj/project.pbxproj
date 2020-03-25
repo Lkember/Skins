@@ -95,9 +95,9 @@
 		B2348D5C24144068003EBAE5 /* Hole */ = {
 			isa = PBXGroup;
 			children = (
-				B232BA0324101D2A00309FD9 /* HoleScoreViewController.swift */,
 				B2348D5A24141163003EBAE5 /* HoleScoreHelperViewController.swift */,
 				B27A9E692412E6FE008AFD96 /* HolePageViewController.swift */,
+				B232BA0324101D2A00309FD9 /* HoleScoreViewController.swift */,
 			);
 			path = Hole;
 			sourceTree = "<group>";

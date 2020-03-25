@@ -23,19 +23,26 @@ class HoleScoreViewController: UIViewController, UITableViewDelegate, UITableVie
     var titlePassback: TitleUpdateCallback?
     var currHole: Hole = Hole.init()
     
-    // MARK: - Creation
+    // MARK: - View
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         golferTableView.delegate = self
         golferTableView.dataSource = self
-        
-        updateUI()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         titlePassback?.updateTitle(hole: currHole.holeNumber)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.setNavigationBarHidden(false, animated: true)
+        updateUI()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        golfGameCallback?.updateHole(hole: currHole)
     }
     
     func updateHole(hole: Hole) {
@@ -44,18 +51,14 @@ class HoleScoreViewController: UIViewController, UITableViewDelegate, UITableVie
     
     func updateUI() {
         parForHole.selectedSegmentIndex = currHole.par - 3
+        if (currHole.carryOverSkins != 1) {
+            numSkinsLabel.text = "\(currHole.carryOverSkins) skins carried over"
+        }
+        else {
+            numSkinsLabel.text = "\(currHole.carryOverSkins) skin carried over"
+        }
         
-        numSkinsLabel.text = "\(currHole.carryOverSkins) skins carried over"
         navigationItem.title = "Hole \(currHole.holeNumber)"
-    }
-    
-    // MARK: - View
-    override func viewWillAppear(_ animated: Bool) {
-        navigationController?.setNavigationBarHidden(false, animated: true)
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        golfGameCallback?.updateHole(hole: currHole)
     }
     
     // MARK: - TableView

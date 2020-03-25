@@ -40,4 +40,27 @@ class Hole: NSObject {
         
         return output
     }
+    
+    func shouldCarryOver() -> Bool {
+        let scores = golfers.sorted(by: {$0.strokes < $1.strokes})
+        
+        if (scores.count == 1 || scores[0].strokes < scores[1].strokes) {
+            return false
+        }
+        
+        return true
+    }
+    
+    func awardSkins() {
+        let scores = golfers.sorted(by: {$0.strokes < $1.strokes})
+        var winner: PlayerScore?
+        
+        if (golfers.count == 1 || scores[0].strokes < scores[1].strokes) {
+            winner = scores[0]
+        }
+        
+        for golfer in golfers {
+            golfer.awardSkins(par: par, wonHole: golfer == winner, carryOverSkins)
+        }
+    }
 }

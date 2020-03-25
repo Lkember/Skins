@@ -29,17 +29,17 @@ class HoleScoreHelperViewController: UIViewController, TitleUpdateCallback {
     }
     
     @IBAction func newHoleTouched(_ sender: Any) {
-        game.summarizeHole(hole: game.holes.last!, startNextGame: true)
+        game.summarizeHoles(nil, startNextGame: true)
         pageControlCallback?.PageCountChanged()
     }
     
     @IBAction func endGameTouched(_ sender: Any) {
-        game.summarizeHole(hole: game.holes.last!, startNextGame: false)
+        game.summarizeHoles(nil, startNextGame: false)
         _ = navigationController?.popViewController(animated: true)
     }
     
     @IBAction func viewScorecardTouched(_ sender: Any) {
-        game.summarizeAllHoles()
+        game.summarizeHoles(nil, startNextGame: false)
     }
     
     // MARK: - UpdateTitleCallback

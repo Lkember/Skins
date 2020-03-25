@@ -8,13 +8,11 @@
 
 import UIKit
 
-protocol GolfGameCallback {
+protocol NewGameCallback {
     func createNewGame(golfers: [String])
-    func updateCurrentGame(game: GolfGame)
-    func updateHole(hole: Hole)
 }
 
-class StartUpViewController: UIViewController, GolfGameCallback {
+class StartUpViewController: UIViewController, NewGameCallback {
     var currentGame: GolfGame?
     
     @IBOutlet weak var playButton: UIButton!
@@ -44,15 +42,6 @@ class StartUpViewController: UIViewController, GolfGameCallback {
         currentGameButton.isHidden = currentGame == nil
     }
     
-    func updateCurrentGame(game: GolfGame) {
-        currentGame = game
-    }
-    
-    func updateHole(hole: Hole) {
-        let index = hole.holeNumber
-        currentGame?.holes[index-1] = hole
-    }
-    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -60,11 +49,7 @@ class StartUpViewController: UIViewController, GolfGameCallback {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
         
-        if let dvc = segue.destination as? HoleScoreViewController {
-//            dvc.continueGameInProgress(game: currentGame!)
-            dvc.golfGameCallback = self
-        }
-        else if let dvc = segue.destination as? HoleScoreHelperViewController {
+        if let dvc = segue.destination as? HoleScoreHelperViewController {
             dvc.game = currentGame!
         }
         else if let dvc = segue.destination as? NewGameViewController {

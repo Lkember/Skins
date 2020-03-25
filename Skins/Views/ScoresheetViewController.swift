@@ -53,16 +53,15 @@ class ScoresheetViewController: UIViewController, UICollectionViewDelegate, UICo
         cell.backgroundColor = .white
         
         if (indexPath.section == 0) {
+            cell.backgroundColor = #colorLiteral(red: 0.818490684, green: 0.8186288476, blue: 0.818472445, alpha: 1)
             if (indexPath.row == 0) {
                 cell.label.text = ""
-                cell.backgroundColor = #colorLiteral(red: 0.818490684, green: 0.8186288476, blue: 0.818472445, alpha: 1)
             }
             else if (indexPath.row == game.holes.count + 1) {
                 cell.label.text = "Totals"
             }
             else {
                 cell.label.text = "Hole \(indexPath.row)"
-                cell.backgroundColor = #colorLiteral(red: 0.818490684, green: 0.8186288476, blue: 0.818472445, alpha: 1)
             }
         }
         else if (indexPath.row == 0) {
