@@ -79,6 +79,9 @@
                                 <state key="normal" title="Settings">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <segue destination="CYM-pg-5uY" kind="show" id="Ly3-jH-MO3"/>
+                                </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ec9-Mw-V0L">
                                 <rect key="frame" x="0.0" y="709" width="414" height="69"/>
@@ -146,6 +149,92 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1042.0289855072465" y="137.94642857142856"/>
+        </scene>
+        <!--Settings-->
+        <scene sceneID="hCn-nl-cP7">
+            <objects>
+                <viewController id="CYM-pg-5uY" customClass="SettingsViewController" customModule="Skins" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="m6M-YS-UV2">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="JEY-01-iTO"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Settings" id="nWv-j9-Qmx">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="O1u-0x-62I"/>
+                        <barButtonItem key="rightBarButtonItem" title="Account" id="CZo-az-w6H">
+                            <connections>
+                                <segue destination="Cfg-Zh-aDg" kind="show" id="PhR-cP-bir"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Wur-of-eoO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2220" y="350"/>
+        </scene>
+        <!--Your Account-->
+        <scene sceneID="kV2-eJ-X96">
+            <objects>
+                <viewController id="Cfg-Zh-aDg" customClass="AccountViewController" customModule="Skins" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="l4B-Mu-DzU">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yPl-OB-F8o">
+                                <rect key="frame" x="8" y="96" width="398" height="18"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AiQ-TW-lYz">
+                                <rect key="frame" x="8" y="122" width="398" height="18"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ixK-G0-DER">
+                                <rect key="frame" x="8" y="156" width="398" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="6fm-st-0kL"/>
+                                </constraints>
+                                <state key="normal" title="Sign In"/>
+                                <connections>
+                                    <action selector="signInButtonTouch:" destination="Cfg-Zh-aDg" eventType="touchUpInside" id="sTx-PC-8Ge"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="YYK-eC-WFb" firstAttribute="trailing" secondItem="yPl-OB-F8o" secondAttribute="trailing" constant="8" id="6Ee-j9-wvn"/>
+                            <constraint firstItem="ixK-G0-DER" firstAttribute="top" secondItem="AiQ-TW-lYz" secondAttribute="bottom" constant="16" id="IQ6-Bn-SWT"/>
+                            <constraint firstItem="YYK-eC-WFb" firstAttribute="trailing" secondItem="ixK-G0-DER" secondAttribute="trailing" constant="8" id="J13-GO-zhZ"/>
+                            <constraint firstItem="YYK-eC-WFb" firstAttribute="trailing" secondItem="AiQ-TW-lYz" secondAttribute="trailing" constant="8" id="KFN-Iu-sWX"/>
+                            <constraint firstItem="yPl-OB-F8o" firstAttribute="leading" secondItem="YYK-eC-WFb" secondAttribute="leading" constant="8" id="LFR-Ht-ua2"/>
+                            <constraint firstItem="ixK-G0-DER" firstAttribute="leading" secondItem="YYK-eC-WFb" secondAttribute="leading" constant="8" id="bta-HB-DxW"/>
+                            <constraint firstItem="AiQ-TW-lYz" firstAttribute="top" secondItem="yPl-OB-F8o" secondAttribute="bottom" constant="8" id="kfi-QW-WZc"/>
+                            <constraint firstItem="AiQ-TW-lYz" firstAttribute="leading" secondItem="YYK-eC-WFb" secondAttribute="leading" constant="8" id="qkf-8n-06C"/>
+                            <constraint firstItem="yPl-OB-F8o" firstAttribute="top" secondItem="YYK-eC-WFb" secondAttribute="top" constant="8" id="rc6-mx-MEg"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="YYK-eC-WFb"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Your Account" id="3ko-ie-3EP">
+                        <barButtonItem key="rightBarButtonItem" title="Sign Out" id="cX8-cO-dU4">
+                            <connections>
+                                <action selector="signOutOfAccount:" destination="Cfg-Zh-aDg" id="6Et-eJ-FVP"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="emailLabel" destination="AiQ-TW-lYz" id="bJh-MI-n8L"/>
+                        <outlet property="nameLabel" destination="yPl-OB-F8o" id="A2L-lB-cHT"/>
+                        <outlet property="signInButton" destination="ixK-G0-DER" id="Eua-Ch-CK4"/>
+                        <outlet property="signOutButton" destination="cX8-cO-dU4" id="4e2-9R-szJ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kR6-qH-STR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3046" y="350"/>
         </scene>
         <!--Hole Score Helper View Controller-->
         <scene sceneID="kaO-eA-rr5">
@@ -224,7 +313,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PD4-5H-lSg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3021.739130434783" y="545.75892857142856"/>
+            <point key="canvasLocation" x="2112" y="1211"/>
         </scene>
         <!--New Game View Controller-->
         <scene sceneID="Bui-51-SAm">
@@ -429,7 +518,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eXF-iv-aEl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2111.594202898551" y="-240.40178571428569"/>
+            <point key="canvasLocation" x="2112" y="-364"/>
         </scene>
         <!--Hole #-->
         <scene sceneID="oK7-VS-hQb">
@@ -632,7 +721,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="deB-bd-Jjy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4799" y="546"/>
+            <point key="canvasLocation" x="3736" y="1238"/>
         </scene>
         <!--Scoresheet View Controller-->
         <scene sceneID="Jb9-Ik-Wuc">
@@ -695,7 +784,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cfP-gk-tFN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3021.739130434783" y="-240.40178571428569"/>
+            <point key="canvasLocation" x="2959" y="1572"/>
         </scene>
         <!--Hole Page View Controller-->
         <scene sceneID="UZY-Ka-0To">
@@ -705,7 +794,7 @@
                 </pageViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IZJ-0x-Tw1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3959" y="546"/>
+            <point key="canvasLocation" x="2959" y="940"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="rT5-jl-Aa2">
@@ -741,10 +830,10 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oVk-Td-C9y" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1990" y="838"/>
+            <point key="canvasLocation" x="1042" y="1211"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="qrd-w3-0wv"/>
+        <segue reference="2Fa-xE-9u6"/>
     </inferredMetricsTieBreakers>
 </document>

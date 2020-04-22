@@ -3,10 +3,13 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B2229A47242C32070081F4B7 /* Stats.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2229A46242C32070081F4B7 /* Stats.swift */; };
+		B2229A49242C366B0081F4B7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B2229A48242C366B0081F4B7 /* GoogleService-Info.plist */; };
+		B2229A4A242C366B0081F4B7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B2229A48242C366B0081F4B7 /* GoogleService-Info.plist */; };
 		B23247E2241B119900409AD1 /* ScoresheetViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B23247E1241B119900409AD1 /* ScoresheetViewLayout.swift */; };
 		B23247E4241B136C00409AD1 /* ScoresheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B23247E3241B136C00409AD1 /* ScoresheetViewController.swift */; };
 		B232B9FA241000BC00309FD9 /* GolfGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = B232B9F9241000BC00309FD9 /* GolfGame.swift */; };
@@ -17,6 +20,7 @@
 		B2348D5B24141163003EBAE5 /* HoleScoreHelperViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2348D5A24141163003EBAE5 /* HoleScoreHelperViewController.swift */; };
 		B236FC67240B04EF0011BF05 /* NewGolferTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B236FC66240B04EF0011BF05 /* NewGolferTableViewCell.swift */; };
 		B236FC69240B06150011BF05 /* NewGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B236FC68240B06150011BF05 /* NewGameViewController.swift */; };
+		B238AEC1244949230082860E /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B238AEC0244949230082860E /* AccountViewController.swift */; };
 		B23C1F0023FBBC1B00B7308A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B23C1EFF23FBBC1B00B7308A /* AppDelegate.swift */; };
 		B23C1F0223FBBC1B00B7308A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B23C1F0123FBBC1B00B7308A /* SceneDelegate.swift */; };
 		B23C1F0723FBBC1B00B7308A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B23C1F0523FBBC1B00B7308A /* Main.storyboard */; };
@@ -24,8 +28,12 @@
 		B23C1F0C23FBBC1C00B7308A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B23C1F0A23FBBC1C00B7308A /* LaunchScreen.storyboard */; };
 		B23C1F1723FBBC1C00B7308A /* SkinsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B23C1F1623FBBC1C00B7308A /* SkinsTests.swift */; };
 		B23C1F2223FBBD5900B7308A /* StartUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B23C1F2123FBBD5900B7308A /* StartUpViewController.swift */; };
+		B254AA3E2440E9CB00D4F382 /* SkinsUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = B254AA3D2440E9CB00D4F382 /* SkinsUser.swift */; };
 		B26AB396241FE226008DCC65 /* ScoresheetCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B26AB395241FE226008DCC65 /* ScoresheetCollectionViewCell.swift */; };
 		B27A9E6A2412E6FE008AFD96 /* HolePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27A9E692412E6FE008AFD96 /* HolePageViewController.swift */; };
+		B2F498BA2450D73600FB13FE /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F498B92450D73600FB13FE /* SettingsViewController.swift */; };
+		F2B03A4615567221C5892E33 /* Pods_Skins.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CFBE84E34BB9D9DCD07C413 /* Pods_Skins.framework */; };
+		FC8A1E2250D3A0D0E3B5B711 /* Pods_SkinsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2116FDFB249CECA37E5C749A /* Pods_SkinsTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,6 +47,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1180B046BDA6BEA5A5C1991A /* Pods-SkinsTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SkinsTests.debug.xcconfig"; path = "Target Support Files/Pods-SkinsTests/Pods-SkinsTests.debug.xcconfig"; sourceTree = "<group>"; };
+		1CFBE84E34BB9D9DCD07C413 /* Pods_Skins.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Skins.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2116FDFB249CECA37E5C749A /* Pods_SkinsTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SkinsTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		73740C9CAEA496D6A779C2A5 /* Pods-Skins.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Skins.debug.xcconfig"; path = "Target Support Files/Pods-Skins/Pods-Skins.debug.xcconfig"; sourceTree = "<group>"; };
+		B2229A46242C32070081F4B7 /* Stats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stats.swift; sourceTree = "<group>"; };
+		B2229A48242C366B0081F4B7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B23247E1241B119900409AD1 /* ScoresheetViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ScoresheetViewLayout.swift; path = Skins/Views/ScoresheetViewLayout.swift; sourceTree = SOURCE_ROOT; };
 		B23247E3241B136C00409AD1 /* ScoresheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoresheetViewController.swift; sourceTree = "<group>"; };
 		B232B9F9241000BC00309FD9 /* GolfGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GolfGame.swift; sourceTree = "<group>"; };
@@ -49,6 +63,7 @@
 		B2348D5A24141163003EBAE5 /* HoleScoreHelperViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoleScoreHelperViewController.swift; sourceTree = "<group>"; };
 		B236FC66240B04EF0011BF05 /* NewGolferTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGolferTableViewCell.swift; sourceTree = "<group>"; };
 		B236FC68240B06150011BF05 /* NewGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGameViewController.swift; sourceTree = "<group>"; };
+		B238AEC0244949230082860E /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		B23C1EFC23FBBC1B00B7308A /* Skins.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Skins.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B23C1EFF23FBBC1B00B7308A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B23C1F0123FBBC1B00B7308A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -60,8 +75,12 @@
 		B23C1F1623FBBC1C00B7308A /* SkinsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkinsTests.swift; sourceTree = "<group>"; };
 		B23C1F1823FBBC1C00B7308A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B23C1F2123FBBD5900B7308A /* StartUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartUpViewController.swift; sourceTree = "<group>"; };
+		B254AA3D2440E9CB00D4F382 /* SkinsUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SkinsUser.swift; path = Skins/Model/SkinsUser.swift; sourceTree = SOURCE_ROOT; };
 		B26AB395241FE226008DCC65 /* ScoresheetCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoresheetCollectionViewCell.swift; sourceTree = "<group>"; };
 		B27A9E692412E6FE008AFD96 /* HolePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HolePageViewController.swift; sourceTree = "<group>"; };
+		B2F498B92450D73600FB13FE /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		D6B736F27A8DE710FD145AC2 /* Pods-Skins.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Skins.release.xcconfig"; path = "Target Support Files/Pods-Skins/Pods-Skins.release.xcconfig"; sourceTree = "<group>"; };
+		F3DBC2310428533357E25409 /* Pods-SkinsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SkinsTests.release.xcconfig"; path = "Target Support Files/Pods-SkinsTests/Pods-SkinsTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +88,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F2B03A4615567221C5892E33 /* Pods_Skins.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,18 +96,41 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FC8A1E2250D3A0D0E3B5B711 /* Pods_SkinsTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		11514B8D4D8D36EF6B069432 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1CFBE84E34BB9D9DCD07C413 /* Pods_Skins.framework */,
+				2116FDFB249CECA37E5C749A /* Pods_SkinsTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		3AE8BD75A883355492FA1A1E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				73740C9CAEA496D6A779C2A5 /* Pods-Skins.debug.xcconfig */,
+				D6B736F27A8DE710FD145AC2 /* Pods-Skins.release.xcconfig */,
+				1180B046BDA6BEA5A5C1991A /* Pods-SkinsTests.debug.xcconfig */,
+				F3DBC2310428533357E25409 /* Pods-SkinsTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		B2336DCD240ED38D00482D80 /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				B232B9F9241000BC00309FD9 /* GolfGame.swift */,
 				B232B9FF241001D600309FD9 /* PlayerScore.swift */,
 				B232BA012410021100309FD9 /* Hole.swift */,
+				B2229A46242C32070081F4B7 /* Stats.swift */,
+				B254AA3D2440E9CB00D4F382 /* SkinsUser.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -118,6 +161,8 @@
 				B23C1EFE23FBBC1B00B7308A /* Skins */,
 				B23C1F1523FBBC1C00B7308A /* SkinsTests */,
 				B23C1EFD23FBBC1B00B7308A /* Products */,
+				3AE8BD75A883355492FA1A1E /* Pods */,
+				11514B8D4D8D36EF6B069432 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -138,9 +183,9 @@
 				B23C1EFF23FBBC1B00B7308A /* AppDelegate.swift */,
 				B23C1F0123FBBC1B00B7308A /* SceneDelegate.swift */,
 				B23C1F0823FBBC1C00B7308A /* Assets.xcassets */,
-				B23C1F0523FBBC1B00B7308A /* Main.storyboard */,
-				B23C1F0A23FBBC1C00B7308A /* LaunchScreen.storyboard */,
+				B2F498BB2450D78B00FB13FE /* Storyboards */,
 				B23C1F0D23FBBC1C00B7308A /* Info.plist */,
+				B2229A48242C366B0081F4B7 /* GoogleService-Info.plist */,
 			);
 			path = Skins;
 			sourceTree = "<group>";
@@ -163,8 +208,19 @@
 				B236FC68240B06150011BF05 /* NewGameViewController.swift */,
 				B23247E3241B136C00409AD1 /* ScoresheetViewController.swift */,
 				B23247E1241B119900409AD1 /* ScoresheetViewLayout.swift */,
+				B238AEC0244949230082860E /* AccountViewController.swift */,
+				B2F498B92450D73600FB13FE /* SettingsViewController.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		B2F498BB2450D78B00FB13FE /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				B23C1F0523FBBC1B00B7308A /* Main.storyboard */,
+				B23C1F0A23FBBC1C00B7308A /* LaunchScreen.storyboard */,
+			);
+			path = Storyboards;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -174,9 +230,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B23C1F1B23FBBC1C00B7308A /* Build configuration list for PBXNativeTarget "Skins" */;
 			buildPhases = (
+				551B5E18EC3C9033987ABAE4 /* [CP] Check Pods Manifest.lock */,
 				B23C1EF823FBBC1B00B7308A /* Sources */,
 				B23C1EF923FBBC1B00B7308A /* Frameworks */,
 				B23C1EFA23FBBC1B00B7308A /* Resources */,
+				AD59EA60E8B54CEEAA5AA553 /* [CP] Embed Pods Frameworks */,
+				646D58A852E7AD411634177E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -191,6 +250,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B23C1F1E23FBBC1C00B7308A /* Build configuration list for PBXNativeTarget "SkinsTests" */;
 			buildPhases = (
+				A092053C863E47E49D408BE7 /* [CP] Check Pods Manifest.lock */,
 				B23C1F0E23FBBC1C00B7308A /* Sources */,
 				B23C1F0F23FBBC1C00B7308A /* Frameworks */,
 				B23C1F1023FBBC1C00B7308A /* Resources */,
@@ -249,6 +309,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B23C1F0C23FBBC1C00B7308A /* LaunchScreen.storyboard in Resources */,
+				B2229A49242C366B0081F4B7 /* GoogleService-Info.plist in Resources */,
 				B23C1F0923FBBC1C00B7308A /* Assets.xcassets in Resources */,
 				B23C1F0723FBBC1B00B7308A /* Main.storyboard in Resources */,
 			);
@@ -258,10 +319,92 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B2229A4A242C366B0081F4B7 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		551B5E18EC3C9033987ABAE4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Skins-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		646D58A852E7AD411634177E /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Skins/Pods-Skins-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Skins/Pods-Skins-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Skins/Pods-Skins-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A092053C863E47E49D408BE7 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SkinsTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AD59EA60E8B54CEEAA5AA553 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Skins/Pods-Skins-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Skins/Pods-Skins-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Skins/Pods-Skins-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		B23C1EF823FBBC1B00B7308A /* Sources */ = {
@@ -273,8 +416,12 @@
 				B232B9FA241000BC00309FD9 /* GolfGame.swift in Sources */,
 				B27A9E6A2412E6FE008AFD96 /* HolePageViewController.swift in Sources */,
 				B236FC69240B06150011BF05 /* NewGameViewController.swift in Sources */,
+				B2F498BA2450D73600FB13FE /* SettingsViewController.swift in Sources */,
+				B2229A47242C32070081F4B7 /* Stats.swift in Sources */,
 				B23247E2241B119900409AD1 /* ScoresheetViewLayout.swift in Sources */,
 				B2336DCF240EDEB500482D80 /* GolferScoreTableViewCell.swift in Sources */,
+				B238AEC1244949230082860E /* AccountViewController.swift in Sources */,
+				B254AA3E2440E9CB00D4F382 /* SkinsUser.swift in Sources */,
 				B23C1F0223FBBC1B00B7308A /* SceneDelegate.swift in Sources */,
 				B236FC67240B04EF0011BF05 /* NewGolferTableViewCell.swift in Sources */,
 				B232BA00241001D600309FD9 /* PlayerScore.swift in Sources */,
@@ -440,6 +587,7 @@
 		};
 		B23C1F1C23FBBC1C00B7308A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 73740C9CAEA496D6A779C2A5 /* Pods-Skins.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -459,6 +607,7 @@
 		};
 		B23C1F1D23FBBC1C00B7308A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D6B736F27A8DE710FD145AC2 /* Pods-Skins.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -478,6 +627,7 @@
 		};
 		B23C1F1F23FBBC1C00B7308A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1180B046BDA6BEA5A5C1991A /* Pods-SkinsTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -500,6 +650,7 @@
 		};
 		B23C1F2023FBBC1C00B7308A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F3DBC2310428533357E25409 /* Pods-SkinsTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";

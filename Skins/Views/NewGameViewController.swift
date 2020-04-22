@@ -12,7 +12,7 @@ class NewGameViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     var golfers: [NewGolferTableViewCell] = []
     var numGolfersSelected: Int = 0
-    var passbackDelegate: NewGameCallback?
+    var passbackDelegate: GameCallback?
     @IBOutlet weak var golferTableView: UITableView!
     @IBOutlet weak var oneButton: UIButton!
     @IBOutlet weak var twoButton: UIButton!

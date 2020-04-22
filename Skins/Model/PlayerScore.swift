@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PlayerScore: NSObject {
+class PlayerScore: NSObject, FirestoreConverter {
     var playerName: String
     var strokes: Int
     var skins: Int
@@ -49,5 +49,16 @@ class PlayerScore: NSObject {
             skins += carryOverSkins
             skins += 1
         }
+    }
+    
+    // MARK: - FirestoreConverter
+    func getFirestoreData() -> [String : Any] {
+        return [
+            "playerName" : playerName,
+            "strokes" : strokes,
+            "skins" : skins,
+            "longestDrive" : longestDrive,
+            "closestToPin" : closestToPin
+        ]
     }
 }

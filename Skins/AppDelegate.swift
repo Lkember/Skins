@@ -7,14 +7,22 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseUI
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
-
-
-
+class AppDelegate: UIResponder, UIApplicationDelegate, FUIAuthDelegate {
+    
+    var signInPassback: SignInPassback?
+    var window: UIWindow?
+    var user: SkinsUser?
+    var authUI: FUIAuth?
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        FirebaseApp.configure()
+        user = SkinsUser()
+        
         return true
     }
 
@@ -31,7 +39,51 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
-
-
+    
+    // MARK: - FUIAuthDelegate
+    func presentUserWithLoginPrompt(vc: UIViewController) {
+        authUI = FUIAuth.defaultAuthUI()
+        authUI?.delegate = self
+        
+        let providers: [FUIAuthProvider] = [
+            FUIOAuth.microsoftAuthProvider(),
+            FUIOAuth.twitterAuthProvider(),
+            FUIGoogleAuth(),
+            FUIEmailAuth(),
+//            FUIFacebookAuth()
+        ]
+        
+        authUI?.providers = providers
+        
+        if let authViewController = authUI?.authViewController() {
+            vc.present(authViewController, animated: true, completion: nil)
+        }
+    }
+    
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any]) -> Bool {
+        
+        let sourceApplication = options[UIApplication.OpenURLOptionsKey.sourceApplication] as! String?
+        if FUIAuth.defaultAuthUI()?.handleOpen(url, sourceApplication: sourceApplication) ?? false {
+            return true
+        }
+        // other URL handling goes here.
+        return false
+    }
+    
+    func authUI(_ authUI: FUIAuth, didSignInWith user: User?, error: Error?) {
+      // handle user and error as necessary
+        if (error == nil) {
+            if (user != nil) {
+                self.user!.updateUser(user: user!)
+                self.signInPassback?.userSignedIn()
+            }
+            else {
+                print("User returned was nil")
+            }
+        }
+        else {
+            print("Error when signing in: \(error.debugDescription)")
+        }
+    }
 }
 

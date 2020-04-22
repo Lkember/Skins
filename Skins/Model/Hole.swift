@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Hole: NSObject {
+class Hole: NSObject, FirestoreConverter {
     var holeNumber: Int
     var par: Int = 0
     var carryOverSkins: Int = 0
@@ -62,5 +62,21 @@ class Hole: NSObject {
         for golfer in golfers {
             golfer.awardSkins(par: par, wonHole: golfer == winner, carryOverSkins)
         }
+    }
+    
+    // MARK: - FirestoreConverter
+    func getFirestoreData() -> [String : Any] {
+        var fsData : [String : Any] =
+        [
+            "holeNumber" : holeNumber,
+            "par" : par,
+            "carryOverSkins" : carryOverSkins
+        ]
+
+        for golfer in golfers {
+            fsData[golfer.playerName] = golfer.getFirestoreData()
+        }
+        
+        return fsData
     }
 }

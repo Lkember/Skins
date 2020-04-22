@@ -18,7 +18,9 @@ protocol TitleUpdateCallback {
 
 class HoleScoreHelperViewController: UIViewController, TitleUpdateCallback {
     var game = GolfGame.init()
+    var passbackDelegate: GameCallback?
     var pageControlCallback: PageControlCallback?
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     @IBOutlet weak var golfHoleView: UIView!
     
     override func viewDidLoad() {
@@ -35,6 +37,8 @@ class HoleScoreHelperViewController: UIViewController, TitleUpdateCallback {
     
     @IBAction func endGameTouched(_ sender: Any) {
         game.summarizeHoles(nil, startNextGame: false)
+        appDelegate.user!.stats.writeNewGame(game: game)
+        passbackDelegate?.gameIsFinished()
         _ = navigationController?.popViewController(animated: true)
     }
     

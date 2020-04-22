@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>868320124471-11vvqk8g7bi9n0a3gslck3t7nmgv9ikf.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.868320124471-11vvqk8g7bi9n0a3gslck3t7nmgv9ikf</string>
+	<key>API_KEY</key>
+	<string>AIzaSyD-vTn9xX2ekXyCSepmQ7E_tB1sX9MhygQ</string>
+	<key>GCM_SENDER_ID</key>
+	<string>868320124471</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.lkember.Skins</string>
+	<key>PROJECT_ID</key>
+	<string>skins-20476</string>
+	<key>STORAGE_BUCKET</key>
+	<string>skins-20476.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false/>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false/>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true/>
+	<key>IS_GCM_ENABLED</key>
+	<true/>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true/>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:868320124471:ios:52e3d3a760da6fecc0e9b2</string>
+	<key>DATABASE_URL</key>
+	<string>https://skins-20476.firebaseio.com</string>
+</dict>
+</plist>

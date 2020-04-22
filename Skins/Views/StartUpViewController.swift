@@ -7,13 +7,18 @@
 //
 
 import UIKit
+import FirebaseUI
 
-protocol NewGameCallback {
+protocol GameCallback {
     func createNewGame(golfers: [String])
+    func gameIsFinished()
 }
 
-class StartUpViewController: UIViewController, NewGameCallback {
+class StartUpViewController: UIViewController, GameCallback, SignInPassback {
     var currentGame: GolfGame?
+//    var user: User?
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+//    let authUI = FUIAuth.defaultAuthUI()
     
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var statsButton: UIButton!
@@ -23,6 +28,10 @@ class StartUpViewController: UIViewController, NewGameCallback {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        if (!appDelegate.user!.isSignedIn()) {
+            appDelegate.signInPassback = self
+            appDelegate.presentUserWithLoginPrompt(vc: self)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -35,11 +44,20 @@ class StartUpViewController: UIViewController, NewGameCallback {
         
     }
     
-    // MARK: - NewGamePassback
+    // MARK: - GameCallback
     
     func createNewGame(golfers: [String]) {
         currentGame = GolfGame.init(names: golfers)
         currentGameButton.isHidden = currentGame == nil
+    }
+    
+    func gameIsFinished() {
+        currentGame = nil
+    }
+    
+    // MARK: - SignInPassback
+    func userSignedIn() {
+        // Nothing to do
     }
     
     // MARK: - Navigation
@@ -51,10 +69,10 @@ class StartUpViewController: UIViewController, NewGameCallback {
         
         if let dvc = segue.destination as? HoleScoreHelperViewController {
             dvc.game = currentGame!
+            dvc.passbackDelegate = self
         }
         else if let dvc = segue.destination as? NewGameViewController {
             dvc.passbackDelegate = self
         }
     }
-
 }

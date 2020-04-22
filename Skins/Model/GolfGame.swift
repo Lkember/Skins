@@ -24,14 +24,18 @@ protocol GolfGameCallback {
     func updateAllHoles()
 }
 
-class GolfGame: NSObject, GolfGameCallback {
+class GolfGame: NSObject, GolfGameCallback, FirestoreConverter {
+    
     var holes: [Hole] = []
+    var date: Date
     
     override init() {
+        date = Date()
     }
     
     init(names: [String]) {
         holes.append(Hole.init(holeNumber: 1, players: names))
+        date = Date()
     }
     
     // MARK: - Holes
@@ -72,12 +76,6 @@ class GolfGame: NSObject, GolfGameCallback {
         holes.append(nextHole)
     }
     
-//    private func awardSkins(_ hole: Hole, winner: PlayerScore?) {
-//        for golfer in hole.golfers {
-//            golfer.awardSkins(par: hole.par, wonHole: golfer == winner, hole.carryOverSkins)
-//        }
-//    }
-    
     func addNextHole() {
         if (holes.first != nil) {
             holes.append(Hole.init(holeNumber: holes.last!.holeNumber + 1, players: holes.last!.getListOfPlayers()))
@@ -109,5 +107,18 @@ class GolfGame: NSObject, GolfGameCallback {
     
     func updateAllHoles() {
         summarizeHoles(nil, startNextGame: false)
+    }
+    
+    // MARK: - FirestoreConverter
+    func getFirestoreData() -> [String : Any] {
+        var fsData : [String : Any] = [
+            "date" : date
+        ]
+        
+        for hole in holes {
+            fsData["\(hole.holeNumber)"] = hole.getFirestoreData()
+        }
+        
+        return fsData
     }
 }
