@@ -1,0 +1,6 @@
+framework module Pods_Skins {
+  umbrella header "Pods-Skins-umbrella.h"
+
+  export *
+  module * { export * }
+}
