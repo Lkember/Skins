@@ -8,16 +8,25 @@
 
 import UIKit
 
+protocol NewGolferCell {
+    func getGolferName() -> String
+}
+
 class NewGameViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
     
-    var golfers: [NewGolferTableViewCell] = []
-    var numGolfersSelected: Int = 0
+    var golfers: [UITableViewCell] = []
+    var numGolfersSelected: Int = 4
     var passbackDelegate: GameCallback?
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     @IBOutlet weak var golferTableView: UITableView!
     @IBOutlet weak var oneButton: UIButton!
     @IBOutlet weak var twoButton: UIButton!
     @IBOutlet weak var threeButton: UIButton!
     @IBOutlet weak var fourButton: UIButton!
+    
+    override func viewWillAppear(_ animated: Bool) {
+        setupView()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,8 +34,6 @@ class NewGameViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         golferTableView.delegate = self
         golferTableView.dataSource = self
-        
-        updateButtonSelection()
     }
     
     /*
@@ -44,11 +51,25 @@ class NewGameViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBAction func createGameClicked(_ sender: Any) {
         var names: [String] = []
         for golfer in golfers {
-            names.append(golfer.getGolferName())
+            if let golfer = golfer as? NewGolferCell {
+                names.append(golfer.getGolferName())
+            }
         }
         
         passbackDelegate?.createNewGame(golfers: names)
         dismiss(animated: true, completion: nil)
+    }
+    
+    func setupView() {
+        if (appDelegate.user != nil) {
+            let newGolfer = golferTableView.dequeueReusableCell(withIdentifier: "InvitedGolferTableViewCell") as! InvitedGolferTableViewCell
+            newGolfer.setGolferName(appDelegate.user?.user?.displayName ?? "Current User")
+            newGolfer.updateAsUser()
+            golfers.append(newGolfer)
+        }
+        
+        addNewGolfers()
+        self.updateButtonSelection()
     }
     
     // MARK: - TableUpdater
@@ -99,27 +120,41 @@ class NewGameViewController: UIViewController, UITableViewDelegate, UITableViewD
     // MARK: - Golfer Helper
     
     func removeExcessGolfers() {
-        while (golfers.count != numGolfersSelected) {
-            golfers.removeLast()
+        var removeCount = golfers.count - numGolfersSelected
+        if (removeCount == 0) {
+            return
+        }
+        
+        for i in (0..<golfers.count).reversed() {
+            if let _ = golfers[i] as? NewGolferTableViewCell {
+                golfers.remove(at: i)
+                removeCount -= 1
+                
+                if (removeCount <= 0) {
+                    break
+                }
+            }
+        }
             
 //            let indexPath = IndexPath.init(row: golfers.count-1, section: 0)
 //            self.golferTableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.left)
-        }
         
         self.golferTableView.reloadData()
     }
     
     func addNewGolfers() {
         let diff = numGolfersSelected - golfers.count
-        for _ in 0..<diff {
-            let newGolfer = golferTableView.dequeueReusableCell(withIdentifier: "NewGolferTableViewCell") as! NewGolferTableViewCell
-            newGolfer.setGolferNumber(golfers.count+1)
-            newGolfer.nameField.delegate = self
-            
-            golfers.append(newGolfer)
-            
-//            let indexPath = IndexPath.init(row: golfers.count-1, section: 0)
-//            self.golferTableView.insertRows(at: [indexPath], with: UITableView.RowAnimation.left)
+        if (diff > 0) {
+            for _ in 0..<diff {
+                let newGolfer = golferTableView.dequeueReusableCell(withIdentifier: "NewGolferTableViewCell") as! NewGolferTableViewCell
+                newGolfer.setGolferNumber(golfers.count+1)
+                newGolfer.nameField.delegate = self
+                
+                golfers.append(newGolfer)
+                
+    //            let indexPath = IndexPath.init(row: golfers.count-1, section: 0)
+    //            self.golferTableView.insertRows(at: [indexPath], with: UITableView.RowAnimation.left)
+            }
         }
         self.golferTableView.reloadData()
     }

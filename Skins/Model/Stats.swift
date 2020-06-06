@@ -13,6 +13,11 @@ protocol FirestoreConverter {
     func getFirestoreData() -> [String : Any]
 }
 
+struct Result {
+    var error: Error
+    var game: GolfGame?
+}
+
 class Stats: NSObject {
     
     // DB Info
@@ -44,6 +49,25 @@ class Stats: NSObject {
             // If the games are being backed up to the DB, then only store the last 10 on the device
             if (prevGames.count > 10) {
                 prevGames.remove(at: 0)
+            }
+        }
+    }
+    
+    func loadLastTenGames() {
+        if (appDelegate.user!.isSignedIn()) {
+            if (prevGames.count < 10) {
+                let docRef = dbRef.collection(Stats.collection).document(appDelegate.user!.user!.email!).collection(Stats.gameCollection).limit(to: 10)
+                docRef.getDocuments() { (querySnapshot, err) in
+                    if let err = err {
+                        print("Error getting documents: \(err)")
+                        return
+                    }
+                    
+    //                var results: [Result] = []
+                    for doc in querySnapshot!.documents {
+                        print("\(doc.documentID) => \(doc.data())")
+                    }
+                }
             }
         }
     }

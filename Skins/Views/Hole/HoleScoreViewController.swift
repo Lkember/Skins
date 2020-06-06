@@ -9,8 +9,7 @@
 import UIKit
 
 protocol HoleScoreCallback {
-    func longestDriveSelected(cell: GolferScoreTableViewCell)
-    func closestToPinSelected(cell: GolferScoreTableViewCell)
+    func extraSkinToggleChanged(cell: GolferScoreTableViewCell)
     func strokesUpdated(cell: GolferScoreTableViewCell, strokes: Int)
 }
 
@@ -19,6 +18,7 @@ class HoleScoreViewController: UIViewController, UITableViewDelegate, UITableVie
     @IBOutlet weak var golferTableView: UITableView!
     @IBOutlet weak var parForHole: UISegmentedControl!
     @IBOutlet weak var numSkinsLabel: UILabel!
+    @IBOutlet weak var extraSkinLabel: UILabel!
     var golfGameCallback: GolfGameCallback?
     var titlePassback: TitleUpdateCallback?
     var currHole: Hole = Hole.init()
@@ -59,6 +59,13 @@ class HoleScoreViewController: UIViewController, UITableViewDelegate, UITableVie
         }
         
         navigationItem.title = "Hole \(currHole.holeNumber)"
+        
+        if (currHole.par <= 3) {
+            extraSkinLabel.text = "Closest to Pin"
+        }
+        else {
+            extraSkinLabel.text = "Longest Drive"
+        }
     }
     
     // MARK: - TableView
@@ -71,7 +78,7 @@ class HoleScoreViewController: UIViewController, UITableViewDelegate, UITableVie
         let cell = golferTableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath as IndexPath) as! GolferScoreTableViewCell
         
         let golfer = currHole.golfers[indexPath.row]
-        cell.updateCell(name: golfer.playerName, strokes: golfer.strokes, ld: golfer.longestDrive, ctp: golfer.closestToPin)
+        cell.updateCell(name: golfer.playerName, strokes: golfer.strokes, extraSkin: golfer.extraSkin)
         cell.callback = self
         return cell
     }
@@ -79,28 +86,12 @@ class HoleScoreViewController: UIViewController, UITableViewDelegate, UITableVie
     // MARK: - Actions
     @IBAction func parWasChanged(_ sender: Any) {
         currHole.par = parForHole.selectedSegmentIndex + 3
+        updateUI()
     }
     
     // MARK: - HoleScoreCallback
-    func longestDriveSelected(cell: GolferScoreTableViewCell) {
-        var indexPath = IndexPath.init(row: 0, section: 0)
-        
-        for i in 0..<currHole.golfers.count {
-            indexPath.row = i
-
-            if let tCell = golferTableView.cellForRow(at: indexPath) as? GolferScoreTableViewCell {
-                if (tCell != cell) {
-                    tCell.deselectLD()
-                    currHole.golfers[i].longestDrive = false
-                }
-                else {
-                    currHole.golfers[i].longestDrive = true
-                }
-            }
-        }
-    }
     
-    func closestToPinSelected(cell: GolferScoreTableViewCell) {
+    func extraSkinToggleChanged(cell: GolferScoreTableViewCell) {
         var indexPath = IndexPath.init(row: 0, section: 0)
         
         for i in 0..<currHole.golfers.count {
@@ -108,11 +99,11 @@ class HoleScoreViewController: UIViewController, UITableViewDelegate, UITableVie
             
             if let tCell = golferTableView.cellForRow(at: indexPath) as? GolferScoreTableViewCell {
                 if (tCell != cell) {
-                    tCell.deselectCP()
-                    currHole.golfers[i].closestToPin = false
+                    tCell.deselectExtraSkin()
+                    currHole.golfers[i].extraSkin = false
                 }
                 else {
-                    currHole.golfers[i].closestToPin = true
+                    currHole.golfers[i].extraSkin = true
                 }
             }
         }

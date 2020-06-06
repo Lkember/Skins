@@ -12,8 +12,7 @@ class GolferScoreTableViewCell: UITableViewCell, UITextFieldDelegate {
     @IBOutlet weak var golferName: UILabel!
     @IBOutlet weak var numberOfStrokes: UILabel!
     @IBOutlet weak var numStrokesStepper: UIStepper!
-    @IBOutlet weak var longestDriveSwitch: UISwitch!
-    @IBOutlet weak var closestToPinSwitch: UISwitch!
+    @IBOutlet weak var ldOrCTP: UISwitch!
     var callback: HoleScoreCallback?
     
     override func awakeFromNib() {
@@ -27,11 +26,10 @@ class GolferScoreTableViewCell: UITableViewCell, UITextFieldDelegate {
         // Configure the view for the selected state
     }
     
-    func updateCell(name: String, strokes: Int, ld: Bool, ctp: Bool) {
+    func updateCell(name: String, strokes: Int, extraSkin: Bool) {
         golferName.text = name
         
-        longestDriveSwitch.isOn = ld
-        closestToPinSwitch.isOn = ctp
+        self.ldOrCTP.isOn = extraSkin
         numStrokesStepper.value = Double(strokes)
         updateStrokesLabel(numStrokes: strokes)
     }
@@ -45,20 +43,12 @@ class GolferScoreTableViewCell: UITableViewCell, UITextFieldDelegate {
         }
     }
     
-    func deselectLD() {
-        longestDriveSwitch.isOn = false
+    func deselectExtraSkin() {
+        ldOrCTP.isOn = false
     }
     
-    func deselectCP() {
-        closestToPinSwitch.isOn = false
-    }
-    
-    @IBAction func longestDriveSwitched(_ sender: Any) {
-        callback?.longestDriveSelected(cell: self)
-    }
-    
-    @IBAction func closestToPinSwitched(_ sender: Any) {
-        callback?.closestToPinSelected(cell: self)
+    @IBAction func extraSkinSwitched(_ sender: Any) {
+        callback?.extraSkinToggleChanged(cell: self)
     }
     
     @IBAction func numStrokesChanged(_ sender: Any) {

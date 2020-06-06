@@ -16,9 +16,7 @@ protocol GameCallback {
 
 class StartUpViewController: UIViewController, GameCallback, SignInPassback {
     var currentGame: GolfGame?
-//    var user: User?
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
-//    let authUI = FUIAuth.defaultAuthUI()
     
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var statsButton: UIButton!

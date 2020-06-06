@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NewGolferTableViewCell: UITableViewCell {
+class NewGolferTableViewCell: UITableViewCell, NewGolferCell {
     @IBOutlet weak var golferLabel: UILabel!
     @IBOutlet weak var nameField: UITextField!
     

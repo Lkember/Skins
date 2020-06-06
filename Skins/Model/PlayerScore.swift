@@ -12,15 +12,13 @@ class PlayerScore: NSObject, FirestoreConverter {
     var playerName: String
     var strokes: Int
     var skins: Int
-    var longestDrive: Bool
-    var closestToPin: Bool
+    var extraSkin: Bool     // longest drive or closest to pin
     
     override init() {
         playerName = ""
         strokes = 0
         skins = 0
-        longestDrive = false
-        closestToPin = false
+        extraSkin = false
         super.init()
     }
     
@@ -28,8 +26,7 @@ class PlayerScore: NSObject, FirestoreConverter {
         playerName = name
         strokes = 0
         skins = 0
-        longestDrive = false
-        closestToPin = false
+        extraSkin = false
         super.init()
     }
     
@@ -37,10 +34,7 @@ class PlayerScore: NSObject, FirestoreConverter {
         skins = 0
         
         if (strokes <= par) {
-            if (longestDrive) {
-                skins += 1
-            }
-            if (closestToPin) {
+            if (extraSkin) {
                 skins += 1
             }
         }
@@ -57,8 +51,7 @@ class PlayerScore: NSObject, FirestoreConverter {
             "playerName" : playerName,
             "strokes" : strokes,
             "skins" : skins,
-            "longestDrive" : longestDrive,
-            "closestToPin" : closestToPin
+            "extraSkin" : extraSkin
         ]
     }
 }
