@@ -13,26 +13,16 @@ protocol FirestoreConverter {
     func getFirestoreData() -> [String : Any]
 }
 
-struct Result {
-    var error: Error
-    var game: GolfGame?
-}
+//struct Result {
+//    var error: Error
+//    var game: GolfGame?
+//}
 
 class Stats: NSObject {
     
     // DB Info
-    static let collection = "golf-stats"
-    static let gameCollection = "Games"
-    var dbRef: Firestore!
-    
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     var prevGames: [GolfGame] = []
-    
-    override init() {
-        let settings = FirestoreSettings()
-        Firestore.firestore().settings = settings
-        dbRef = Firestore.firestore()
-    }
     
     func writeNewGame(game: GolfGame) {
         prevGames.append(game)
@@ -40,9 +30,9 @@ class Stats: NSObject {
         if (appDelegate.user!.isSignedIn()) {
             
             // golf-stats/emailaddress/games/date/(game data)
-            dbRef.collection(Stats.collection)
-                .document(appDelegate.user!.user!.email!)
-                .collection(Stats.gameCollection)
+            appDelegate.firebase!.db.collection(FirebaseHelper.collection)
+                .document(appDelegate.user!.user!.uid)
+                .collection(FirebaseHelper.gameCollection)
                 .document("\(game.date)")
                 .setData(game.getFirestoreData())
             
@@ -56,7 +46,7 @@ class Stats: NSObject {
     func loadLastTenGames() {
         if (appDelegate.user!.isSignedIn()) {
             if (prevGames.count < 10) {
-                let docRef = dbRef.collection(Stats.collection).document(appDelegate.user!.user!.email!).collection(Stats.gameCollection).limit(to: 10)
+                let docRef = appDelegate.firebase!.db.collection(FirebaseHelper.collection).document(appDelegate.user!.user!.uid).collection(FirebaseHelper.gameCollection).limit(to: 10)
                 docRef.getDocuments() { (querySnapshot, err) in
                     if let err = err {
                         print("Error getting documents: \(err)")

@@ -43,6 +43,7 @@ class SkinsUser: NSObject {
     func signOut() {
         do {
             try Auth.auth().signOut()
+            user = nil
         }
         catch let err {
             print("Error signing out: \(err.localizedDescription)")

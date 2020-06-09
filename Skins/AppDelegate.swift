@@ -17,11 +17,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, FUIAuthDelegate {
     var window: UIWindow?
     var user: SkinsUser?
     var authUI: FUIAuth?
+    var firebase: FirebaseHelper?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         FirebaseApp.configure()
         user = SkinsUser()
+        firebase = FirebaseHelper()
+        
+        // update current user's information if signed in
+        if (user!.isSignedIn()) {
+            firebase?.addUserToUsersCollection(user: user!.user)
+        }
         
         return true
     }
@@ -56,7 +63,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, FUIAuthDelegate {
         authUI?.providers = providers
         
         if let authViewController = authUI?.authViewController() {
-            vc.present(authViewController, animated: true, completion: nil)
+            vc.present(authViewController, animated: true, completion: { self.firebase!.addUserToUsersCollection(user: self.user!.user) })
         }
     }
     

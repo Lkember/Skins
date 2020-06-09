@@ -69,7 +69,6 @@ class AccountViewController: UIViewController, SignInPassback {
     @IBAction func signOutOfAccount(_ sender: Any) {
         if (appDelegate.user != nil) {
             appDelegate.user!.signOut()
-            appDelegate.user = nil
         }
         
         updateUI()
