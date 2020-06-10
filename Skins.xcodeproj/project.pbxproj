@@ -35,6 +35,7 @@
 		B285E6E8245DF02D00FE41D6 /* StatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B285E6E7245DF02D00FE41D6 /* StatsViewController.swift */; };
 		B2F1689D248DE5E400B7A5DC /* FriendsListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F1689C248DE5E400B7A5DC /* FriendsListTableViewController.swift */; };
 		B2F1689F248DEC4A00B7A5DC /* FirebaseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F1689E248DEC4A00B7A5DC /* FirebaseHelper.swift */; };
+		B2F168A32490879400B7A5DC /* PendingFriendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F168A22490879400B7A5DC /* PendingFriendTableViewCell.swift */; };
 		B2F498BA2450D73600FB13FE /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F498B92450D73600FB13FE /* SettingsViewController.swift */; };
 		F2B03A4615567221C5892E33 /* Pods_Skins.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CFBE84E34BB9D9DCD07C413 /* Pods_Skins.framework */; };
 		FC8A1E2250D3A0D0E3B5B711 /* Pods_SkinsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2116FDFB249CECA37E5C749A /* Pods_SkinsTests.framework */; };
@@ -86,6 +87,7 @@
 		B285E6E7245DF02D00FE41D6 /* StatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewController.swift; sourceTree = "<group>"; };
 		B2F1689C248DE5E400B7A5DC /* FriendsListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListTableViewController.swift; sourceTree = "<group>"; };
 		B2F1689E248DEC4A00B7A5DC /* FirebaseHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseHelper.swift; sourceTree = "<group>"; };
+		B2F168A22490879400B7A5DC /* PendingFriendTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PendingFriendTableViewCell.swift; sourceTree = "<group>"; };
 		B2F498B92450D73600FB13FE /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		D6B736F27A8DE710FD145AC2 /* Pods-Skins.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Skins.release.xcconfig"; path = "Target Support Files/Pods-Skins/Pods-Skins.release.xcconfig"; sourceTree = "<group>"; };
 		F3DBC2310428533357E25409 /* Pods-SkinsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SkinsTests.release.xcconfig"; path = "Target Support Files/Pods-SkinsTests/Pods-SkinsTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -244,7 +246,8 @@
 		B2F1689A248DE5AA00B7A5DC /* Friends */ = {
 			isa = PBXGroup;
 			children = (
-				B2F1689C248DE5E400B7A5DC /* FriendsListTableViewController.swift */,
+				B2F168A02490876000B7A5DC /* Views */,
+				B2F168A12490877000B7A5DC /* Cells */,
 			);
 			path = Friends;
 			sourceTree = "<group>";
@@ -256,6 +259,22 @@
 				B2F498B92450D73600FB13FE /* SettingsViewController.swift */,
 			);
 			path = Settings;
+			sourceTree = "<group>";
+		};
+		B2F168A02490876000B7A5DC /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				B2F1689C248DE5E400B7A5DC /* FriendsListTableViewController.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		B2F168A12490877000B7A5DC /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				B2F168A22490879400B7A5DC /* PendingFriendTableViewCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		B2F498BB2450D78B00FB13FE /* Storyboards */ = {
@@ -469,6 +488,7 @@
 				B238AEC1244949230082860E /* AccountViewController.swift in Sources */,
 				B254AA3E2440E9CB00D4F382 /* SkinsUser.swift in Sources */,
 				B23C1F0223FBBC1B00B7308A /* SceneDelegate.swift in Sources */,
+				B2F168A32490879400B7A5DC /* PendingFriendTableViewCell.swift in Sources */,
 				B236FC67240B04EF0011BF05 /* NewGolferTableViewCell.swift in Sources */,
 				B232BA00241001D600309FD9 /* PlayerScore.swift in Sources */,
 				B2348D5B24141163003EBAE5 /* HoleScoreHelperViewController.swift in Sources */,

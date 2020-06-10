@@ -11,10 +11,13 @@ import Firebase
 
 class FriendsListTableViewController: UITableViewController {
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
-    var friends: [String] = []
-    var pendingFriends: [String] = []
+    var friends: [TinyUser] = []
+    var pendingFriends: [TinyUser] = []
     
     override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+        self.navigationController?.title = "Friends"
+        
         getFriendsList()
     }
     
@@ -30,7 +33,11 @@ class FriendsListTableViewController: UITableViewController {
 
     // MARK: - Firestore
     func getFriendsList() {
+        self.friends.removeAll()
+        self.pendingFriends.removeAll()
+        
         if (appDelegate.user!.isSignedIn()) {
+            
             let docRef = appDelegate.firebase!.db.collection(FirebaseHelper.collection).document(appDelegate.user!.user!.uid).collection(FirebaseHelper.friendsList)
             
             docRef.getDocuments() { (querySnapshot, err) in
@@ -40,8 +47,20 @@ class FriendsListTableViewController: UITableViewController {
                 }
                 
                 for doc in querySnapshot!.documents {
-                    print("\(doc.documentID) => \(doc.data())")
+                    let user = TinyUser.init(doc.data(), id: doc.documentID)
+                    
+                    if (doc.data()["accepted"] as! Bool) {
+                        self.friends.append(user)
+                    }
+                    else {
+                        self.pendingFriends.append(user)
+                    }
                 }
+                
+                self.friends = self.friends.sorted(by: {$0.displayName < $1.displayName })
+                self.pendingFriends = self.pendingFriends.sorted(by: {$0.displayName < $1.displayName })
+                
+                self.tableView.reloadData()
             }
         }
     }
@@ -49,25 +68,48 @@ class FriendsListTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
+        if (pendingFriends.count > 0) {
+            return 2
+        }
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        if tableView.numberOfSections == 1 || section == 1 {
+            return friends.count
+        }
+        
+        return pendingFriends.count
     }
 
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
+        let cell = tableView.dequeueReusableCell(withIdentifier: "BasicFriendCell", for: indexPath)
+        
+        if (tableView.numberOfSections == 1 || indexPath.section == 1) {
+            cell.textLabel!.text = friends[indexPath.row].displayName
+            cell.detailTextLabel!.text = friends[indexPath.row].email
+        }
+        else {
+            cell.textLabel!.text = pendingFriends[indexPath.row].displayName
+            cell.detailTextLabel!.text = pendingFriends[indexPath.row].email
+        }
 
         return cell
     }
-    */
-
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if (tableView.numberOfSections == 1) {
+            return "Friends List"
+        }
+        else if (section == 0) {
+            return "Pending Friends"
+        }
+        else {
+            return "Friends List"
+        }
+    }
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -92,14 +134,6 @@ class FriendsListTableViewController: UITableViewController {
     // Override to support rearranging the table view.
     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
 
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
     }
     */
 

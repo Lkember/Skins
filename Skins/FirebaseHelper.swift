@@ -12,10 +12,12 @@ import Firebase
 struct TinyUser {
     var displayName: String
     var email: String
+    var id: String
     
-    init(_ data: [String: Any]) {
+    init(_ data: [String: Any], id: String) {
         self.displayName = data["displayName"] as! String
         self.email = data["email"] as! String
+        self.id = id
     }
 }
 
@@ -45,13 +47,14 @@ class FirebaseHelper: NSObject {
         var user: TinyUser?
         
         let docRef = db.collection(FirebaseHelper.usersCollection).document(id)
+        
         docRef.getDocument(completion: { (document, error) in
             if let error = error {
                 print("Error getting user: \(error)")
             }
             else {
                 let data = document!.data()!
-                user = TinyUser.init(data)
+                user = TinyUser.init(data, id: id)
             }
         })
         
