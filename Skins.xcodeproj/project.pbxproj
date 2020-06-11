@@ -36,6 +36,7 @@
 		B2F1689D248DE5E400B7A5DC /* FriendsListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F1689C248DE5E400B7A5DC /* FriendsListTableViewController.swift */; };
 		B2F1689F248DEC4A00B7A5DC /* FirebaseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F1689E248DEC4A00B7A5DC /* FirebaseHelper.swift */; };
 		B2F168A32490879400B7A5DC /* PendingFriendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F168A22490879400B7A5DC /* PendingFriendTableViewCell.swift */; };
+		B2F168A62491D6CB00B7A5DC /* AddFriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F168A52491D6CB00B7A5DC /* AddFriendViewController.swift */; };
 		B2F498BA2450D73600FB13FE /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F498B92450D73600FB13FE /* SettingsViewController.swift */; };
 		F2B03A4615567221C5892E33 /* Pods_Skins.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CFBE84E34BB9D9DCD07C413 /* Pods_Skins.framework */; };
 		FC8A1E2250D3A0D0E3B5B711 /* Pods_SkinsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2116FDFB249CECA37E5C749A /* Pods_SkinsTests.framework */; };
@@ -88,6 +89,7 @@
 		B2F1689C248DE5E400B7A5DC /* FriendsListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListTableViewController.swift; sourceTree = "<group>"; };
 		B2F1689E248DEC4A00B7A5DC /* FirebaseHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseHelper.swift; sourceTree = "<group>"; };
 		B2F168A22490879400B7A5DC /* PendingFriendTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PendingFriendTableViewCell.swift; sourceTree = "<group>"; };
+		B2F168A52491D6CB00B7A5DC /* AddFriendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendViewController.swift; sourceTree = "<group>"; };
 		B2F498B92450D73600FB13FE /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		D6B736F27A8DE710FD145AC2 /* Pods-Skins.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Skins.release.xcconfig"; path = "Target Support Files/Pods-Skins/Pods-Skins.release.xcconfig"; sourceTree = "<group>"; };
 		F3DBC2310428533357E25409 /* Pods-SkinsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SkinsTests.release.xcconfig"; path = "Target Support Files/Pods-SkinsTests/Pods-SkinsTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -265,6 +267,7 @@
 			isa = PBXGroup;
 			children = (
 				B2F1689C248DE5E400B7A5DC /* FriendsListTableViewController.swift */,
+				B2F168A52491D6CB00B7A5DC /* AddFriendViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -496,6 +499,7 @@
 				B232BA0424101D2A00309FD9 /* HoleScoreViewController.swift in Sources */,
 				B26AB396241FE226008DCC65 /* ScoresheetCollectionViewCell.swift in Sources */,
 				B2F1689F248DEC4A00B7A5DC /* FirebaseHelper.swift in Sources */,
+				B2F168A62491D6CB00B7A5DC /* AddFriendViewController.swift in Sources */,
 				B285E6E8245DF02D00FE41D6 /* StatsViewController.swift in Sources */,
 				B23247E4241B136C00409AD1 /* ScoresheetViewController.swift in Sources */,
 			);
