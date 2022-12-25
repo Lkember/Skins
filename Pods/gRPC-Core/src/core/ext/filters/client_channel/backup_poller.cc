@@ -24,10 +24,13 @@
 #include <grpc/support/alloc.h>
 #include <grpc/support/log.h>
 #include <grpc/support/sync.h>
+
 #include "src/core/ext/filters/client_channel/client_channel.h"
 #include "src/core/lib/gpr/string.h"
 #include "src/core/lib/gprpp/global_config.h"
+#include "src/core/lib/gprpp/memory.h"
 #include "src/core/lib/iomgr/error.h"
+#include "src/core/lib/iomgr/iomgr.h"
 #include "src/core/lib/iomgr/pollset.h"
 #include "src/core/lib/iomgr/timer.h"
 #include "src/core/lib/surface/channel.h"
@@ -65,8 +68,8 @@ GPR_GLOBAL_CONFIG_DEFINE_INT32(
     "idleness), so that the next RPC on this channel won't fail. Set to 0 to "
     "turn off the backup polls.");
 
-static void init_globals() {
-  gpr_mu_init(&g_poller_mu);
+void grpc_client_channel_global_init_backup_polling() {
+  gpr_once_init(&g_once, [] { gpr_mu_init(&g_poller_mu); });
   int32_t poll_interval_ms =
       GPR_GLOBAL_CONFIG_GET(grpc_client_channel_backup_poll_interval_ms);
   if (poll_interval_ms < 0) {
@@ -87,7 +90,7 @@ static void backup_poller_shutdown_unref(backup_poller* p) {
   }
 }
 
-static void done_poller(void* arg, grpc_error* error) {
+static void done_poller(void* arg, grpc_error_handle /*error*/) {
   backup_poller_shutdown_unref(static_cast<backup_poller*>(arg));
 }
 
@@ -104,12 +107,13 @@ static void g_poller_unref() {
                                       grpc_schedule_on_exec_ctx));
     gpr_mu_unlock(p->pollset_mu);
     grpc_timer_cancel(&p->polling_timer);
+    backup_poller_shutdown_unref(p);
   } else {
     gpr_mu_unlock(&g_poller_mu);
   }
 }
 
-static void run_poller(void* arg, grpc_error* error) {
+static void run_poller(void* arg, grpc_error_handle error) {
   backup_poller* p = static_cast<backup_poller*>(arg);
   if (error != GRPC_ERROR_NONE) {
     if (error != GRPC_ERROR_CANCELLED) {
@@ -124,7 +128,7 @@ static void run_poller(void* arg, grpc_error* error) {
     backup_poller_shutdown_unref(p);
     return;
   }
-  grpc_error* err =
+  grpc_error_handle err =
       grpc_pollset_work(p->pollset, nullptr, grpc_core::ExecCtx::Get()->Now());
   gpr_mu_unlock(p->pollset_mu);
   GRPC_LOG_IF_ERROR("Run client channel backup poller", err);
@@ -135,14 +139,14 @@ static void run_poller(void* arg, grpc_error* error) {
 
 static void g_poller_init_locked() {
   if (g_poller == nullptr) {
-    g_poller = static_cast<backup_poller*>(gpr_zalloc(sizeof(backup_poller)));
+    g_poller = grpc_core::Zalloc<backup_poller>();
     g_poller->pollset =
         static_cast<grpc_pollset*>(gpr_zalloc(grpc_pollset_size()));
     g_poller->shutting_down = false;
     grpc_pollset_init(g_poller->pollset, &g_poller->pollset_mu);
     gpr_ref_init(&g_poller->refs, 0);
-    // one for timer cancellation, one for pollset shutdown
-    gpr_ref_init(&g_poller->shutdown_refs, 2);
+    // one for timer cancellation, one for pollset shutdown, one for g_poller
+    gpr_ref_init(&g_poller->shutdown_refs, 3);
     GRPC_CLOSURE_INIT(&g_poller->run_poller_closure, run_poller, g_poller,
                       grpc_schedule_on_exec_ctx);
     grpc_timer_init(&g_poller->polling_timer,
@@ -153,8 +157,7 @@ static void g_poller_init_locked() {
 
 void grpc_client_channel_start_backup_polling(
     grpc_pollset_set* interested_parties) {
-  gpr_once_init(&g_once, init_globals);
-  if (g_poll_interval_ms == 0) {
+  if (g_poll_interval_ms == 0 || grpc_iomgr_run_in_background()) {
     return;
   }
   gpr_mu_lock(&g_poller_mu);
@@ -172,7 +175,7 @@ void grpc_client_channel_start_backup_polling(
 
 void grpc_client_channel_stop_backup_polling(
     grpc_pollset_set* interested_parties) {
-  if (g_poll_interval_ms == 0) {
+  if (g_poll_interval_ms == 0 || grpc_iomgr_run_in_background()) {
     return;
   }
   grpc_pollset_set_del_pollset(interested_parties, g_poller->pollset);

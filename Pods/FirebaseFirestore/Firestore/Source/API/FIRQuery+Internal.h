@@ -18,8 +18,10 @@
 
 #include <memory>
 
-#include "Firestore/core/src/firebase/firestore/api/query_core.h"
-#include "Firestore/core/src/firebase/firestore/core/query.h"
+#include "Firestore/core/src/api/api_fwd.h"
+#include "Firestore/core/src/core/core_fwd.h"
+
+@class FIRFilter;
 
 namespace api = firebase::firestore::api;
 namespace core = firebase::firestore::core;
@@ -41,6 +43,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (const core::Query &)query;
 
 - (const api::Query &)apiQuery;
+
+// TODO(orquery): This method will become public API. Change visibility and add documentation.
+- (FIRQuery *)queryWhereFilter:(FIRFilter *)filter;
 
 @end
 

@@ -24,14 +24,16 @@
 #include <stddef.h>
 
 #include "src/core/lib/channel/context.h"
-#include "src/core/lib/gprpp/arena.h"
+#include "src/core/lib/gprpp/orphanable.h"
 #include "src/core/lib/iomgr/call_combiner.h"
 #include "src/core/lib/iomgr/endpoint.h"
 #include "src/core/lib/iomgr/polling_entity.h"
 #include "src/core/lib/iomgr/pollset.h"
 #include "src/core/lib/iomgr/pollset_set.h"
+#include "src/core/lib/resource_quota/arena.h"
 #include "src/core/lib/slice/slice_internal.h"
 #include "src/core/lib/transport/byte_stream.h"
+#include "src/core/lib/transport/connectivity_state.h"
 #include "src/core/lib/transport/metadata_batch.h"
 
 /* Minimum and maximum protocol accepted versions. */
@@ -57,7 +59,6 @@ typedef struct grpc_stream_refcount {
 #ifndef NDEBUG
   const char* object_type;
 #endif
-  grpc_slice_refcount slice_refcount;
 } grpc_stream_refcount;
 
 #ifndef NDEBUG
@@ -70,7 +71,10 @@ void grpc_stream_ref_init(grpc_stream_refcount* refcount, int initial_refs,
 void grpc_stream_ref_init(grpc_stream_refcount* refcount, int initial_refs,
                           grpc_iomgr_cb_func cb, void* cb_arg);
 #define GRPC_STREAM_REF_INIT(rc, ir, cb, cb_arg, objtype) \
-  grpc_stream_ref_init(rc, ir, cb, cb_arg)
+  do {                                                    \
+    grpc_stream_ref_init(rc, ir, cb, cb_arg);             \
+    (void)(objtype);                                      \
+  } while (0)
 #endif
 
 #ifndef NDEBUG
@@ -80,11 +84,13 @@ inline void grpc_stream_ref(grpc_stream_refcount* refcount,
     gpr_log(GPR_DEBUG, "%s %p:%p REF %s", refcount->object_type, refcount,
             refcount->destroy.cb_arg, reason);
   }
+  refcount->refs.RefNonZero(DEBUG_LOCATION, reason);
+}
 #else
 inline void grpc_stream_ref(grpc_stream_refcount* refcount) {
-#endif
   refcount->refs.RefNonZero();
 }
+#endif
 
 void grpc_stream_destroy(grpc_stream_refcount* refcount);
 
@@ -95,13 +101,17 @@ inline void grpc_stream_unref(grpc_stream_refcount* refcount,
     gpr_log(GPR_DEBUG, "%s %p:%p UNREF %s", refcount->object_type, refcount,
             refcount->destroy.cb_arg, reason);
   }
+  if (GPR_UNLIKELY(refcount->refs.Unref(DEBUG_LOCATION, reason))) {
+    grpc_stream_destroy(refcount);
+  }
+}
 #else
 inline void grpc_stream_unref(grpc_stream_refcount* refcount) {
-#endif
   if (GPR_UNLIKELY(refcount->refs.Unref())) {
     grpc_stream_destroy(refcount);
   }
 }
+#endif
 
 /* Wrap a buffer that is owned by some stream object into a slice that shares
    the same refcount */
@@ -213,7 +223,7 @@ struct grpc_transport_stream_op_batch_payload {
   ~grpc_transport_stream_op_batch_payload() {
     // We don't really own `send_message`, so release ownership and let the
     // owner clean the data.
-    send_message.send_message.release();
+    (void)send_message.send_message.release();
   }
 
   struct {
@@ -231,6 +241,12 @@ struct grpc_transport_stream_op_batch_payload {
 
   struct {
     grpc_metadata_batch* send_trailing_metadata = nullptr;
+    // Set by the transport to true if the stream successfully wrote the
+    // trailing metadata. If this is not set but there was a send trailing
+    // metadata op present, this can indicate that a server call can be marked
+    // as  a cancellation (since the stream was write-closed before status could
+    // be delivered).
+    bool* sent = nullptr;
   } send_trailing_metadata;
 
   struct {
@@ -239,6 +255,18 @@ struct grpc_transport_stream_op_batch_payload {
     // The batch's on_complete will not be called until after the byte
     // stream is orphaned.
     grpc_core::OrphanablePtr<grpc_core::ByteStream> send_message;
+    // Set by the transport if the stream has been closed for writes. If this
+    // is set and send message op is present, we set the operation to be a
+    // failure without sending a cancel OP down the stack. This is so that the
+    // status of the call does not get overwritten by the Cancel OP, which would
+    // be especially problematic if we had received a valid status from the
+    // server.
+    // For send_initial_metadata, it is fine for the status to be overwritten
+    // because at that point, the client will not have received a status.
+    // For send_trailing_metadata, we might overwrite the status if we have
+    // non-zero metadata to send. This is fine because the API does not allow
+    // the client to send trailing metadata.
+    bool stream_write_closed = false;
   } send_message;
 
   struct {
@@ -266,6 +294,8 @@ struct grpc_transport_stream_op_batch_payload {
     // containing a received message.
     // Will be NULL if trailing metadata is received instead of a message.
     grpc_core::OrphanablePtr<grpc_core::ByteStream>* recv_message = nullptr;
+    // Was this recv_message failed for reasons other than a clean end-of-stream
+    bool* call_failed_before_recv_message = nullptr;
     /** Should be enqueued when one message is ready to be processed. */
     grpc_closure* recv_message_ready = nullptr;
   } recv_message;
@@ -273,7 +303,7 @@ struct grpc_transport_stream_op_batch_payload {
   struct {
     grpc_metadata_batch* recv_trailing_metadata = nullptr;
     grpc_transport_stream_stats* collect_stats = nullptr;
-    /** Should be enqueued when initial metadata is ready to be processed. */
+    /** Should be enqueued when trailing metadata is ready to be processed. */
     grpc_closure* recv_trailing_metadata_ready = nullptr;
   } recv_trailing_metadata;
 
@@ -290,7 +320,7 @@ struct grpc_transport_stream_op_batch_payload {
   struct {
     // Error contract: the transport that gets this op must cause cancel_error
     //                 to be unref'ed after processing it
-    grpc_error* cancel_error = GRPC_ERROR_NONE;
+    grpc_error_handle cancel_error = GRPC_ERROR_NONE;
   } cancel_stream;
 
   /* Indexes correspond to grpc_context_index enum values */
@@ -302,16 +332,19 @@ typedef struct grpc_transport_op {
   /** Called when processing of this op is done. */
   grpc_closure* on_consumed = nullptr;
   /** connectivity monitoring - set connectivity_state to NULL to unsubscribe */
-  grpc_closure* on_connectivity_state_change = nullptr;
-  grpc_connectivity_state* connectivity_state = nullptr;
+  grpc_core::OrphanablePtr<grpc_core::ConnectivityStateWatcherInterface>
+      start_connectivity_watch;
+  grpc_connectivity_state start_connectivity_watch_state = GRPC_CHANNEL_IDLE;
+  grpc_core::ConnectivityStateWatcherInterface* stop_connectivity_watch =
+      nullptr;
   /** should the transport be disconnected
    * Error contract: the transport that gets this op must cause
    *                 disconnect_with_error to be unref'ed after processing it */
-  grpc_error* disconnect_with_error = nullptr;
+  grpc_error_handle disconnect_with_error = GRPC_ERROR_NONE;
   /** what should the goaway contain?
    * Error contract: the transport that gets this op must cause
    *                 goaway_error to be unref'ed after processing it */
-  grpc_error* goaway_error = nullptr;
+  grpc_error_handle goaway_error = GRPC_ERROR_NONE;
   /** set the callback for accepting new streams;
       this is a permanent callback, unlike the other one-shot closures.
       If true, the callback is set to set_accept_stream_fn, with its
@@ -379,11 +412,12 @@ void grpc_transport_destroy_stream(grpc_transport* transport,
                                    grpc_closure* then_schedule_closure);
 
 void grpc_transport_stream_op_batch_finish_with_failure(
-    grpc_transport_stream_op_batch* op, grpc_error* error,
+    grpc_transport_stream_op_batch* batch, grpc_error_handle error,
     grpc_core::CallCombiner* call_combiner);
 
-char* grpc_transport_stream_op_batch_string(grpc_transport_stream_op_batch* op);
-char* grpc_transport_op_string(grpc_transport_op* op);
+std::string grpc_transport_stream_op_batch_string(
+    grpc_transport_stream_op_batch* op);
+std::string grpc_transport_op_string(grpc_transport_op* op);
 
 /* Send a batch of operations on a transport
 
@@ -417,13 +451,20 @@ void grpc_transport_destroy(grpc_transport* transport);
 /* Get the endpoint used by \a transport */
 grpc_endpoint* grpc_transport_get_endpoint(grpc_transport* transport);
 
-/* Allocate a grpc_transport_op, and preconfigure the on_consumed closure to
-   \a on_consumed and then delete the returned transport op */
-grpc_transport_op* grpc_make_transport_op(grpc_closure* on_consumed);
-/* Allocate a grpc_transport_stream_op_batch, and preconfigure the on_consumed
+/* Allocate a grpc_transport_op, and preconfigure the on_complete closure to
+   \a on_complete and then delete the returned transport op */
+grpc_transport_op* grpc_make_transport_op(grpc_closure* on_complete);
+/* Allocate a grpc_transport_stream_op_batch, and preconfigure the on_complete
    closure
-   to \a on_consumed and then delete the returned transport op */
+   to \a on_complete and then delete the returned transport op */
 grpc_transport_stream_op_batch* grpc_make_transport_stream_op(
-    grpc_closure* on_consumed);
+    grpc_closure* on_complete);
+
+namespace grpc_core {
+// This is the key to be used for loading/storing keepalive_throttling in the
+// absl::Status object.
+constexpr const char* kKeepaliveThrottlingKey =
+    "grpc.internal.keepalive_throttling";
+}  // namespace grpc_core
 
 #endif /* GRPC_CORE_LIB_TRANSPORT_TRANSPORT_H */

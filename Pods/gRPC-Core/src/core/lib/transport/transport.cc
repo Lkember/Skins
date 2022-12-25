@@ -50,62 +50,43 @@ void grpc_stream_destroy(grpc_stream_refcount* refcount) {
        cope with.
        Throw this over to the executor (on a core-owned thread) and process it
        there. */
-    refcount->destroy.scheduler =
-        grpc_core::Executor::Scheduler(grpc_core::ExecutorJobType::SHORT);
+    grpc_core::Executor::Run(&refcount->destroy, GRPC_ERROR_NONE);
+  } else {
+    grpc_core::ExecCtx::Run(DEBUG_LOCATION, &refcount->destroy,
+                            GRPC_ERROR_NONE);
   }
-  GRPC_CLOSURE_SCHED(&refcount->destroy, GRPC_ERROR_NONE);
 }
 
 void slice_stream_destroy(void* arg) {
   grpc_stream_destroy(static_cast<grpc_stream_refcount*>(arg));
 }
 
-#define STREAM_REF_FROM_SLICE_REF(p)       \
-  ((grpc_stream_refcount*)(((uint8_t*)p) - \
-                           offsetof(grpc_stream_refcount, slice_refcount)))
-
-grpc_slice grpc_slice_from_stream_owned_buffer(grpc_stream_refcount* refcount,
-                                               void* buffer, size_t length) {
 #ifndef NDEBUG
-  grpc_stream_ref(STREAM_REF_FROM_SLICE_REF(&refcount->slice_refcount),
-                  "slice");
-#else
-  grpc_stream_ref(STREAM_REF_FROM_SLICE_REF(&refcount->slice_refcount));
-#endif
-  grpc_slice res;
-  res.refcount = &refcount->slice_refcount;
-  res.data.refcounted.bytes = static_cast<uint8_t*>(buffer);
-  res.data.refcounted.length = length;
-  return res;
-}
-
-#ifndef NDEBUG
-void grpc_stream_ref_init(grpc_stream_refcount* refcount, int initial_refs,
+void grpc_stream_ref_init(grpc_stream_refcount* refcount, int /*initial_refs*/,
                           grpc_iomgr_cb_func cb, void* cb_arg,
                           const char* object_type) {
   refcount->object_type = object_type;
 #else
-void grpc_stream_ref_init(grpc_stream_refcount* refcount, int initial_refs,
+void grpc_stream_ref_init(grpc_stream_refcount* refcount, int /*initial_refs*/,
                           grpc_iomgr_cb_func cb, void* cb_arg) {
 #endif
   GRPC_CLOSURE_INIT(&refcount->destroy, cb, cb_arg, grpc_schedule_on_exec_ctx);
 
-  new (&refcount->refs) grpc_core::RefCount();
-  new (&refcount->slice_refcount) grpc_slice_refcount(
-      grpc_slice_refcount::Type::REGULAR, &refcount->refs, slice_stream_destroy,
-      refcount, &refcount->slice_refcount);
+  new (&refcount->refs) grpc_core::RefCount(
+      1, GRPC_TRACE_FLAG_ENABLED(grpc_trace_stream_refcount) ? "stream_refcount"
+                                                             : nullptr);
 }
 
-static void move64(uint64_t* from, uint64_t* to) {
+static void move64bits(uint64_t* from, uint64_t* to) {
   *to += *from;
   *from = 0;
 }
 
 void grpc_transport_move_one_way_stats(grpc_transport_one_way_stats* from,
                                        grpc_transport_one_way_stats* to) {
-  move64(&from->framing_bytes, &to->framing_bytes);
-  move64(&from->data_bytes, &to->data_bytes);
-  move64(&from->header_bytes, &to->header_bytes);
+  move64bits(&from->framing_bytes, &to->framing_bytes);
+  move64bits(&from->data_bytes, &to->data_bytes);
+  move64bits(&from->header_bytes, &to->header_bytes);
 }
 
 void grpc_transport_move_stats(grpc_transport_stream_stats* from,
@@ -174,7 +155,7 @@ grpc_endpoint* grpc_transport_get_endpoint(grpc_transport* transport) {
 // though it lives in lib, it handles transport stream ops sure
 // it's grpc_transport_stream_op_batch_finish_with_failure
 void grpc_transport_stream_op_batch_finish_with_failure(
-    grpc_transport_stream_op_batch* batch, grpc_error* error,
+    grpc_transport_stream_op_batch* batch, grpc_error_handle error,
     grpc_core::CallCombiner* call_combiner) {
   if (batch->send_message) {
     batch->payload->send_message.send_message.reset();
@@ -216,14 +197,15 @@ struct made_transport_op {
   }
 };
 
-static void destroy_made_transport_op(void* arg, grpc_error* error) {
+static void destroy_made_transport_op(void* arg, grpc_error_handle error) {
   made_transport_op* op = static_cast<made_transport_op*>(arg);
-  GRPC_CLOSURE_SCHED(op->inner_on_complete, GRPC_ERROR_REF(error));
-  grpc_core::Delete<made_transport_op>(op);
+  grpc_core::ExecCtx::Run(DEBUG_LOCATION, op->inner_on_complete,
+                          GRPC_ERROR_REF(error));
+  delete op;
 }
 
 grpc_transport_op* grpc_make_transport_op(grpc_closure* on_complete) {
-  made_transport_op* op = grpc_core::New<made_transport_op>();
+  made_transport_op* op = new made_transport_op();
   GRPC_CLOSURE_INIT(&op->outer_on_complete, destroy_made_transport_op, op,
                     grpc_schedule_on_exec_ctx);
   op->inner_on_complete = on_complete;
@@ -231,24 +213,23 @@ grpc_transport_op* grpc_make_transport_op(grpc_closure* on_complete) {
   return &op->op;
 }
 
-typedef struct {
+struct made_transport_stream_op {
   grpc_closure outer_on_complete;
-  grpc_closure* inner_on_complete;
+  grpc_closure* inner_on_complete = nullptr;
   grpc_transport_stream_op_batch op;
-  grpc_transport_stream_op_batch_payload payload;
-} made_transport_stream_op;
-
-static void destroy_made_transport_stream_op(void* arg, grpc_error* error) {
+  grpc_transport_stream_op_batch_payload payload{nullptr};
+};
+static void destroy_made_transport_stream_op(void* arg,
+                                             grpc_error_handle error) {
   made_transport_stream_op* op = static_cast<made_transport_stream_op*>(arg);
   grpc_closure* c = op->inner_on_complete;
-  gpr_free(op);
-  GRPC_CLOSURE_RUN(c, GRPC_ERROR_REF(error));
+  delete op;
+  grpc_core::Closure::Run(DEBUG_LOCATION, c, GRPC_ERROR_REF(error));
 }
 
 grpc_transport_stream_op_batch* grpc_make_transport_stream_op(
     grpc_closure* on_complete) {
-  made_transport_stream_op* op =
-      static_cast<made_transport_stream_op*>(gpr_zalloc(sizeof(*op)));
+  made_transport_stream_op* op = new made_transport_stream_op();
   op->op.payload = &op->payload;
   GRPC_CLOSURE_INIT(&op->outer_on_complete, destroy_made_transport_stream_op,
                     op, grpc_schedule_on_exec_ctx);

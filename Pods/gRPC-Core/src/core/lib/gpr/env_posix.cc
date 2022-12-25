@@ -20,19 +20,13 @@
 
 #ifdef GPR_POSIX_ENV
 
-#include "src/core/lib/gpr/env.h"
-
 #include <stdlib.h>
 
 #include <grpc/support/log.h>
-
 #include <grpc/support/string_util.h>
-#include "src/core/lib/gpr/string.h"
 
-const char* gpr_getenv_silent(const char* name, char** dst) {
-  *dst = gpr_getenv(name);
-  return nullptr;
-}
+#include "src/core/lib/gpr/env.h"
+#include "src/core/lib/gpr/string.h"
 
 char* gpr_getenv(const char* name) {
   char* result = getenv(name);

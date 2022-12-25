@@ -8,7 +8,12 @@
 
 import UIKit
 import Firebase
-import FirebaseUI
+import FirebaseAuthUI
+import FirebaseOAuthUI
+import FirebaseGoogleAuthUI
+//import FirebaseFacebookAuthUI
+import FirebaseEmailAuthUI
+import FirebaseDatabaseUI
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, FUIAuthDelegate {
@@ -53,8 +58,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, FUIAuthDelegate {
         authUI?.delegate = self
         
         let providers: [FUIAuthProvider] = [
+            
             FUIOAuth.microsoftAuthProvider(),
-            FUIOAuth.twitterAuthProvider(),
             FUIGoogleAuth(),
             FUIEmailAuth(),
 //            FUIFacebookAuth()
