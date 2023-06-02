@@ -10,23 +10,18 @@ import UIKit
 import FirebaseAuth
 
 class SkinsUser: NSObject {
-    var user: User?
+
+    var uid: String
+    var displayName: String?
+    var email: String?
     var stats = Stats()
     
-    override init() {
-        super.init()
-        
-        getCurrentUser()
+    init(user: User) {
+        self.uid = user.uid
+        self.displayName = user.displayName
+        self.email = user.email
     }
-    
-    init(user: User?) {
-        self.user = user
-    }
-    
-    func updateUser(user: User) {
-        self.user = user
-    }
-    
+
     func isSignedIn() -> Bool {
         if (Auth.auth().currentUser == nil) {
             return false
@@ -34,36 +29,20 @@ class SkinsUser: NSObject {
         return true
     }
     
-    func getCurrentUser() {
-        if let tempUser = Auth.auth().currentUser {
-            user = tempUser
-        }
-    }
-    
     func signOut() {
         do {
             try Auth.auth().signOut()
-            user = nil
         }
         catch let err {
             print("Error signing out: \(err.localizedDescription)")
         }
     }
     
-//    // MARK: - NSCoding
-//    static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
-//    static let ArchiveURL = DocumentsDirectory.appendingPathComponent("User")
-//
-//    struct PropertyKey {
-//        static let userKey = "user"
-//    }
-//
-//    func encode(with coder: NSCoder) {
-//        coder.encode(user, forKey: PropertyKey.userKey)
-//    }
-//
-//    required convenience init?(coder: NSCoder) {
-//        let user = coder.decodeObject(forKey: PropertyKey.userKey) as! User?
-//        self.init(user: user)
-//    }
+    func updatePrevGames(prevGames: [GolfGame]) {
+        self.stats.prevGames = prevGames
+    }
+    
+    func loadLastTenGames(completion: @escaping (Array<GolfGame>?, Error?) -> Void) {
+        stats.loadLastTenGames(completion: completion)
+    }
 }

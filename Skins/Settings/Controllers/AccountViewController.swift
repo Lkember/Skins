@@ -49,8 +49,8 @@ class AccountViewController: UIViewController, SignInPassback {
     
     private func updateAccountLabels() {
         if (appDelegate.user != nil && appDelegate.user!.isSignedIn()) {
-            nameLabel.text = "Name: \(appDelegate.user!.user!.displayName ?? "N/A")"
-            emailLabel.text = "Email: \(appDelegate.user!.user!.email ?? "N/A")"
+            nameLabel.text = "Name: \(appDelegate.user!.displayName ?? "N/A")"
+            emailLabel.text = "Email: \(appDelegate.user!.email ?? "N/A")"
             emailLabel.isHidden = false
         }
         else {

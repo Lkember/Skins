@@ -27,18 +27,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, FUIAuthDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         FirebaseApp.configure()
-        user = SkinsUser()
         firebase = FirebaseHelper()
         
-        // update current user's information if signed in
-        if (user!.isSignedIn()) {
-            firebase?.addUserToUsersCollection(user: user!.user)
+        if let user = Auth.auth().currentUser {
+            self.user = SkinsUser(user: user)
         }
         
         return true
     }
 
-    // MARK: UISceneSession Lifecycle
+    // MARK: - UISceneSession Lifecycle
 
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
         // Called when a new scene session is being created.
@@ -58,17 +56,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate, FUIAuthDelegate {
         authUI?.delegate = self
         
         let providers: [FUIAuthProvider] = [
-            
             FUIOAuth.microsoftAuthProvider(),
             FUIGoogleAuth(),
-            FUIEmailAuth(),
+            FUIEmailAuth()
 //            FUIFacebookAuth()
         ]
         
         authUI?.providers = providers
         
         if let authViewController = authUI?.authViewController() {
-            vc.present(authViewController, animated: true, completion: { self.firebase!.addUserToUsersCollection(user: self.user!.user) })
+            vc.present(authViewController, animated: true, completion: {
+                if let user = Auth.auth().currentUser {
+                    self.firebase!.addUserToUsersCollection(user: user)
+                }
+            })
         }
     }
     
@@ -86,7 +87,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, FUIAuthDelegate {
       // handle user and error as necessary
         if (error == nil) {
             if (user != nil) {
-                self.user!.updateUser(user: user!)
+                self.user = SkinsUser(user: user!)
+                self.firebase!.addUserToUsersCollection(user: user)
                 self.signInPassback?.userSignedIn()
             }
             else {

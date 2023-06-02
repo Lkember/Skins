@@ -8,7 +8,8 @@
 
 import UIKit
 
-class Hole: NSObject, FirestoreConverter {
+class Hole: NSObject, FirestoreConverter, Codable {
+    
     var holeNumber: Int
     var par: Int = 0
     var carryOverSkins: Int = 0
@@ -29,6 +30,11 @@ class Hole: NSObject, FirestoreConverter {
     
     func updatePar(par: Int) {
         self.par = par
+    }
+    
+    func getSummaryForUser(userID: Int) -> Int {
+        // TODO
+        return 0
     }
     
     func getListOfPlayers() -> [String] {
@@ -79,4 +85,6 @@ class Hole: NSObject, FirestoreConverter {
         
         return fsData
     }
+    
+    
 }

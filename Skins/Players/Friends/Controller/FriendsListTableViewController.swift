@@ -36,9 +36,9 @@ class FriendsListTableViewController: UITableViewController {
         self.friends.removeAll()
         self.pendingFriends.removeAll()
         
-        if (appDelegate.user!.isSignedIn()) {
+        if (appDelegate.user?.isSignedIn() ?? false) {
             
-            let docRef = appDelegate.firebase!.db.collection(FirebaseHelper.collection).document(appDelegate.user!.user!.uid).collection(FirebaseHelper.friendsList)
+            let docRef = appDelegate.firebase!.db.collection(FirebaseHelper.collection).document(appDelegate.user!.uid).collection(FirebaseHelper.friendsList)
             
             docRef.getDocuments() { (querySnapshot, err) in
                 if let err = err {

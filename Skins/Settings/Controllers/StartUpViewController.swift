@@ -12,6 +12,7 @@ import UIKit
 protocol GameCallback {
     func createNewGame(golfers: [String])
     func gameIsFinished()
+    func getLiveGame() -> GolfGame?
 }
 
 class StartUpViewController: UIViewController, GameCallback, SignInPassback {
@@ -53,6 +54,10 @@ class StartUpViewController: UIViewController, GameCallback, SignInPassback {
         currentGame = nil
     }
     
+    func getLiveGame() -> GolfGame? {
+        return self.currentGame
+    }
+    
     // MARK: - SignInPassback
     func userSignedIn() {
         // Nothing to do
@@ -66,7 +71,7 @@ class StartUpViewController: UIViewController, GameCallback, SignInPassback {
         // Pass the selected object to the new view controller.
         
         if let dvc = segue.destination as? HoleScoreHelperViewController {
-            dvc.game = currentGame!
+//            dvc.game = currentGame!
             dvc.passbackDelegate = self
         }
         else if let dvc = segue.destination as? NewGameViewController {

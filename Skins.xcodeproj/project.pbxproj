@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B21F344F2A2724DA00B9B2A4 /* PreviousGamesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21F344E2A2724DA00B9B2A4 /* PreviousGamesTableViewCell.swift */; };
 		B2229A47242C32070081F4B7 /* Stats.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2229A46242C32070081F4B7 /* Stats.swift */; };
 		B2229A49242C366B0081F4B7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B2229A48242C366B0081F4B7 /* GoogleService-Info.plist */; };
 		B2229A4A242C366B0081F4B7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B2229A48242C366B0081F4B7 /* GoogleService-Info.plist */; };
@@ -31,6 +32,7 @@
 		B26AB396241FE226008DCC65 /* ScoresheetCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B26AB395241FE226008DCC65 /* ScoresheetCollectionViewCell.swift */; };
 		B27A9E6A2412E6FE008AFD96 /* HolePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27A9E692412E6FE008AFD96 /* HolePageViewController.swift */; };
 		B285E6E8245DF02D00FE41D6 /* StatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B285E6E7245DF02D00FE41D6 /* StatsViewController.swift */; };
+		B29AB3D3296A70AC00C69FE4 /* HomeTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29AB3D2296A70AC00C69FE4 /* HomeTabViewController.swift */; };
 		B2F1689D248DE5E400B7A5DC /* FriendsListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F1689C248DE5E400B7A5DC /* FriendsListTableViewController.swift */; };
 		B2F1689F248DEC4A00B7A5DC /* FirebaseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F1689E248DEC4A00B7A5DC /* FirebaseHelper.swift */; };
 		B2F168A32490879400B7A5DC /* PendingFriendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F168A22490879400B7A5DC /* PendingFriendTableViewCell.swift */; };
@@ -58,6 +60,7 @@
 		1CFBE84E34BB9D9DCD07C413 /* Pods_Skins.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Skins.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2116FDFB249CECA37E5C749A /* Pods_SkinsTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SkinsTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		73740C9CAEA496D6A779C2A5 /* Pods-Skins.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Skins.debug.xcconfig"; path = "Target Support Files/Pods-Skins/Pods-Skins.debug.xcconfig"; sourceTree = "<group>"; };
+		B21F344E2A2724DA00B9B2A4 /* PreviousGamesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviousGamesTableViewCell.swift; sourceTree = "<group>"; };
 		B2229A46242C32070081F4B7 /* Stats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stats.swift; sourceTree = "<group>"; };
 		B2229A48242C366B0081F4B7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B2282296247CB3F000C6CCBF /* InvitedGolferTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvitedGolferTableViewCell.swift; sourceTree = "<group>"; };
@@ -85,6 +88,7 @@
 		B26AB395241FE226008DCC65 /* ScoresheetCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoresheetCollectionViewCell.swift; sourceTree = "<group>"; };
 		B27A9E692412E6FE008AFD96 /* HolePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HolePageViewController.swift; sourceTree = "<group>"; };
 		B285E6E7245DF02D00FE41D6 /* StatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewController.swift; sourceTree = "<group>"; };
+		B29AB3D2296A70AC00C69FE4 /* HomeTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabViewController.swift; sourceTree = "<group>"; };
 		B2F1689C248DE5E400B7A5DC /* FriendsListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListTableViewController.swift; sourceTree = "<group>"; };
 		B2F1689E248DEC4A00B7A5DC /* FirebaseHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseHelper.swift; sourceTree = "<group>"; };
 		B2F168A22490879400B7A5DC /* PendingFriendTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PendingFriendTableViewCell.swift; sourceTree = "<group>"; };
@@ -135,6 +139,22 @@
 				F3DBC2310428533357E25409 /* Pods-SkinsTests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		B21F344C2A27249B00B9B2A4 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				B285E6E7245DF02D00FE41D6 /* StatsViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		B21F344D2A2724A500B9B2A4 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				B21F344E2A2724DA00B9B2A4 /* PreviousGamesTableViewCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		B2336DCD240ED38D00482D80 /* Model */ = {
@@ -280,7 +300,8 @@
 		B23FEFE62845F46700EE2575 /* Stats */ = {
 			isa = PBXGroup;
 			children = (
-				B285E6E7245DF02D00FE41D6 /* StatsViewController.swift */,
+				B21F344D2A2724A500B9B2A4 /* Cells */,
+				B21F344C2A27249B00B9B2A4 /* Controller */,
 			);
 			path = Stats;
 			sourceTree = "<group>";
@@ -318,6 +339,7 @@
 				B238AEC0244949230082860E /* AccountViewController.swift */,
 				B2F498B92450D73600FB13FE /* SettingsViewController.swift */,
 				B23C1F2123FBBD5900B7308A /* StartUpViewController.swift */,
+				B29AB3D2296A70AC00C69FE4 /* HomeTabViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -522,6 +544,7 @@
 				B23C1F2223FBBD5900B7308A /* StartUpViewController.swift in Sources */,
 				B232B9FA241000BC00309FD9 /* GolfGame.swift in Sources */,
 				B2282297247CB3F000C6CCBF /* InvitedGolferTableViewCell.swift in Sources */,
+				B21F344F2A2724DA00B9B2A4 /* PreviousGamesTableViewCell.swift in Sources */,
 				B27A9E6A2412E6FE008AFD96 /* HolePageViewController.swift in Sources */,
 				B2F2A43D2862F10D00FDD630 /* ScoresheetViewLayout.swift in Sources */,
 				B2F2A43B2862F0FD00FDD630 /* ScoresheetViewLayout.swift in Sources */,
@@ -535,6 +558,7 @@
 				B23C1F0223FBBC1B00B7308A /* SceneDelegate.swift in Sources */,
 				B2F168A32490879400B7A5DC /* PendingFriendTableViewCell.swift in Sources */,
 				B236FC67240B04EF0011BF05 /* NewGolferTableViewCell.swift in Sources */,
+				B29AB3D3296A70AC00C69FE4 /* HomeTabViewController.swift in Sources */,
 				B232BA00241001D600309FD9 /* PlayerScore.swift in Sources */,
 				B2348D5B24141163003EBAE5 /* HoleScoreHelperViewController.swift in Sources */,
 				B232BA022410021100309FD9 /* Hole.swift in Sources */,

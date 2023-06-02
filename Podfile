@@ -22,6 +22,7 @@ target 'Skins' do
   
   # Firestore database
   pod 'Firebase/Firestore'
+  pod 'FirebaseFirestoreSwift'
   
 #  pod 'Firebase/Database'
   

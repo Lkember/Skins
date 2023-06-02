@@ -17,7 +17,6 @@ protocol TitleUpdateCallback {
 }
 
 class HoleScoreHelperViewController: UIViewController, TitleUpdateCallback {
-    var game = GolfGame.init()
     var passbackDelegate: GameCallback?
     var pageControlCallback: PageControlCallback?
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -25,25 +24,38 @@ class HoleScoreHelperViewController: UIViewController, TitleUpdateCallback {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-        navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if let homeVC = self.tabBarController as? HomeTabViewController {
+            self.passbackDelegate = homeVC
+        }
+        else {
+            print("ERROR - Game not created??")
+        }
     }
     
     @IBAction func newHoleTouched(_ sender: Any) {
-        game.summarizeHoles(nil, startNextGame: true)
+        self.passbackDelegate?.getLiveGame()?.summarizeHoles(nil, startNextGame: true)
         pageControlCallback?.PageCountChanged()
     }
     
     @IBAction func endGameTouched(_ sender: Any) {
-        game.summarizeHoles(nil, startNextGame: false)
-        appDelegate.user!.stats.writeNewGame(game: game)
-        passbackDelegate?.gameIsFinished()
-        _ = navigationController?.popViewController(animated: true)
+        let game = self.passbackDelegate?.getLiveGame()
+        
+        if (game != nil) {
+            game!.summarizeHoles(nil, startNextGame: false)
+            appDelegate.user!.stats.writeNewGame(game: game!)
+            passbackDelegate?.gameIsFinished()
+            
+            _ = navigationController?.popViewController(animated: true)
+        }
     }
     
     @IBAction func viewScorecardTouched(_ sender: Any) {
-        game.summarizeHoles(nil, startNextGame: false)
+        self.passbackDelegate?.getLiveGame()?.summarizeHoles(nil, startNextGame: false)
     }
     
     // MARK: - UpdateTitleCallback
@@ -55,15 +67,19 @@ class HoleScoreHelperViewController: UIViewController, TitleUpdateCallback {
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (self.passbackDelegate == nil) {
+            self.passbackDelegate = self.tabBarController as? GameCallback
+        }
+        
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
         if let vc = segue.destination as? HolePageViewController {
-            vc.game = self.game
+            vc.game = self.passbackDelegate!.getLiveGame()!
             self.pageControlCallback = vc
             vc.holeScoreHelperVC = self
         }
         else if let dvc = segue.destination as? ScoresheetViewController {
-            dvc.game = self.game
+            dvc.game = self.passbackDelegate!.getLiveGame()!
         }
     }
 

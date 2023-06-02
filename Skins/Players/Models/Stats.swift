@@ -13,52 +13,61 @@ protocol FirestoreConverter {
     func getFirestoreData() -> [String : Any]
 }
 
-//struct Result {
-//    var error: Error
-//    var game: GolfGame?
-//}
-
-class Stats: NSObject {
+struct Stats {
     
     // DB Info
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     var prevGames: [GolfGame] = []
     
+    func getLastTenGames() -> [GolfGame] {
+        return self.prevGames
+    }
+    
     func writeNewGame(game: GolfGame) {
-        prevGames.append(game)
-        
-        if (appDelegate.user!.isSignedIn()) {
-            
-            // golf-stats/emailaddress/games/date/(game data)
-            appDelegate.firebase!.db.collection(FirebaseHelper.collection)
-                .document(appDelegate.user!.user!.uid)
-                .collection(FirebaseHelper.gameCollection)
-                .document("\(game.date)")
-                .setData(game.getFirestoreData())
-            
-            // If the games are being backed up to the DB, then only store the last 10 on the device
-            if (prevGames.count > 10) {
-                prevGames.remove(at: 0)
+        if (appDelegate.user?.isSignedIn() ?? false) {
+            do {
+                // golf-stats/user_id/games/game_id/...
+                try appDelegate.firebase!.db.collection(FirebaseHelper.collection)
+                    .document(appDelegate.user!.uid)
+                    .collection(FirebaseHelper.gameCollection)
+                    .addDocument(from: game)
+                    .setData(from: game)
+            } catch let error {
+                print("Error writing the game - \(error.localizedDescription)")
             }
         }
     }
     
-    func loadLastTenGames() {
-        if (appDelegate.user!.isSignedIn()) {
+    func loadLastTenGames(completion: @escaping (Array<GolfGame>?, Error?) -> Void) {
+        print("Loading last 10? \(appDelegate.user?.isSignedIn() ?? false)")
+        if (appDelegate.user?.isSignedIn() ?? false) {
             if (prevGames.count < 10) {
                 let docRef = appDelegate.firebase!.db.collection(FirebaseHelper.collection)
-                    .document(appDelegate.user!.user!.uid)
+                    .document(appDelegate.user!.uid)
                     .collection(FirebaseHelper.gameCollection)
                     .limit(to: 10)
+                
+                var games: [GolfGame] = []
+                
                 docRef.getDocuments() { (querySnapshot, err) in
-                    if let err = err {
-                        print("Error getting documents: \(err)")
-                        return
-                    }
-                    
-    //                var results: [Result] = []
-                    for doc in querySnapshot!.documents {
-                        print("\(doc.documentID) => \(doc.data())")
+                    DispatchQueue.main.async() {
+                        if let err = err {
+                            print("Error getting documents: \(err)")
+                            completion(nil, err)
+                        }
+                        
+                        do {
+                            for doc in querySnapshot!.documents {
+                                let game = try doc.data(as: GolfGame.self)
+                                games.append(game)
+                            }
+                            print("Games updated \(games)")
+                            appDelegate.user!.updatePrevGames(prevGames: games)
+                            completion(games, nil)
+                        } catch let err {
+                            print("error converting to golf game - \(err)")
+                            completion(nil, err)
+                        }
                     }
                 }
             }

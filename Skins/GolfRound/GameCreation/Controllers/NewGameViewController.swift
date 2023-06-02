@@ -56,14 +56,21 @@ class NewGameViewController: UIViewController, UITableViewDelegate, UITableViewD
             }
         }
         
-        passbackDelegate?.createNewGame(golfers: names)
-        dismiss(animated: true, completion: nil)
+        let tabBarController = self.tabBarController
+        print("1")
+        if (tabBarController is GameCallback) {
+            print("2")
+            let gameCallback = tabBarController as! GameCallback
+            gameCallback.createNewGame(golfers: names)
+        }
+//        passbackDelegate?.createNewGame(golfers: names)
+//        dismiss(animated: true, completion: nil)
     }
     
     func setupView() {
         if (appDelegate.user != nil) {
             let newGolfer = golferTableView.dequeueReusableCell(withIdentifier: "InvitedGolferTableViewCell") as! InvitedGolferTableViewCell
-            newGolfer.setGolferName(appDelegate.user?.user?.displayName ?? "Current User")
+            newGolfer.setGolferName(appDelegate.user?.displayName ?? "You")
             newGolfer.updateAsUser()
             golfers.append(newGolfer)
         }

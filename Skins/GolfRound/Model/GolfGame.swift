@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseFirestoreSwift
 
 struct GolfSummary {
     var totalStrokes: Int
@@ -24,8 +25,8 @@ protocol GolfGameCallback {
     func updateAllHoles()
 }
 
-class GolfGame: NSObject, GolfGameCallback, FirestoreConverter {
-    
+class GolfGame: NSObject, GolfGameCallback, FirestoreConverter, Codable {
+    @DocumentID var gameID: String?
     var holes: [Hole] = []
     var date: Date
     
@@ -36,6 +37,7 @@ class GolfGame: NSObject, GolfGameCallback, FirestoreConverter {
     init(names: [String]) {
         holes.append(Hole.init(holeNumber: 1, players: names))
         date = Date()
+        print("holes.count = \(holes.count)")
     }
     
     // MARK: - Holes
@@ -67,6 +69,7 @@ class GolfGame: NSObject, GolfGameCallback, FirestoreConverter {
     }
     
     func startNextHole() {
+        print("\(holes.count)")
         let nextHole = Hole(holeNumber: holes.count + 1, players: holes.last!.getListOfPlayers())
         
         if (holes.last?.shouldCarryOver() ?? false) {
