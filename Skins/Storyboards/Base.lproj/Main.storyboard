@@ -323,7 +323,7 @@
                                 </connections>
                             </button>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8YW-Cp-gYw">
-                                <rect key="frame" x="0.0" y="44" width="414" height="647"/>
+                                <rect key="frame" x="0.0" y="104" width="414" height="587"/>
                                 <connections>
                                     <segue destination="1OU-iu-1LG" kind="embed" id="eVj-5X-iJO"/>
                                 </connections>
@@ -335,6 +335,12 @@
                                     <segue destination="Ygi-Hl-ZlO" kind="show" id="0Ym-n2-mpm"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hole #18" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="moW-WE-wrY">
+                                <rect key="frame" x="20" y="60" width="374" height="36"/>
+                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="30"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="KbP-Al-9TF"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -343,28 +349,31 @@
                             <constraint firstItem="O0u-Pa-mLV" firstAttribute="height" secondItem="Ejg-8B-y1L" secondAttribute="height" id="51I-Z0-Hib"/>
                             <constraint firstItem="O0u-Pa-mLV" firstAttribute="leading" secondItem="Ejg-8B-y1L" secondAttribute="trailing" id="56H-eN-MlD"/>
                             <constraint firstItem="rsv-Or-ZPH" firstAttribute="leading" secondItem="KbP-Al-9TF" secondAttribute="leading" constant="8" id="739-ex-4Gj"/>
-                            <constraint firstItem="rsv-Or-ZPH" firstAttribute="top" secondItem="8YW-Cp-gYw" secondAttribute="bottom" constant="8" id="Ju1-u2-uBF"/>
                             <constraint firstItem="O0u-Pa-mLV" firstAttribute="trailing" secondItem="KbP-Al-9TF" secondAttribute="trailing" id="KlD-Kt-ptD"/>
                             <constraint firstItem="Ejg-8B-y1L" firstAttribute="leading" secondItem="KbP-Al-9TF" secondAttribute="leading" id="LZD-Z6-ADI"/>
-                            <constraint firstItem="rsv-Or-ZPH" firstAttribute="top" secondItem="8YW-Cp-gYw" secondAttribute="bottom" constant="8" id="RJF-5Z-oLl"/>
+                            <constraint firstItem="KbP-Al-9TF" firstAttribute="trailing" secondItem="moW-WE-wrY" secondAttribute="trailing" constant="20" id="OKS-ng-bVr"/>
+                            <constraint firstItem="moW-WE-wrY" firstAttribute="leading" secondItem="KbP-Al-9TF" secondAttribute="leading" constant="20" id="S3u-ah-5yZ"/>
+                            <constraint firstItem="rsv-Or-ZPH" firstAttribute="top" secondItem="8YW-Cp-gYw" secondAttribute="bottom" constant="8" id="UPc-cU-wR3"/>
+                            <constraint firstItem="8YW-Cp-gYw" firstAttribute="top" secondItem="moW-WE-wrY" secondAttribute="bottom" constant="8" id="Ukg-4T-YCW"/>
                             <constraint firstItem="O0u-Pa-mLV" firstAttribute="width" secondItem="Ejg-8B-y1L" secondAttribute="width" id="Yec-2x-z9Y"/>
                             <constraint firstItem="Ejg-8B-y1L" firstAttribute="top" secondItem="rsv-Or-ZPH" secondAttribute="bottom" constant="8" id="Ygw-OM-xGN"/>
-                            <constraint firstItem="8YW-Cp-gYw" firstAttribute="leading" secondItem="KbP-Al-9TF" secondAttribute="leading" id="hgH-tk-Bwh"/>
+                            <constraint firstItem="moW-WE-wrY" firstAttribute="top" secondItem="KbP-Al-9TF" secondAttribute="top" constant="16" id="hfh-FS-fNL"/>
+                            <constraint firstItem="8YW-Cp-gYw" firstAttribute="trailing" secondItem="O0u-Pa-mLV" secondAttribute="trailing" id="k4U-Xy-Ep0"/>
+                            <constraint firstItem="8YW-Cp-gYw" firstAttribute="leading" secondItem="Ejg-8B-y1L" secondAttribute="leading" id="nrg-9Y-7YQ"/>
                             <constraint firstItem="O0u-Pa-mLV" firstAttribute="bottom" secondItem="KbP-Al-9TF" secondAttribute="bottom" id="puO-b3-N84"/>
                             <constraint firstItem="rsv-Or-ZPH" firstAttribute="trailing" secondItem="KbP-Al-9TF" secondAttribute="trailing" constant="8" id="rLc-RD-BtQ"/>
-                            <constraint firstItem="8YW-Cp-gYw" firstAttribute="top" secondItem="KbP-Al-9TF" secondAttribute="top" id="uxb-Od-rO6"/>
-                            <constraint firstItem="8YW-Cp-gYw" firstAttribute="trailing" secondItem="KbP-Al-9TF" secondAttribute="trailing" id="x0U-BV-zzx"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Live Game" image="flag" catalog="system" selectedImage="flag.fill" id="GCS-rL-lH9"/>
                     <navigationItem key="navigationItem" id="qJV-YA-rHf"/>
                     <connections>
                         <outlet property="golfHoleView" destination="8YW-Cp-gYw" id="PBv-l0-i6y"/>
+                        <outlet property="holeNumberLabel" destination="moW-WE-wrY" id="eam-TV-saG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PD4-5H-lSg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1128" y="1242"/>
+            <point key="canvasLocation" x="1127.536231884058" y="1241.5178571428571"/>
         </scene>
         <!--Stats-->
         <scene sceneID="0hu-ik-9Bp">
@@ -740,9 +749,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="t3r-Z7-n2Y">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="t3r-Z7-n2Y">
                                 <rect key="frame" x="0.0" y="120" width="414" height="666"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="separatorColor" systemColor="labelColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="GolferScoreTableViewCell" rowHeight="91" id="skg-QG-2KM" customClass="GolferScoreTableViewCell" customModule="Skins" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="44.666666030883789" width="414" height="91"/>
@@ -813,7 +823,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="AKc-st-BnF"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" weight="ultraLight" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -823,7 +833,7 @@
                                     <constraint firstAttribute="width" constant="95" id="dhx-IF-9fS"/>
                                     <constraint firstAttribute="height" constant="60" id="x6W-qd-3bT"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" weight="ultraLight" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -859,7 +869,7 @@
                                     <constraint firstAttribute="width" relation="lessThanOrEqual" priority="800" constant="144" id="Jxu-OC-egK"/>
                                     <constraint firstAttribute="height" constant="60" id="Ogl-gb-U4n"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" weight="ultraLight" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -909,7 +919,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="deB-bd-Jjy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2672" y="1242"/>
+            <point key="canvasLocation" x="2638" y="1242"/>
         </scene>
         <!--Scoresheet View Controller-->
         <scene sceneID="Jb9-Ik-Wuc">
@@ -972,7 +982,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cfP-gk-tFN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1928" y="1242"/>
+            <point key="canvasLocation" x="1886" y="1986"/>
         </scene>
         <!--Hole Page View Controller-->
         <scene sceneID="UZY-Ka-0To">
@@ -982,7 +992,7 @@
                 </pageViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IZJ-0x-Tw1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3381" y="1242"/>
+            <point key="canvasLocation" x="1864" y="1242"/>
         </scene>
         <!--Home Tab View Controller-->
         <scene sceneID="SCH-dU-MfN">

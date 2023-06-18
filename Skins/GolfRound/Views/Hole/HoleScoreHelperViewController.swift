@@ -9,7 +9,7 @@
 import UIKit
 
 protocol PageControlCallback {
-    func PageCountChanged()
+    func pageCountChanged()
 }
 
 protocol TitleUpdateCallback {
@@ -19,6 +19,7 @@ protocol TitleUpdateCallback {
 class HoleScoreHelperViewController: UIViewController, TitleUpdateCallback {
     var passbackDelegate: GolfGameCallback?
     var pageControlCallback: PageControlCallback?
+    @IBOutlet weak var holeNumberLabel: UILabel!
     
     @IBOutlet weak var golfHoleView: UIView!
     
@@ -39,7 +40,7 @@ class HoleScoreHelperViewController: UIViewController, TitleUpdateCallback {
     
     @IBAction func newHoleTouched(_ sender: Any) {
         self.passbackDelegate?.updateHoles(startNextHole: true)
-        pageControlCallback?.PageCountChanged()
+        pageControlCallback?.pageCountChanged()
     }
     
     @IBAction func endGameTouched(_ sender: Any) {
@@ -55,7 +56,7 @@ class HoleScoreHelperViewController: UIViewController, TitleUpdateCallback {
     
     // MARK: - UpdateTitleCallback
     func updateTitle(hole: Int) {
-        self.navigationItem.title = "Hole \(hole)"
+        self.holeNumberLabel.text = "Hole #\(hole)"
     }
     
     // MARK: - Navigation

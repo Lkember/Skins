@@ -64,7 +64,7 @@ class HolePageViewController: UIPageViewController , UIPageViewControllerDataSou
     // MARK: - PageControlCallback
     
     // Adds a new view controller when the next hole button is pressed
-    func PageCountChanged() {
+    func pageCountChanged() {
         if let controllers = self.viewControllers {
             if controllers.count > 0 {
                 let holeVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "HoleScoreViewController") as! HoleScoreViewController
