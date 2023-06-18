@@ -9,29 +9,21 @@
 import UIKit
 
 class PlayerScore: NSObject, FirestoreConverter, Codable {
-    var playerName: String
+    var uid: String
     var strokes: Int
     var skins: Int
     var extraSkin: Bool     // longest drive or closest to pin
     
-    override init() {
-        playerName = ""
+    init(uid: String) {
+        self.uid = uid
         strokes = 0
         skins = 0
         extraSkin = false
         super.init()
     }
     
-    init(name: String) {
-        playerName = name
-        strokes = 0
-        skins = 0
-        extraSkin = false
-        super.init()
-    }
-    
-    required init(name: String, strokes: Int, skins: Int, extraSkin: Bool) {
-        self.playerName = name
+    required init(uid: String, strokes: Int, skins: Int, extraSkin: Bool) {
+        self.uid = uid
         self.strokes = strokes
         self.skins = skins
         self.extraSkin = extraSkin
@@ -55,7 +47,7 @@ class PlayerScore: NSObject, FirestoreConverter, Codable {
     // MARK: - FirestoreConverter
     func getFirestoreData() -> [String : Any] {
         return [
-            "playerName" : playerName,
+            "uid" : uid,
             "strokes" : strokes,
             "skins" : skins,
             "extraSkin" : extraSkin
@@ -65,7 +57,7 @@ class PlayerScore: NSObject, FirestoreConverter, Codable {
     // Converts firestore data to a player score object
     func convertFirestoreToSelf(firestoreData: [String : Any]) -> Self {
         return Self.init(
-            name: firestoreData["playerName"] as! String,
+            uid: firestoreData["uid"] as! String,
             strokes: firestoreData["strokes"] as! Int,
             skins: firestoreData["skins"] as! Int,
             extraSkin: firestoreData["extraSkin"] as! Bool

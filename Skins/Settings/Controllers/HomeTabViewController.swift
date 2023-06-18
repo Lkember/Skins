@@ -9,8 +9,7 @@
 import Foundation
 import UIKit
 
-class HomeTabViewController: UITabBarController, SignInPassback, GameCallback {
-    
+class HomeTabViewController: UITabBarController, SignInPassback, GolfGameCallback {
     
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     var liveGame: GolfGame?
@@ -51,10 +50,10 @@ class HomeTabViewController: UITabBarController, SignInPassback, GameCallback {
         
     }
     
-    // MARK: - GameCallback
-    func createNewGame(golfers: [String]) {
+    // MARK: - GolfGameCallback
+    func createNewGame(golfers: [Player]) {
         print("new game created")
-        liveGame = GolfGame.init(names: golfers)
+        liveGame = GolfGame(players: golfers)
         self.viewDidLoad()
     }
     
@@ -64,5 +63,21 @@ class HomeTabViewController: UITabBarController, SignInPassback, GameCallback {
     
     func getLiveGame() -> GolfGame? {
         return self.liveGame
+    }
+    
+    func endGame() {
+        if (liveGame != nil) {
+            liveGame!.summarizeHoles(startNextHole: false)
+            appDelegate.user!.stats.writeNewGame(game: liveGame!)
+            self.liveGame = nil
+        }
+    }
+    
+    func updateCurrentGame(game: GolfGame) {
+        liveGame = game
+    }
+
+    func updateHoles(startNextHole: Bool = false) {
+        liveGame?.summarizeHoles(startNextHole: startNextHole)
     }
 }

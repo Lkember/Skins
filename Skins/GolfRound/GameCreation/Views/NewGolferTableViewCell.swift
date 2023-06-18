@@ -9,6 +9,7 @@
 import UIKit
 
 class NewGolferTableViewCell: UITableViewCell, NewGolferCell {
+    
     @IBOutlet weak var golferLabel: UILabel!
     @IBOutlet weak var nameField: UITextField!
     
@@ -22,15 +23,12 @@ class NewGolferTableViewCell: UITableViewCell, NewGolferCell {
 
         // Configure the view for the selected state
     }
-    
+
     func setGolferNumber(_ num: Int) {
-        golferLabel.text = "Golfer #\(num)"
+        golferLabel.text = "Player #\(num)"
     }
     
-    func getGolferName() -> String {
-        if (nameField.text != nil) {
-            return nameField.text!
-        }
-        return ""
+    func getGolfer() -> Player {
+        return Player(uid: nil, name: nameField.text ?? "Player")
     }
 }

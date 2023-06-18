@@ -12,6 +12,7 @@ class HolePageViewController: UIPageViewController , UIPageViewControllerDataSou
     
     var holeScoreHelperVC: HoleScoreHelperViewController?
     var game: GolfGame = GolfGame.init()
+    var golfGameCallback: GolfGameCallback?
     var currIndex: Int = 0
     
     // MARK: - Views
@@ -28,7 +29,7 @@ class HolePageViewController: UIPageViewController , UIPageViewControllerDataSou
             let holeVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "HoleScoreViewController") as! HoleScoreViewController
             holeVC.updateHole(hole: lastHole)
             holeVC.titlePassback = holeScoreHelperVC
-            holeVC.golfGameCallback = game
+            holeVC.golfGameCallback = golfGameCallback
             
             setViewControllers([holeVC], direction: .forward, animated: true, completion: nil)
         }
@@ -45,7 +46,7 @@ class HolePageViewController: UIPageViewController , UIPageViewControllerDataSou
         
         holeVC.updateHole(hole: game.holes.first!)
         holeVC.titlePassback = holeScoreHelperVC
-        holeVC.golfGameCallback = game
+        holeVC.golfGameCallback = golfGameCallback
 
         return holeVC
     }
@@ -70,7 +71,7 @@ class HolePageViewController: UIPageViewController , UIPageViewControllerDataSou
                 
                 holeVC.updateHole(hole: game.holes.last!)
                 holeVC.titlePassback = holeScoreHelperVC
-                holeVC.golfGameCallback = game
+                holeVC.golfGameCallback = golfGameCallback
                 
                 self.setViewControllers([holeVC], direction: .forward, animated: true, completion: nil)
             }
@@ -93,7 +94,7 @@ class HolePageViewController: UIPageViewController , UIPageViewControllerDataSou
                 
                 holeVC.updateHole(hole: game.holes[index])
                 holeVC.titlePassback = holeScoreHelperVC
-                holeVC.golfGameCallback = game
+                holeVC.golfGameCallback = golfGameCallback
                 
                 return holeVC
             }
@@ -109,7 +110,7 @@ class HolePageViewController: UIPageViewController , UIPageViewControllerDataSou
                 holeVC.updateHole(hole: game.holes[(index+1) % game.holes.count])
                 
                 holeVC.titlePassback = holeScoreHelperVC
-                holeVC.golfGameCallback = game
+                holeVC.golfGameCallback = golfGameCallback
                 
                 return holeVC
             }

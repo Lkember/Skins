@@ -159,9 +159,9 @@ class ScoresheetViewLayout: UICollectionViewLayout {
         switch columnIndex {
         case 0:
             
-            for golfer in self.game.holes.first!.golfers {
-                if (golfer.playerName.count > text.count) {
-                    text = golfer.playerName
+            for golfer in self.game.players {
+                if (golfer.name.count > text.count) {
+                    text = golfer.name
                 }
             }
             

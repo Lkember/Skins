@@ -9,7 +9,9 @@
 import UIKit
 
 class InvitedGolferTableViewCell: UITableViewCell, NewGolferCell {
-    var golferName: String = ""
+    
+    var player: Player?
+    
     @IBOutlet weak var inviteActivityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var golferNameLabel: UILabel!
     @IBOutlet weak var uninviteUserButton: UIButton!
@@ -29,17 +31,31 @@ class InvitedGolferTableViewCell: UITableViewCell, NewGolferCell {
         // TODO
     }
     
-    func updateAsUser() {
+    private func updateAsUser() {
         inviteActivityIndicator.isHidden = true
         uninviteUserButton.isHidden = true
     }
     
-    func setGolferName(_ name: String) {
-        golferNameLabel.text = name
+    func setGolfer(name: String, uid: String?) {
+        self.player = Player(uid: uid, name: name)
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        self.golferNameLabel.text = name
+        
+        // If this is the user, then remove the uninvite button
+        if (uid != nil && appDelegate.user?.uid == uid) {
+            updateAsUser()
+            
+            self.golferNameLabel.text = "\(name) (you)"
+        }
     }
     
     func getGolferName() -> String {
-        return golferNameLabel.text ?? ""
+        return player?.name ?? ""
+    }
+    
+    func getGolfer() -> Player {
+        return player!
     }
     
 }

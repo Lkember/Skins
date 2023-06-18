@@ -8,15 +8,15 @@
 
 import UIKit
 
-protocol NewGolferCell {
-    func getGolferName() -> String
+protocol NewGolferCell: UITableViewCell {
+    func getGolfer() -> Player
 }
 
 class NewGameViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
     
-    var golfers: [UITableViewCell] = []
+    var golferCells: [NewGolferCell] = []
     var numGolfersSelected: Int = 4
-    var passbackDelegate: GameCallback?
+    var passbackDelegate: GolfGameCallback?
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     @IBOutlet weak var golferTableView: UITableView!
     @IBOutlet weak var oneButton: UIButton!
@@ -49,19 +49,17 @@ class NewGameViewController: UIViewController, UITableViewDelegate, UITableViewD
     // MARK: - Create Game
     // Create new game, and then dismiss view controller
     @IBAction func createGameClicked(_ sender: Any) {
-        var names: [String] = []
-        for golfer in golfers {
-            if let golfer = golfer as? NewGolferCell {
-                names.append(golfer.getGolferName())
-            }
+        var players: [Player] = []
+        for golfer in golferCells {
+            players.append(golfer.getGolfer())
         }
         
+        self.passbackDelegate?.liveGame?.players = players
+        
         let tabBarController = self.tabBarController
-        print("1")
-        if (tabBarController is GameCallback) {
-            print("2")
-            let gameCallback = tabBarController as! GameCallback
-            gameCallback.createNewGame(golfers: names)
+        if (tabBarController is GolfGameCallback) {
+            let gameCallback = tabBarController as! GolfGameCallback
+            gameCallback.createNewGame(golfers: players)
         }
 //        passbackDelegate?.createNewGame(golfers: names)
 //        dismiss(animated: true, completion: nil)
@@ -70,9 +68,12 @@ class NewGameViewController: UIViewController, UITableViewDelegate, UITableViewD
     func setupView() {
         if (appDelegate.user != nil) {
             let newGolfer = golferTableView.dequeueReusableCell(withIdentifier: "InvitedGolferTableViewCell") as! InvitedGolferTableViewCell
-            newGolfer.setGolferName(appDelegate.user?.displayName ?? "You")
-            newGolfer.updateAsUser()
-            golfers.append(newGolfer)
+            
+            newGolfer.setGolfer(
+                name: appDelegate.user?.displayName ?? "You",
+                uid: appDelegate.user?.uid
+            )
+            golferCells.append(newGolfer)
         }
         
         addNewGolfers()
@@ -81,44 +82,27 @@ class NewGameViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     // MARK: - TableUpdater
     @IBAction func oneGolferSelected(_ sender: Any) {
-        numGolfersSelected = 1
-        
-        if (golfers.count > numGolfersSelected) {
-            removeExcessGolfers()
-        }
-        else if (golfers.count < numGolfersSelected) {
-            addNewGolfers()
-        }
-        updateButtonSelection()
+        updateGolferSelected(1)
     }
     
     @IBAction func twoGolfersSelected(_ sender: Any) {
-        numGolfersSelected = 2
-        
-        if (golfers.count > numGolfersSelected) {
-            removeExcessGolfers()
-        }
-        else if (golfers.count < numGolfersSelected) {
-            addNewGolfers()
-        }
-        updateButtonSelection()
+        updateGolferSelected(2)
     }
     
     @IBAction func threeGolfersSelected(_ sender: Any) {
-        numGolfersSelected = 3
-        if (golfers.count > numGolfersSelected) {
-            removeExcessGolfers()
-        }
-        else if (golfers.count < numGolfersSelected) {
-            addNewGolfers()
-        }
-        updateButtonSelection()
+        updateGolferSelected(3)
     }
     
     @IBAction func fourGolfersSelected(_ sender: Any) {
-        numGolfersSelected = 4
-        
-        if (golfers.count < numGolfersSelected) {
+        updateGolferSelected(4)
+    }
+    
+    func updateGolferSelected(_ numGolfers: Int) {
+        numGolfersSelected = numGolfers
+        if (golferCells.count > numGolfersSelected) {
+            removeExcessGolfers()
+        }
+        else if (golferCells.count < numGolfersSelected) {
             addNewGolfers()
         }
         updateButtonSelection()
@@ -127,20 +111,12 @@ class NewGameViewController: UIViewController, UITableViewDelegate, UITableViewD
     // MARK: - Golfer Helper
     
     func removeExcessGolfers() {
-        var removeCount = golfers.count - numGolfersSelected
-        if (removeCount == 0) {
+        if (golferCells.count - numGolfersSelected == 0) {
             return
         }
         
-        for i in (0..<golfers.count).reversed() {
-            if let _ = golfers[i] as? NewGolferTableViewCell {
-                golfers.remove(at: i)
-                removeCount -= 1
-                
-                if (removeCount <= 0) {
-                    break
-                }
-            }
+        for i in (numGolfersSelected..<golferCells.count).reversed() {
+            golferCells.remove(at: i)
         }
             
 //            let indexPath = IndexPath.init(row: golfers.count-1, section: 0)
@@ -150,14 +126,15 @@ class NewGameViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func addNewGolfers() {
-        let diff = numGolfersSelected - golfers.count
+        let diff = numGolfersSelected - golferCells.count
         if (diff > 0) {
             for _ in 0..<diff {
                 let newGolfer = golferTableView.dequeueReusableCell(withIdentifier: "NewGolferTableViewCell") as! NewGolferTableViewCell
-                newGolfer.setGolferNumber(golfers.count+1)
+                newGolfer.setGolferNumber(golferCells.count+1)
+                newGolfer.nameField.text = ""
                 newGolfer.nameField.delegate = self
                 
-                golfers.append(newGolfer)
+                golferCells.append(newGolfer)
                 
     //            let indexPath = IndexPath.init(row: golfers.count-1, section: 0)
     //            self.golferTableView.insertRows(at: [indexPath], with: UITableView.RowAnimation.left)
@@ -196,14 +173,11 @@ class NewGameViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     // MARK: - UITableViewDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (section == 0) {
-            return numGolfersSelected
-        }
-        return 1
+        return numGolfersSelected
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return golfers[indexPath.row]
+        return golferCells[indexPath.row]
     }
     
     // MARK: - UITextFieldDelegate

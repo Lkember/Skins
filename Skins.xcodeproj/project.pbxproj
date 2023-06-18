@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		B21F344F2A2724DA00B9B2A4 /* PreviousGamesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21F344E2A2724DA00B9B2A4 /* PreviousGamesTableViewCell.swift */; };
+		B21F34512A2C39D500B9B2A4 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = B21F34502A2C39D500B9B2A4 /* Player.swift */; };
 		B2229A47242C32070081F4B7 /* Stats.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2229A46242C32070081F4B7 /* Stats.swift */; };
 		B2229A49242C366B0081F4B7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B2229A48242C366B0081F4B7 /* GoogleService-Info.plist */; };
 		B2229A4A242C366B0081F4B7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B2229A48242C366B0081F4B7 /* GoogleService-Info.plist */; };
@@ -28,7 +29,6 @@
 		B23C1F0923FBBC1C00B7308A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B23C1F0823FBBC1C00B7308A /* Assets.xcassets */; };
 		B23C1F0C23FBBC1C00B7308A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B23C1F0A23FBBC1C00B7308A /* LaunchScreen.storyboard */; };
 		B23C1F1723FBBC1C00B7308A /* SkinsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B23C1F1623FBBC1C00B7308A /* SkinsTests.swift */; };
-		B23C1F2223FBBD5900B7308A /* StartUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B23C1F2123FBBD5900B7308A /* StartUpViewController.swift */; };
 		B26AB396241FE226008DCC65 /* ScoresheetCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B26AB395241FE226008DCC65 /* ScoresheetCollectionViewCell.swift */; };
 		B27A9E6A2412E6FE008AFD96 /* HolePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27A9E692412E6FE008AFD96 /* HolePageViewController.swift */; };
 		B285E6E8245DF02D00FE41D6 /* StatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B285E6E7245DF02D00FE41D6 /* StatsViewController.swift */; };
@@ -61,6 +61,7 @@
 		2116FDFB249CECA37E5C749A /* Pods_SkinsTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SkinsTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		73740C9CAEA496D6A779C2A5 /* Pods-Skins.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Skins.debug.xcconfig"; path = "Target Support Files/Pods-Skins/Pods-Skins.debug.xcconfig"; sourceTree = "<group>"; };
 		B21F344E2A2724DA00B9B2A4 /* PreviousGamesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviousGamesTableViewCell.swift; sourceTree = "<group>"; };
+		B21F34502A2C39D500B9B2A4 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		B2229A46242C32070081F4B7 /* Stats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stats.swift; sourceTree = "<group>"; };
 		B2229A48242C366B0081F4B7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B2282296247CB3F000C6CCBF /* InvitedGolferTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvitedGolferTableViewCell.swift; sourceTree = "<group>"; };
@@ -84,7 +85,6 @@
 		B23C1F1223FBBC1C00B7308A /* SkinsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SkinsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B23C1F1623FBBC1C00B7308A /* SkinsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkinsTests.swift; sourceTree = "<group>"; };
 		B23C1F1823FBBC1C00B7308A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B23C1F2123FBBD5900B7308A /* StartUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartUpViewController.swift; sourceTree = "<group>"; };
 		B26AB395241FE226008DCC65 /* ScoresheetCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoresheetCollectionViewCell.swift; sourceTree = "<group>"; };
 		B27A9E692412E6FE008AFD96 /* HolePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HolePageViewController.swift; sourceTree = "<group>"; };
 		B285E6E7245DF02D00FE41D6 /* StatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewController.swift; sourceTree = "<group>"; };
@@ -163,6 +163,7 @@
 				B232B9F9241000BC00309FD9 /* GolfGame.swift */,
 				B232B9FF241001D600309FD9 /* PlayerScore.swift */,
 				B232BA012410021100309FD9 /* Hole.swift */,
+				B21F34502A2C39D500B9B2A4 /* Player.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -338,7 +339,6 @@
 			children = (
 				B238AEC0244949230082860E /* AccountViewController.swift */,
 				B2F498B92450D73600FB13FE /* SettingsViewController.swift */,
-				B23C1F2123FBBD5900B7308A /* StartUpViewController.swift */,
 				B29AB3D2296A70AC00C69FE4 /* HomeTabViewController.swift */,
 			);
 			path = Controllers;
@@ -541,7 +541,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				B23C1F0023FBBC1B00B7308A /* AppDelegate.swift in Sources */,
-				B23C1F2223FBBD5900B7308A /* StartUpViewController.swift in Sources */,
 				B232B9FA241000BC00309FD9 /* GolfGame.swift in Sources */,
 				B2282297247CB3F000C6CCBF /* InvitedGolferTableViewCell.swift in Sources */,
 				B21F344F2A2724DA00B9B2A4 /* PreviousGamesTableViewCell.swift in Sources */,
@@ -551,6 +550,7 @@
 				B2F1689D248DE5E400B7A5DC /* FriendsListTableViewController.swift in Sources */,
 				B236FC69240B06150011BF05 /* NewGameViewController.swift in Sources */,
 				B2F498BA2450D73600FB13FE /* SettingsViewController.swift in Sources */,
+				B21F34512A2C39D500B9B2A4 /* Player.swift in Sources */,
 				B2F2A4392862F0ED00FDD630 /* SkinsUser.swift in Sources */,
 				B2229A47242C32070081F4B7 /* Stats.swift in Sources */,
 				B2336DCF240EDEB500482D80 /* GolferScoreTableViewCell.swift in Sources */,

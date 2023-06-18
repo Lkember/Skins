@@ -13,6 +13,8 @@ class GolferScoreTableViewCell: UITableViewCell, UITextFieldDelegate {
     @IBOutlet weak var numberOfStrokes: UILabel!
     @IBOutlet weak var numStrokesStepper: UIStepper!
     @IBOutlet weak var ldOrCTP: UISwitch!
+    
+    var player: Player?
     var callback: HoleScoreCallback?
     
     override func awakeFromNib() {
@@ -26,8 +28,9 @@ class GolferScoreTableViewCell: UITableViewCell, UITextFieldDelegate {
         // Configure the view for the selected state
     }
     
-    func updateCell(name: String, strokes: Int, extraSkin: Bool) {
-        golferName.text = name
+    func updateCell(golfer: Player, strokes: Int, extraSkin: Bool) {
+        player = golfer
+        golferName.text = golfer.name
         
         self.ldOrCTP.isOn = extraSkin
         numStrokesStepper.value = Double(strokes)

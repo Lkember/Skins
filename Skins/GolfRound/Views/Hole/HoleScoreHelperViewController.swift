@@ -17,9 +17,9 @@ protocol TitleUpdateCallback {
 }
 
 class HoleScoreHelperViewController: UIViewController, TitleUpdateCallback {
-    var passbackDelegate: GameCallback?
+    var passbackDelegate: GolfGameCallback?
     var pageControlCallback: PageControlCallback?
-    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    
     @IBOutlet weak var golfHoleView: UIView!
     
     override func viewDidLoad() {
@@ -38,24 +38,19 @@ class HoleScoreHelperViewController: UIViewController, TitleUpdateCallback {
     }
     
     @IBAction func newHoleTouched(_ sender: Any) {
-        self.passbackDelegate?.getLiveGame()?.summarizeHoles(nil, startNextGame: true)
+        self.passbackDelegate?.updateHoles(startNextHole: true)
         pageControlCallback?.PageCountChanged()
     }
     
     @IBAction func endGameTouched(_ sender: Any) {
-        let game = self.passbackDelegate?.getLiveGame()
+        self.passbackDelegate?.endGame()
         
-        if (game != nil) {
-            game!.summarizeHoles(nil, startNextGame: false)
-            appDelegate.user!.stats.writeNewGame(game: game!)
-            passbackDelegate?.gameIsFinished()
-            
-            _ = navigationController?.popViewController(animated: true)
-        }
+        // TODO - This probably doesn't work
+        _ = navigationController?.popViewController(animated: true)
     }
     
     @IBAction func viewScorecardTouched(_ sender: Any) {
-        self.passbackDelegate?.getLiveGame()?.summarizeHoles(nil, startNextGame: false)
+        self.passbackDelegate?.updateHoles(startNextHole: false)
     }
     
     // MARK: - UpdateTitleCallback
@@ -68,18 +63,20 @@ class HoleScoreHelperViewController: UIViewController, TitleUpdateCallback {
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (self.passbackDelegate == nil) {
-            self.passbackDelegate = self.tabBarController as? GameCallback
+            self.passbackDelegate = self.tabBarController as? GolfGameCallback
         }
         
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
         if let vc = segue.destination as? HolePageViewController {
-            vc.game = self.passbackDelegate!.getLiveGame()!
+            vc.game = self.passbackDelegate!.liveGame!
+            vc.golfGameCallback = self.passbackDelegate
+            
             self.pageControlCallback = vc
             vc.holeScoreHelperVC = self
         }
         else if let dvc = segue.destination as? ScoresheetViewController {
-            dvc.game = self.passbackDelegate!.getLiveGame()!
+            dvc.game = self.passbackDelegate!.liveGame!
         }
     }
 

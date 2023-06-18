@@ -42,7 +42,7 @@ class HoleScoreViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        golfGameCallback?.updateHole(hole: currHole)
+        golfGameCallback?.updateHoles(startNextHole: false)
     }
     
     func updateHole(hole: Hole) {
@@ -70,15 +70,19 @@ class HoleScoreViewController: UIViewController, UITableViewDelegate, UITableVie
     
     // MARK: - TableView
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return currHole.golfers.count
+        return self.golfGameCallback!.liveGame!.players.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellIdentifier = "GolferScoreTableViewCell"
         let cell = golferTableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath as IndexPath) as! GolferScoreTableViewCell
+        let golfer = self.golfGameCallback!.liveGame!.players[indexPath.row]
+        cell.updateCell(
+            golfer: golfer,
+            strokes: currHole.golfers[golfer.uid]!.strokes,
+            extraSkin: currHole.golfers[golfer.uid]!.extraSkin
+        )
         
-        let golfer = currHole.golfers[indexPath.row]
-        cell.updateCell(name: golfer.playerName, strokes: golfer.strokes, extraSkin: golfer.extraSkin)
         cell.callback = self
         return cell
     }
@@ -94,34 +98,26 @@ class HoleScoreViewController: UIViewController, UITableViewDelegate, UITableVie
     func extraSkinToggleChanged(cell: GolferScoreTableViewCell) {
         var indexPath = IndexPath.init(row: 0, section: 0)
         
-        for i in 0..<currHole.golfers.count {
+        for i in 0..<golfGameCallback!.liveGame!.players.count {
             indexPath.row = i
+            let player = golfGameCallback!.liveGame!.players[i]
             
             if let tCell = golferTableView.cellForRow(at: indexPath) as? GolferScoreTableViewCell {
                 if (tCell != cell) {
                     tCell.deselectExtraSkin()
-                    currHole.golfers[i].extraSkin = false
+                    
+                    currHole.golfers[player.uid]!.extraSkin = false
                 }
                 else {
-                    currHole.golfers[i].extraSkin = true
+                    currHole.golfers[player.uid]!.extraSkin = true
                 }
             }
         }
     }
     
     func strokesUpdated(cell: GolferScoreTableViewCell, strokes: Int) {
-        if let indexPath = golferTableView.indexPath(for: cell) {
-            currHole.golfers[indexPath.row].strokes = strokes
-        }
+        let player = cell.player
+        currHole.golfers[player!.uid]!.strokes = strokes
     }
     
-    
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        // Get the new view controller using segue.destination.
-//        // Pass the selected object to the new view controller.
-//    }
-
 }

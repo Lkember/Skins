@@ -28,15 +28,6 @@ class ScoresheetViewController: UIViewController, UICollectionViewDelegate, UICo
         layout.game = game
         scoresheetCollection.setCollectionViewLayout(layout, animated: false)
     }
-    
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-//    }
-    
 
     
     // MARK: - UICollectionView
@@ -65,15 +56,20 @@ class ScoresheetViewController: UIViewController, UICollectionViewDelegate, UICo
             }
         }
         else if (indexPath.row == 0) {
-            cell.label.text = "\(game.holes.first!.golfers[indexPath.section-1].playerName)"
+            cell.label.text = game.players[indexPath.section-1].name
+//            "\(game.holes.golfers[indexPath.section-1].playerName)"
             cell.backgroundColor = #colorLiteral(red: 0.818490684, green: 0.8186288476, blue: 0.818472445, alpha: 1)
         }
         else if (indexPath.row > game.holes.count) {
-            let summary = game.getTotals(indexPath.section-1)
+            let golfer = game.players[indexPath.section-1]
+            let summary = game.getTotalsForGolfer(golfer)
+//            let summary = game.getTotals(indexPath.section-1)
             cell.label.text = "\(summary.totalStrokes) (\(summary.totalSkins))"
         }
         else {
-            let golferScore = game.holes[indexPath.row-1].golfers[indexPath.section-1]
+            let golfer = game.players[indexPath.section-1]
+            let golferScore = game.holes[indexPath.row-1].golfers[golfer.uid]!
+//            let golferScore = game.holes[indexPath.row-1].golfers[indexPath.section-1]
             cell.label.text = "\(golferScore.strokes) (\(golferScore.skins))"
         }
         

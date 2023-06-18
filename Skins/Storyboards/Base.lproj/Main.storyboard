@@ -11,154 +11,6 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Start Up View Controller-->
-        <scene sceneID="tne-QT-ifu">
-            <objects>
-                <viewController id="BYZ-38-t0r" customClass="StartUpViewController" customModule="Skins" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9lR-5Z-Zbc">
-                                <rect key="frame" x="109.66666666666669" y="778" width="195" height="76"/>
-                                <color key="backgroundColor" systemColor="systemGreenColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="195" id="WwI-NM-oZS"/>
-                                    <constraint firstAttribute="height" constant="76" id="i9D-Is-1Z9"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                <state key="normal" title="Current Game">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <segue destination="4ED-EG-fcM" kind="show" id="2Fa-xE-9u6"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hvs-EJ-TSX">
-                                <rect key="frame" x="109.66666666666669" y="534" width="195" height="76"/>
-                                <color key="backgroundColor" systemColor="systemGreenColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="76" id="6Od-pI-8g9"/>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="195" id="7GP-NQ-O9k"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                <state key="normal" title="New Game">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="playButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="f3g-bu-8Rl"/>
-                                    <segue destination="R2f-py-wfI" kind="presentation" id="ub1-Xc-b4G"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sVS-bl-O89">
-                                <rect key="frame" x="109.66666666666669" y="412" width="195" height="76"/>
-                                <color key="backgroundColor" systemColor="systemGreenColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="195" id="Qb3-8I-jc6"/>
-                                    <constraint firstAttribute="height" constant="76" id="gor-H2-wbi"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                <state key="normal" title="Stats">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pgb-LS-R5O">
-                                <rect key="frame" x="109.66666666666669" y="656" width="195" height="76"/>
-                                <color key="backgroundColor" systemColor="systemGreenColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="195" id="9zm-LV-MKc"/>
-                                    <constraint firstAttribute="height" constant="76" id="Z22-Ue-Tyj"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                <state key="normal" title="Friends">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <segue destination="sfJ-fF-SGn" kind="show" id="Fvv-UA-hag"/>
-                                </connections>
-                            </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ec9-Mw-V0L">
-                                <rect key="frame" x="0.0" y="732" width="414" height="46"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vbv-cR-d5I">
-                                <rect key="frame" x="0.0" y="610" width="414" height="46"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TpN-FL-aGA">
-                                <rect key="frame" x="0.0" y="488" width="414" height="46"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" relation="lessThanOrEqual" priority="250" constant="46" id="Fr1-zN-Jxu"/>
-                                    <constraint firstAttribute="height" priority="99" constant="73.670000000000002" id="gxx-Co-3Vy"/>
-                                </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iYf-bb-lHV">
-                                <rect key="frame" x="8" y="254" width="398" height="150"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" relation="lessThanOrEqual" priority="100" constant="225" id="YCc-Hp-VOq"/>
-                                    <constraint firstAttribute="height" priority="250" constant="150" id="d6I-k0-cRA"/>
-                                </constraints>
-                            </view>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Skins Logo" translatesAutoresizingMaskIntoConstraints="NO" id="cGs-Ut-sPQ">
-                                <rect key="frame" x="15" y="108" width="384" height="230"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="230" id="i6w-OJ-vdh"/>
-                                </constraints>
-                            </imageView>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="hvs-EJ-TSX" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="03t-LS-VQi"/>
-                            <constraint firstItem="ec9-Mw-V0L" firstAttribute="top" secondItem="pgb-LS-R5O" secondAttribute="bottom" id="34k-oB-SmU"/>
-                            <constraint firstItem="pgb-LS-R5O" firstAttribute="top" secondItem="Vbv-cR-d5I" secondAttribute="bottom" id="4y1-zW-q2J"/>
-                            <constraint firstItem="ec9-Mw-V0L" firstAttribute="height" secondItem="TpN-FL-aGA" secondAttribute="height" priority="251" id="5YT-O7-Dyv"/>
-                            <constraint firstItem="TpN-FL-aGA" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="6jP-bn-8Pk"/>
-                            <constraint firstItem="TpN-FL-aGA" firstAttribute="top" secondItem="sVS-bl-O89" secondAttribute="bottom" id="84o-Ah-SQt"/>
-                            <constraint firstItem="Vbv-cR-d5I" firstAttribute="top" secondItem="hvs-EJ-TSX" secondAttribute="bottom" id="91Z-vQ-Akg"/>
-                            <constraint firstItem="ec9-Mw-V0L" firstAttribute="width" secondItem="TpN-FL-aGA" secondAttribute="width" id="BkP-75-YZG"/>
-                            <constraint firstItem="ec9-Mw-V0L" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Clc-ZD-rhq"/>
-                            <constraint firstItem="pgb-LS-R5O" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Dq3-lN-OIw"/>
-                            <constraint firstItem="iYf-bb-lHV" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="8" id="Ehh-Eq-w3j"/>
-                            <constraint firstItem="cGs-Ut-sPQ" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="HM5-Pv-nmF"/>
-                            <constraint firstItem="9lR-5Z-Zbc" firstAttribute="top" secondItem="ec9-Mw-V0L" secondAttribute="bottom" id="JqA-6f-t6z"/>
-                            <constraint firstItem="Vbv-cR-d5I" firstAttribute="height" secondItem="TpN-FL-aGA" secondAttribute="height" priority="252" id="LQB-6D-wyn"/>
-                            <constraint firstItem="sVS-bl-O89" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Rlk-mw-9mJ"/>
-                            <constraint firstItem="hvs-EJ-TSX" firstAttribute="top" secondItem="TpN-FL-aGA" secondAttribute="bottom" id="Ude-GB-mGN"/>
-                            <constraint firstItem="Vbv-cR-d5I" firstAttribute="width" secondItem="TpN-FL-aGA" secondAttribute="width" id="Vbc-8p-WaH"/>
-                            <constraint firstItem="TpN-FL-aGA" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="X6X-YU-kWf"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="9lR-5Z-Zbc" secondAttribute="bottom" constant="8" id="YoK-Gr-qpF"/>
-                            <constraint firstItem="sVS-bl-O89" firstAttribute="top" secondItem="iYf-bb-lHV" secondAttribute="bottom" constant="8" id="ZJr-Nm-zXT"/>
-                            <constraint firstItem="9lR-5Z-Zbc" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="d7C-E1-tz4"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="cGs-Ut-sPQ" secondAttribute="trailing" constant="15" id="dgn-gA-H8P"/>
-                            <constraint firstItem="cGs-Ut-sPQ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="15" id="g5N-zJ-5SW"/>
-                            <constraint firstItem="Vbv-cR-d5I" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="gKA-Em-Uyi"/>
-                            <constraint firstItem="TpN-FL-aGA" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="i8C-6G-3hT"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="iYf-bb-lHV" secondAttribute="trailing" constant="8" id="srP-Sd-3c8"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" id="Pkl-og-gai">
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="2jm-y4-lvQ">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="oZD-ry-Gsj">
-                                <rect key="frame" x="372.33333333333331" y="11.666666666666666" width="21.666666666666686" height="20.666666666666671"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="tintColor" systemColor="darkTextColor"/>
-                                <state key="normal" backgroundImage="gear" catalog="system"/>
-                            </button>
-                        </barButtonItem>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="currentGameButton" destination="9lR-5Z-Zbc" id="yr0-bj-a1v"/>
-                        <outlet property="playButton" destination="hvs-EJ-TSX" id="Ivx-hx-Lch"/>
-                        <outlet property="statsButton" destination="sVS-bl-O89" id="7sT-cW-6i4"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-778" y="138"/>
-        </scene>
         <!--Friends-->
         <scene sceneID="heF-Lw-qCY">
             <objects>
@@ -660,7 +512,6 @@
                                         </state>
                                         <connections>
                                             <action selector="oneGolferSelected:" destination="R2f-py-wfI" eventType="touchUpInside" id="pXT-bi-8zH"/>
-                                            <action selector="playButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="X9B-wR-sOl"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lOd-kE-zI9">
@@ -674,7 +525,6 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
-                                            <action selector="playButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="DWd-Wa-PKp"/>
                                             <action selector="threeGolfersSelected:" destination="R2f-py-wfI" eventType="touchUpInside" id="VfS-V9-8sb"/>
                                         </connections>
                                     </button>
@@ -689,7 +539,6 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
-                                            <action selector="playButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="dhA-6y-z33"/>
                                             <action selector="twoGolfersSelected:" destination="R2f-py-wfI" eventType="touchUpInside" id="WW5-52-6GC"/>
                                         </connections>
                                     </button>
@@ -705,7 +554,6 @@
                                         </state>
                                         <connections>
                                             <action selector="fourGolfersSelected:" destination="R2f-py-wfI" eventType="touchUpInside" id="Skw-ZQ-cbN"/>
-                                            <action selector="playButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="nVJ-ZM-dib"/>
                                         </connections>
                                     </button>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="oWz-6d-F7j">
@@ -821,7 +669,6 @@
                                         </state>
                                         <connections>
                                             <action selector="createGameClicked:" destination="R2f-py-wfI" eventType="touchUpInside" id="3od-5T-9at"/>
-                                            <action selector="playButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="9bI-VU-M4N"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -1137,24 +984,6 @@
             </objects>
             <point key="canvasLocation" x="3381" y="1242"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="rT5-jl-Aa2">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="l08-ju-2Wh" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="5I4-1v-1Kx">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="uos-Lm-DlQ"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="KBd-A7-lhK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-1541" y="138"/>
-        </scene>
         <!--Home Tab View Controller-->
         <scene sceneID="SCH-dU-MfN">
             <objects>
@@ -1177,27 +1006,17 @@
             <point key="canvasLocation" x="-459" y="-652"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="ceI-ia-7rc"/>
-        <segue reference="EO4-OE-5RU"/>
-        <segue reference="rFs-jY-UYB"/>
-    </inferredMetricsTieBreakers>
     <resources>
-        <image name="Skins Logo" width="1044" height="952"/>
-        <image name="book" catalog="system" width="32" height="32"/>
-        <image name="book.fill" catalog="system" width="32" height="32"/>
-        <image name="flag" catalog="system" width="32" height="32"/>
-        <image name="flag.fill" catalog="system" width="32" height="32"/>
-        <image name="gear" catalog="system" width="32" height="32"/>
-        <image name="gearshape" catalog="system" width="32" height="32"/>
-        <image name="gearshape.fill" catalog="system" width="32" height="32"/>
-        <image name="person" catalog="system" width="32" height="32"/>
-        <image name="person.fill" catalog="system" width="32" height="32"/>
-        <image name="plus.circle" catalog="system" width="32" height="32"/>
-        <image name="plus.circle.fill" catalog="system" width="32" height="32"/>
-        <systemColor name="darkTextColor">
-            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
+        <image name="book" catalog="system" width="128" height="99"/>
+        <image name="book.fill" catalog="system" width="128" height="95"/>
+        <image name="flag" catalog="system" width="128" height="121"/>
+        <image name="flag.fill" catalog="system" width="128" height="121"/>
+        <image name="gearshape" catalog="system" width="128" height="121"/>
+        <image name="gearshape.fill" catalog="system" width="128" height="121"/>
+        <image name="person" catalog="system" width="128" height="117"/>
+        <image name="person.fill" catalog="system" width="128" height="120"/>
+        <image name="plus.circle" catalog="system" width="128" height="121"/>
+        <image name="plus.circle.fill" catalog="system" width="128" height="121"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

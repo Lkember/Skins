@@ -20,59 +20,54 @@ struct GolfSummary {
 }
 
 protocol GolfGameCallback {
+    var liveGame: GolfGame? { get set }
+    
+    func createNewGame(golfers: [Player])
     func updateCurrentGame(game: GolfGame)
-    func updateHole(hole: Hole)
-    func updateAllHoles()
+    func updateHoles(startNextHole: Bool)
+    func endGame()
 }
 
-class GolfGame: NSObject, GolfGameCallback, FirestoreConverter, Codable {
+class GolfGame: NSObject, FirestoreConverter, Codable {
     @DocumentID var gameID: String?
     var holes: [Hole] = []
+    var players: [Player] = []
     var date: Date
     
     override init() {
         date = Date()
     }
     
-    init(names: [String]) {
-        holes.append(Hole.init(holeNumber: 1, players: names))
+    init(players: [Player]) {
+        self.players = players
+        holes.append(Hole.init(holeNumber: 1, players: players))
         date = Date()
-        print("holes.count = \(holes.count)")
     }
     
     // MARK: - Holes
-    // Summarize all holes starting at holeNumber
-    // If hole number is nil, then it will summarize all holes
-    func summarizeHoles(_ holeNumber: Int?, startNextGame: Bool) {
-        var prevHole: Hole?
-        if (holeNumber ?? 1 != 1) {
-            prevHole = holes[holeNumber! - 2]
-        }
-        
-        for i in ((holeNumber ?? 1) - 1)..<holes.count {
+    // Summarize all holes
+    func summarizeHoles(startNextHole: Bool) {
+        for i in 0..<holes.count {
             let hole = holes[i]
-            
-            if (prevHole != nil && prevHole!.shouldCarryOver()) {
-                hole.carryOverSkins = prevHole!.carryOverSkins + 1
-            }
-            else {
+            if (i == 0) {
                 hole.carryOverSkins = 0
             }
+            else if (i != 0 && holes[i-1].shouldSkinCarryOver()) {
+                hole.carryOverSkins = holes[i-1].carryOverSkins + 1
+            }
             
-            hole.awardSkins()
-            prevHole = hole
+            hole.awardSkinsForHole()
         }
         
-        if (startNextGame) {
+        if (startNextHole) {
             self.startNextHole()
         }
     }
     
     func startNextHole() {
-        print("\(holes.count)")
-        let nextHole = Hole(holeNumber: holes.count + 1, players: holes.last!.getListOfPlayers())
+        let nextHole = Hole(holeNumber: holes.count + 1, players: self.players)
         
-        if (holes.last?.shouldCarryOver() ?? false) {
+        if (holes.last?.shouldSkinCarryOver() ?? false) {
             nextHole.carryOverSkins = holes.last!.carryOverSkins + 1
         }
         
@@ -81,36 +76,24 @@ class GolfGame: NSObject, GolfGameCallback, FirestoreConverter, Codable {
     
     func addNextHole() {
         if (holes.first != nil) {
-            holes.append(Hole.init(holeNumber: holes.last!.holeNumber + 1, players: holes.last!.getListOfPlayers()))
+            holes.append(
+                Hole.init(holeNumber: holes.last!.holeNumber + 1, players: self.players)
+            )
         }
     }
     
-    func getTotals(_ golfer: Int) -> GolfSummary {
+    func getTotalsForGolfer(_ golfer: Player) -> GolfSummary {
         var strokes = 0
         var skins = 0
-        
+
         for hole in holes {
-            strokes += hole.golfers[golfer].strokes
-            skins += hole.golfers[golfer].skins
+            strokes += hole.golfers[golfer.uid]!.strokes
+            skins += hole.golfers[golfer.uid]!.skins
         }
-        
+
         return GolfSummary(strokes, skins)
     }
     
-    // MARK: - GolfGameCallback
-    func updateCurrentGame(game: GolfGame) {
-        holes = game.holes
-    }
-    
-    func updateHole(hole: Hole) {
-        let index = hole.holeNumber
-        holes[index-1] = hole
-        summarizeHoles(hole.holeNumber, startNextGame: false)
-    }
-    
-    func updateAllHoles() {
-        summarizeHoles(nil, startNextGame: false)
-    }
     
     // MARK: - FirestoreConverter
     func getFirestoreData() -> [String : Any] {
