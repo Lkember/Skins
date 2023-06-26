@@ -46,7 +46,6 @@ class HomeTabViewController: UITabBarController, SignInPassback, GolfGameCallbac
     // MARK: - SignInPassback
     func userSignedIn() {
         // Nothing to do
-        
     }
     
     // MARK: - GolfGameCallback

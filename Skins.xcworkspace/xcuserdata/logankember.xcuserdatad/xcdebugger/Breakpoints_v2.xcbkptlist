@@ -152,14 +152,14 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "31ACFF1A-390A-4D54-A75F-207B75C13CA0"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Skins/GolfRound/GameCreation/Controllers/NewGameViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "90"
-            endingLineNumber = "90"
+            startingLineNumber = "78"
+            endingLineNumber = "78"
             landmarkName = "addNewGolfer()"
             landmarkType = "7">
          </BreakpointContent>
@@ -174,8 +174,8 @@
             filePath = "Skins/Settings/Controllers/HomeTabViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "64"
-            endingLineNumber = "64"
+            startingLineNumber = "63"
+            endingLineNumber = "63"
             landmarkName = "endGame()"
             landmarkType = "7">
          </BreakpointContent>

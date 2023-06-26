@@ -34,16 +34,6 @@ class NewGameViewController: UIViewController, UITableViewDelegate, UITableViewD
         startGameButton.layer.cornerRadius = 5
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-    
     // MARK: - Create Game
     // Create new game, and then dismiss view controller
     @IBAction func createGameClicked(_ sender: Any) {
@@ -58,8 +48,6 @@ class NewGameViewController: UIViewController, UITableViewDelegate, UITableViewD
             let gameCallback = tabBarController as! GolfGameCallback
             gameCallback.createNewGame(golfers: players)
         }
-//        passbackDelegate?.createNewGame(golfers: names)
-//        dismiss(animated: true, completion: nil)
     }
     
     func setupView() {
@@ -93,7 +81,6 @@ class NewGameViewController: UIViewController, UITableViewDelegate, UITableViewD
     // MARK: - UITableViewDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return golferCells.count + 1
-//        return numGolfersSelected + 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
