@@ -24,11 +24,10 @@ class StatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         super.viewDidLoad()
         
         gameListTableView.delegate = self
-        print("view did load")
+        loadPrevGames()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-//        self.navigationController?.setNavigationBarHidden(false, animated: true)
+    func loadPrevGames() {
         self.appDelegate.user?.loadLastTenGames() { (result, error) in
             self.prevGamesLoaded(result: result, error: error)
         }

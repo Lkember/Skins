@@ -26,6 +26,7 @@ class FirebaseHelper: NSObject {
     static let usersCollection = "Users"
     static let gameCollection = "Games"
     static let friendsList = "Friends"
+    static let liveGame = "LiveGame"
     var db: Firestore!
     
     override init() {

@@ -17,6 +17,10 @@ class HomeTabViewController: UITabBarController, SignInPassback, GolfGameCallbac
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        appDelegate.user?.stats.loadLiveGame() { (result, error) in
+            self.liveGameLoaded(result: result, error: error)
+        }
+        
         // Only show the live game tab if we have a live game
         if (liveGame == nil) {
             self.setViewControllers([
@@ -80,4 +84,18 @@ class HomeTabViewController: UITabBarController, SignInPassback, GolfGameCallbac
     func updateHoles(startNextHole: Bool = false) {
         liveGame?.summarizeHoles(startNextHole: startNextHole)
     }
+    
+    // MARK: - Live Game Retrieval Completion
+    func liveGameLoaded(result: GolfGame?, error: Error?) {
+        if (error != nil) {
+            // TODO - Handle Error
+            print("Error retrieving data")
+        }
+        
+        if (result != nil) {
+            self.liveGame = result
+            self.viewDidLoad()
+        }
+    }
+    
 }

@@ -74,4 +74,39 @@ struct Stats {
         }
     }
     
+    
+    func loadLiveGame(completion: @escaping (GolfGame?, Error?) -> Void) {
+        print("Loading live game? \(appDelegate.user?.isSignedIn() ?? false)")
+        if (appDelegate.user?.isSignedIn() ?? false) {
+            let docRef = appDelegate.firebase!.db.collection(FirebaseHelper.collection)
+                .document(appDelegate.user!.uid)
+                .collection(FirebaseHelper.liveGame)
+            
+            docRef.getDocuments() { (querySnapshot, err) in
+                DispatchQueue.main.async() {
+                    if let err = err {
+                        print("Error getting documents: \(err)")
+                        completion(nil, err)
+                    }
+                    
+                    do {
+                        if (querySnapshot!.documents.count == 0) {
+                            completion(nil, nil)
+                        }
+                        
+                        
+                        let doc = querySnapshot!.documents[0]
+                        let game = try doc.data(as: GolfGame.self)
+                        
+                        completion(game, nil)
+                        
+                    } catch let err {
+                        print("error converting to golf game - \(err)")
+                        completion(nil, err)
+                    }
+                }
+            }
+        }
+    }
+    
 }
