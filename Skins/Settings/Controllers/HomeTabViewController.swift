@@ -29,7 +29,6 @@ class HomeTabViewController: UITabBarController, SignInPassback, GolfGameCallbac
         else {
             self.setViewControllers([
                 self.storyboard!.instantiateViewController(withIdentifier: "StatsViewController"),
-                self.storyboard!.instantiateViewController(withIdentifier: "NewGameViewController"),
                 self.storyboard!.instantiateViewController(withIdentifier: "HoleScoreHelperViewController"),
                 self.storyboard!.instantiateViewController(withIdentifier: "FriendsListTableViewController"),
                 self.storyboard!.instantiateViewController(withIdentifier: "SettingsViewController")
@@ -57,10 +56,6 @@ class HomeTabViewController: UITabBarController, SignInPassback, GolfGameCallbac
         self.viewDidLoad()
     }
     
-    func gameIsFinished() {
-        liveGame = nil
-    }
-    
     func getLiveGame() -> GolfGame? {
         return self.liveGame
     }
@@ -71,6 +66,12 @@ class HomeTabViewController: UITabBarController, SignInPassback, GolfGameCallbac
             appDelegate.user!.stats.writeNewGame(game: liveGame!)
             self.liveGame = nil
         }
+        
+        // Go to the stats view
+        self.selectedIndex = 0
+        
+        // Update tabs
+        self.viewDidLoad()
     }
     
     func updateCurrentGame(game: GolfGame) {

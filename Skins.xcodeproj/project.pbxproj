@@ -33,6 +33,7 @@
 		B27A9E6A2412E6FE008AFD96 /* HolePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27A9E692412E6FE008AFD96 /* HolePageViewController.swift */; };
 		B285E6E8245DF02D00FE41D6 /* StatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B285E6E7245DF02D00FE41D6 /* StatsViewController.swift */; };
 		B29AB3D3296A70AC00C69FE4 /* HomeTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29AB3D2296A70AC00C69FE4 /* HomeTabViewController.swift */; };
+		B2A2F3282A412B1800F16A72 /* AddNewPlayerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A2F3272A412B1800F16A72 /* AddNewPlayerTableViewCell.swift */; };
 		B2F1689D248DE5E400B7A5DC /* FriendsListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F1689C248DE5E400B7A5DC /* FriendsListTableViewController.swift */; };
 		B2F1689F248DEC4A00B7A5DC /* FirebaseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F1689E248DEC4A00B7A5DC /* FirebaseHelper.swift */; };
 		B2F168A32490879400B7A5DC /* PendingFriendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F168A22490879400B7A5DC /* PendingFriendTableViewCell.swift */; };
@@ -89,6 +90,7 @@
 		B27A9E692412E6FE008AFD96 /* HolePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HolePageViewController.swift; sourceTree = "<group>"; };
 		B285E6E7245DF02D00FE41D6 /* StatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewController.swift; sourceTree = "<group>"; };
 		B29AB3D2296A70AC00C69FE4 /* HomeTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabViewController.swift; sourceTree = "<group>"; };
+		B2A2F3272A412B1800F16A72 /* AddNewPlayerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewPlayerTableViewCell.swift; sourceTree = "<group>"; };
 		B2F1689C248DE5E400B7A5DC /* FriendsListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListTableViewController.swift; sourceTree = "<group>"; };
 		B2F1689E248DEC4A00B7A5DC /* FirebaseHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseHelper.swift; sourceTree = "<group>"; };
 		B2F168A22490879400B7A5DC /* PendingFriendTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PendingFriendTableViewCell.swift; sourceTree = "<group>"; };
@@ -321,6 +323,7 @@
 			children = (
 				B236FC66240B04EF0011BF05 /* NewGolferTableViewCell.swift */,
 				B2282296247CB3F000C6CCBF /* InvitedGolferTableViewCell.swift */,
+				B2A2F3272A412B1800F16A72 /* AddNewPlayerTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -551,6 +554,7 @@
 				B236FC69240B06150011BF05 /* NewGameViewController.swift in Sources */,
 				B2F498BA2450D73600FB13FE /* SettingsViewController.swift in Sources */,
 				B21F34512A2C39D500B9B2A4 /* Player.swift in Sources */,
+				B2A2F3282A412B1800F16A72 /* AddNewPlayerTableViewCell.swift in Sources */,
 				B2F2A4392862F0ED00FDD630 /* SkinsUser.swift in Sources */,
 				B2229A47242C32070081F4B7 /* Stats.swift in Sources */,
 				B2336DCF240EDEB500482D80 /* GolferScoreTableViewCell.swift in Sources */,

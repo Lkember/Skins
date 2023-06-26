@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol NewGolferCell: UITableViewCell {
+    func getGolfer() -> Player
+}
+
 class NewGolferTableViewCell: UITableViewCell, NewGolferCell {
     
     @IBOutlet weak var golferLabel: UILabel!
