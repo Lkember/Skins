@@ -91,17 +91,20 @@ struct Stats {
                     
                     do {
                         if (querySnapshot!.documents.count == 0) {
+                            print("No live game found")
                             completion(nil, nil)
+                            return
                         }
                         
                         
                         let doc = querySnapshot!.documents[0]
                         let game = try doc.data(as: GolfGame.self)
+                        print("live game retrieved - \(game)")
                         
                         completion(game, nil)
                         
                     } catch let err {
-                        print("error converting to golf game - \(err)")
+                        print("error getting live game - \(err)")
                         completion(nil, err)
                     }
                 }
