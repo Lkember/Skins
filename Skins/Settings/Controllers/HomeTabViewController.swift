@@ -81,9 +81,14 @@ class HomeTabViewController: UITabBarController, SignInPassback, GolfGameCallbac
     
     func endGame() {
         if (liveGame != nil) {
+            print("Ending game \(String(describing: liveGame!.gameID))")
             liveGame!.summarizeHoles(startNextHole: false)
             appDelegate.user!.stats.writeNewGame(game: liveGame!)
             appDelegate.user!.stats.eraseLiveGame(game: liveGame!)
+            
+            // Add the game to the list of previous games to avoid query to DB
+            self.appDelegate.user?.stats.prevGames.insert(self.liveGame!, at: 0)
+            
             self.liveGame = nil
         }
         
@@ -115,6 +120,7 @@ class HomeTabViewController: UITabBarController, SignInPassback, GolfGameCallbac
         }
         
         if (result != nil) {
+            print("Live game loaded \(String(describing: result!.gameID))")
             self.liveGame = result
             self.updateTabBar()
         }

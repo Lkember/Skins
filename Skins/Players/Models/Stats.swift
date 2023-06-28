@@ -47,7 +47,7 @@ struct Stats {
                     .collection(FirebaseHelper.collection)
                     .document(appDelegate.user!.uid)
                     .collection(FirebaseHelper.liveGame)
-                    .addDocument(from: game)
+                    .document(game.gameID!)
                     .setData(from: game, merge: true)
             } catch let error {
                 print("Error writing the game - \(error.localizedDescription)")
@@ -56,7 +56,6 @@ struct Stats {
     }
     
     // MARK: - Data Deletion
-    
     func eraseLiveGame(game: GolfGame) {
         if (appDelegate.user?.isSignedIn() ?? false) {
             appDelegate.firebase!.db
@@ -132,6 +131,8 @@ struct Stats {
                         
                         let doc = querySnapshot!.documents[0]
                         let game = try doc.data(as: GolfGame.self)
+                        game.gameID = doc.documentID
+                        
                         print("live game retrieved - \(game)")
                         
                         completion(game, nil)
