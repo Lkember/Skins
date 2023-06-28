@@ -103,6 +103,7 @@ struct Stats {
                     }
                 }
             }
+            completion(nil, nil)
         }
     }
     

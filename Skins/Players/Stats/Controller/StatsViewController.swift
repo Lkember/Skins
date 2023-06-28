@@ -18,6 +18,7 @@ class StatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     var lastTenGames: [GolfGame] = []
     
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    let refreshControl = UIRefreshControl()
     
     // MARK: - View
     override func viewDidLoad() {
@@ -25,15 +26,35 @@ class StatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         gameListTableView.delegate = self
         loadPrevGames()
+        
+        gameListTableView.refreshControl = refreshControl
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl.addTarget(
+            self,
+            action: #selector(didPullToRefresh),
+            for: .valueChanged
+        )
+    }
+    
+    @objc private func didPullToRefresh() {
+        print("didPullToRefresh")
+        self.loadPrevGames()
+    }
+    
+    private func didEndRefresh() {
+        print("didEndRefresh")
+        DispatchQueue.main.async {
+            self.refreshControl.endRefreshing()
+        }
     }
     
     func loadPrevGames() {
         self.appDelegate.user?.loadLastTenGames() { (result, error) in
             self.prevGamesLoaded(result: result, error: error)
+            self.didEndRefresh()
         }
         
         lastTenGames = self.appDelegate.user?.stats.getLastTenGames() ?? []
-        print("Retrieved games \(lastTenGames)")
     }
     
     func prevGamesLoaded(result: [GolfGame]?, error: Error?) {
