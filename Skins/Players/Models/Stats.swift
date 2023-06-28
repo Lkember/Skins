@@ -23,11 +23,13 @@ struct Stats {
         return self.prevGames
     }
     
+    // MARK: - Data Write
     func writeNewGame(game: GolfGame) {
         if (appDelegate.user?.isSignedIn() ?? false) {
             do {
                 // golf-stats/user_id/games/game_id/...
-                try appDelegate.firebase!.db.collection(FirebaseHelper.collection)
+                try appDelegate.firebase!.db
+                    .collection(FirebaseHelper.collection)
                     .document(appDelegate.user!.uid)
                     .collection(FirebaseHelper.gameCollection)
                     .addDocument(from: game)
@@ -38,14 +40,45 @@ struct Stats {
         }
     }
     
+    func writeLiveGame(game: GolfGame) {
+        if (appDelegate.user?.isSignedIn() ?? false) {
+            do {
+                try appDelegate.firebase!.db
+                    .collection(FirebaseHelper.collection)
+                    .document(appDelegate.user!.uid)
+                    .collection(FirebaseHelper.liveGame)
+                    .addDocument(from: game)
+                    .setData(from: game, merge: true)
+            } catch let error {
+                print("Error writing the game - \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    // MARK: - Data Deletion
+    
+    func eraseLiveGame(game: GolfGame) {
+        if (appDelegate.user?.isSignedIn() ?? false) {
+            appDelegate.firebase!.db
+                .collection(FirebaseHelper.collection)
+                .document(appDelegate.user!.uid)
+                .collection(FirebaseHelper.liveGame)
+                .document(game.gameID!)
+                .delete()
+        }
+    }
+    
+    // MARK: - Data Read
     func loadLastTenGames(completion: @escaping (Array<GolfGame>?, Error?) -> Void) {
         print("Loading last 10? \(appDelegate.user?.isSignedIn() ?? false)")
         if (appDelegate.user?.isSignedIn() ?? false) {
             if (prevGames.count < 10) {
-                let docRef = appDelegate.firebase!.db.collection(FirebaseHelper.collection)
+                let docRef = appDelegate.firebase!.db
+                    .collection(FirebaseHelper.collection)
                     .document(appDelegate.user!.uid)
                     .collection(FirebaseHelper.gameCollection)
                     .limit(to: 10)
+                    .order(by: "date", descending: true)
                 
                 var games: [GolfGame] = []
                 
@@ -78,7 +111,8 @@ struct Stats {
     func loadLiveGame(completion: @escaping (GolfGame?, Error?) -> Void) {
         print("Loading live game? \(appDelegate.user?.isSignedIn() ?? false)")
         if (appDelegate.user?.isSignedIn() ?? false) {
-            let docRef = appDelegate.firebase!.db.collection(FirebaseHelper.collection)
+            let docRef = appDelegate.firebase!.db
+                .collection(FirebaseHelper.collection)
                 .document(appDelegate.user!.uid)
                 .collection(FirebaseHelper.liveGame)
             
@@ -95,7 +129,6 @@ struct Stats {
                             completion(nil, nil)
                             return
                         }
-                        
                         
                         let doc = querySnapshot!.documents[0]
                         let game = try doc.data(as: GolfGame.self)

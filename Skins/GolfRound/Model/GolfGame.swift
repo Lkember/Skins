@@ -29,7 +29,7 @@ protocol GolfGameCallback {
 }
 
 class GolfGame: NSObject, FirestoreConverter, Codable {
-    @DocumentID var gameID: String?
+    @DocumentID var gameID: String? = UUID().uuidString
     var holes: [Hole] = []
     var players: [Player] = []
     var date: Date

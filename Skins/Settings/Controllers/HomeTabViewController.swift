@@ -17,10 +17,29 @@ class HomeTabViewController: UITabBarController, SignInPassback, GolfGameCallbac
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        appDelegate.user?.stats.loadLiveGame() { (result, error) in
-            self.liveGameLoaded(result: result, error: error)
-        }
+        self.storyboard?.instantiateViewController(withIdentifier: "StatsViewController")
         
+        loadLiveGame()
+        
+        if (appDelegate.user == nil) {
+            appDelegate.signInPassback = self
+            appDelegate.presentUserWithLoginPrompt(vc: self)
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        updateTabBar()
+    }
+    
+    func loadLiveGame() {
+        if (liveGame == nil) {
+            appDelegate.user?.stats.loadLiveGame() { (result, error) in
+                self.liveGameLoaded(result: result, error: error)
+            }
+        }
+    }
+    
+    func updateTabBar() {
         // Only show the live game tab if we have a live game
         if (liveGame == nil) {
             self.setViewControllers([
@@ -38,12 +57,6 @@ class HomeTabViewController: UITabBarController, SignInPassback, GolfGameCallbac
                 self.storyboard!.instantiateViewController(withIdentifier: "SettingsViewController")
             ], animated: true)
         }
-        self.storyboard?.instantiateViewController(withIdentifier: "StatsViewController")
-        
-        if (appDelegate.user == nil) {
-            appDelegate.signInPassback = self
-            appDelegate.presentUserWithLoginPrompt(vc: self)
-        }
     }
     
     
@@ -56,7 +69,10 @@ class HomeTabViewController: UITabBarController, SignInPassback, GolfGameCallbac
     func createNewGame(golfers: [Player]) {
         print("new game created")
         liveGame = GolfGame(players: golfers)
-        self.viewDidLoad()
+        self.updateTabBar()
+        
+        // Write the game to firestore
+        self.appDelegate.user?.stats.writeLiveGame(game: liveGame!)
     }
     
     func getLiveGame() -> GolfGame? {
@@ -67,6 +83,7 @@ class HomeTabViewController: UITabBarController, SignInPassback, GolfGameCallbac
         if (liveGame != nil) {
             liveGame!.summarizeHoles(startNextHole: false)
             appDelegate.user!.stats.writeNewGame(game: liveGame!)
+            appDelegate.user!.stats.eraseLiveGame(game: liveGame!)
             self.liveGame = nil
         }
         
@@ -74,7 +91,7 @@ class HomeTabViewController: UITabBarController, SignInPassback, GolfGameCallbac
         self.selectedIndex = 0
         
         // Update tabs
-        self.viewDidLoad()
+        self.updateTabBar()
     }
     
     func updateCurrentGame(game: GolfGame) {
@@ -82,7 +99,12 @@ class HomeTabViewController: UITabBarController, SignInPassback, GolfGameCallbac
     }
 
     func updateHoles(startNextHole: Bool = false) {
-        liveGame?.summarizeHoles(startNextHole: startNextHole)
+        if (liveGame != nil) {
+            liveGame?.summarizeHoles(startNextHole: startNextHole)
+        
+            // Update in Firestore
+            appDelegate.user?.stats.writeLiveGame(game: liveGame!)
+        }
     }
     
     // MARK: - Live Game Retrieval Completion
@@ -94,7 +116,7 @@ class HomeTabViewController: UITabBarController, SignInPassback, GolfGameCallbac
         
         if (result != nil) {
             self.liveGame = result
-            self.viewDidLoad()
+            self.updateTabBar()
         }
     }
     
