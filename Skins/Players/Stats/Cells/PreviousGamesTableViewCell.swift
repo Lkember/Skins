@@ -18,19 +18,19 @@ extension Date {
         
         if minuteAgo < self {
             let diff = Calendar.current.dateComponents([.second], from: self, to: Date()).second ?? 0
-            return "\(diff) sec ago"
+            return "\(diff) \(diff > 1 ? "secs" : "sec") ago"
         } else if hourAgo < self {
             let diff = Calendar.current.dateComponents([.minute], from: self, to: Date()).minute ?? 0
-            return "\(diff) min ago"
+            return "\(diff) \(diff > 1 ? "mins" : "min") ago"
         } else if dayAgo < self {
             let diff = Calendar.current.dateComponents([.hour], from: self, to: Date()).hour ?? 0
-            return "\(diff) hrs ago"
+            return "\(diff) \(diff > 1 ? "hours" : "hour") ago"
         } else if weekAgo < self {
             let diff = Calendar.current.dateComponents([.day], from: self, to: Date()).day ?? 0
-            return "\(diff) days ago"
+            return "\(diff) \(diff > 1 ? "days" : "day") ago"
         }
         let diff = Calendar.current.dateComponents([.weekOfYear], from: self, to: Date()).weekOfYear ?? 0
-        return "\(diff) weeks ago"
+        return "\(diff) \(diff > 1 ? "weeks" : "week") ago"
     }
 }
 
@@ -53,14 +53,38 @@ class PreviousGamesTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    func getSummaryForCurrentUser() -> GolfSummary? {
+        let ad = UIApplication.shared.delegate as! AppDelegate
+        let userID = ad.user?.uid ?? game!.players[0].uid
+        
+        return game!.getTotalsForUID(userID)
+    }
+    
     func updateCell(game: GolfGame) {
         self.game = game
+        
+        let summary = self.getSummaryForCurrentUser()
         
         self.timeSinceLabel.text = game.date.timeAgoDisplay()
         self.numberOfHolesLabel.text = game.holes.count > 1
             ? "\(game.holes.count) holes"
             : "\(game.holes.count) hole"
-        self.youShotLabel.text = "You shot: "
+        if (summary != nil) {
+            let strokesRelativeToPar = summary!.strokesRelativeToPar()
+            if (strokesRelativeToPar > 0) {
+                self.youShotLabel.text =
+                    "You shot: \(summary!.totalStrokes) (+\(summary!.strokesRelativeToPar()))"
+            }
+            else {
+                self.youShotLabel.text =
+                    "You shot: \(summary!.totalStrokes) (\(summary!.strokesRelativeToPar()))"
+            }
+        }
+        else {
+            self.youShotLabel.isHidden = true
+        }
+        self.numberOfPlayersLabel.text =
+            "\(game.players.count) Player\(game.players.count > 1 ? "s" : "")"
     }
 
 }

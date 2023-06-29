@@ -12,10 +12,16 @@ import FirebaseFirestoreSwift
 struct GolfSummary {
     var totalStrokes: Int
     var totalSkins: Int
+    var par: Int
     
-    init(_ strokes: Int, _ skins: Int) {
+    init(_ strokes: Int, _ skins: Int, _ par: Int) {
         totalStrokes = strokes
         totalSkins = skins
+        self.par = par
+    }
+    
+    func strokesRelativeToPar() -> Int {
+        return totalStrokes - par
     }
 }
 
@@ -85,13 +91,33 @@ class GolfGame: NSObject, FirestoreConverter, Codable {
     func getTotalsForGolfer(_ golfer: Player) -> GolfSummary {
         var strokes = 0
         var skins = 0
+        var par = 0
 
         for hole in holes {
             strokes += hole.golfers[golfer.uid]!.strokes
             skins += hole.golfers[golfer.uid]!.skins
+            par += hole.par
         }
 
-        return GolfSummary(strokes, skins)
+        return GolfSummary(strokes, skins, par)
+    }
+    
+    func getTotalsForUID(_ uid: String) -> GolfSummary? {
+        if (holes[0].golfers[uid] == nil) {
+            return nil
+        }
+        
+        var strokes = 0
+        var skins = 0
+        var par = 0
+        
+        for hole in holes {
+            strokes += hole.golfers[uid]!.strokes
+            skins += hole.golfers[uid]!.skins
+            par += hole.par
+        }
+
+        return GolfSummary(strokes, skins, par)
     }
     
     

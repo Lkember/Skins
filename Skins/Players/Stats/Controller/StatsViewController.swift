@@ -81,7 +81,10 @@ class StatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
 
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "PreviousGamesCell", for: indexPath) as! PreviousGamesTableViewCell
+        let cell = tableView.dequeueReusableCell(
+            withIdentifier: "PreviousGameCell",
+            for: indexPath
+        ) as! PreviousGamesTableViewCell
         
         cell.updateCell(game: lastTenGames[indexPath.row])
         
