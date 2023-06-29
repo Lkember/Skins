@@ -67,6 +67,17 @@ struct Stats {
         }
     }
     
+    func eraseGame(game: GolfGame) {
+        if (appDelegate.user?.isSignedIn() ?? false) {
+            appDelegate.firebase!.db
+                .collection(FirebaseHelper.collection)
+                .document(appDelegate.user!.uid)
+                .collection(FirebaseHelper.gameCollection)
+                .document(game.gameID!)
+                .delete()
+        }
+    }
+    
     // MARK: - Data Read
     func loadLastTenGames(completion: @escaping (Array<GolfGame>?, Error?) -> Void) {
         print("Loading last 10? \(appDelegate.user?.isSignedIn() ?? false)")
@@ -91,6 +102,7 @@ struct Stats {
                         do {
                             for doc in querySnapshot!.documents {
                                 let game = try doc.data(as: GolfGame.self)
+                                game.gameID = doc.documentID
                                 games.append(game)
                             }
                             print("Games updated \(games)")

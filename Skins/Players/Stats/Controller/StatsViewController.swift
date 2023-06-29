@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import SwiftUI
 
 class StatsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -89,6 +90,35 @@ class StatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         cell.updateCell(game: lastTenGames[indexPath.row])
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let alert = UIAlertController(
+                title: "This action is permanent",
+                message: "Are you sure you want to delete this game?",
+                preferredStyle: .actionSheet
+            )
+            alert.addAction(UIAlertAction(
+                title: "Delete",
+                style: .destructive,
+                handler: { _ in
+                    let game = self.lastTenGames[indexPath.row]
+                    self.appDelegate.user?.stats.eraseGame(game: game)
+                    self.lastTenGames.remove(at: indexPath.row)
+                    self.gameListTableView.deleteRows(at: [indexPath], with: .automatic)
+            }))
+            alert.addAction(UIAlertAction(
+                title: "Cancel",
+                style: .cancel,
+                handler: { _ in
+                    // Nothing to do
+            }))
+            present(alert,
+                    animated: true,
+                    completion: nil
+            )
+        }
     }
     
 
