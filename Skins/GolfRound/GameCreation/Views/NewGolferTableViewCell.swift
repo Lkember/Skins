@@ -16,6 +16,7 @@ class NewGolferTableViewCell: UITableViewCell, NewGolferCell {
     
     @IBOutlet weak var golferLabel: UILabel!
     @IBOutlet weak var nameField: UITextField!
+    var golfGameParent: GolfGameCreationHelper?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -34,5 +35,9 @@ class NewGolferTableViewCell: UITableViewCell, NewGolferCell {
     
     func getGolfer() -> Player {
         return Player(uid: nil, name: nameField.text ?? "Player")
+    }
+    
+    @IBAction func deleteGolferButtonClick(_ sender: Any) {
+        self.golfGameParent?.removeGolfer(golfer: self)
     }
 }

@@ -10,6 +10,7 @@ import UIKit
 
 protocol GolfGameCreationHelper {
     func addNewGolfer()
+    func removeGolfer(golfer: NewGolferTableViewCell)
 }
 
 class NewGameViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, GolfGameCreationHelper {
@@ -71,11 +72,34 @@ class NewGameViewController: UIViewController, UITableViewDelegate, UITableViewD
         let newGolfer = golferTableView.dequeueReusableCell(withIdentifier: "NewGolferTableViewCell") as! NewGolferTableViewCell
         newGolfer.setGolferNumber(golferCells.count+1)
         newGolfer.nameField.text = ""
+        newGolfer.golfGameParent = self
         newGolfer.nameField.delegate = self
 
         golferCells.append(newGolfer)
         
         self.golferTableView.insertRows(at: [IndexPath(row: golferCells.count-1, section: 0)], with: .automatic)
+    }
+    
+    func removeGolfer(golfer: NewGolferTableViewCell) {
+        for i in 0..<self.golferCells.count {
+            if golferCells[i] == golfer {
+                golferCells.remove(at: i)
+                self.golferTableView.deleteRows(
+                    at: [IndexPath(row: i, section: 0)],
+                    with: .automatic
+                )
+                updateGolferNumbers()
+                return
+            }
+        }
+    }
+    
+    func updateGolferNumbers() {
+        for i in 0..<self.golferCells.count {
+            if let cell = golferCells[i] as? NewGolferTableViewCell {
+                cell.setGolferNumber(i + 1)
+            }
+        }
     }
     
     // MARK: - UITableViewDataSource
