@@ -40,7 +40,6 @@
 		B2F168A62491D6CB00B7A5DC /* AddFriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F168A52491D6CB00B7A5DC /* AddFriendViewController.swift */; };
 		B2F2A4392862F0ED00FDD630 /* SkinsUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F2A4382862F0ED00FDD630 /* SkinsUser.swift */; };
 		B2F2A43B2862F0FD00FDD630 /* ScoresheetViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F2A43A2862F0FD00FDD630 /* ScoresheetViewLayout.swift */; };
-		B2F2A43D2862F10D00FDD630 /* ScoresheetViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F2A43C2862F10D00FDD630 /* ScoresheetViewLayout.swift */; };
 		B2F498BA2450D73600FB13FE /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F498B92450D73600FB13FE /* SettingsViewController.swift */; };
 		F2B03A4615567221C5892E33 /* Pods_Skins.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CFBE84E34BB9D9DCD07C413 /* Pods_Skins.framework */; };
 		FC8A1E2250D3A0D0E3B5B711 /* Pods_SkinsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2116FDFB249CECA37E5C749A /* Pods_SkinsTests.framework */; };
@@ -96,8 +95,7 @@
 		B2F168A22490879400B7A5DC /* PendingFriendTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PendingFriendTableViewCell.swift; sourceTree = "<group>"; };
 		B2F168A52491D6CB00B7A5DC /* AddFriendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendViewController.swift; sourceTree = "<group>"; };
 		B2F2A4382862F0ED00FDD630 /* SkinsUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SkinsUser.swift; sourceTree = "<group>"; };
-		B2F2A43A2862F0FD00FDD630 /* ScoresheetViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScoresheetViewLayout.swift; path = Skins/GolfRound/Views/ScoresheetViewLayout.swift; sourceTree = SOURCE_ROOT; };
-		B2F2A43C2862F10D00FDD630 /* ScoresheetViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoresheetViewLayout.swift; sourceTree = "<group>"; };
+		B2F2A43A2862F0FD00FDD630 /* ScoresheetViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScoresheetViewLayout.swift; path = Skins/GolfRound/Scoresheet/ScoresheetViewLayout.swift; sourceTree = SOURCE_ROOT; };
 		B2F498B92450D73600FB13FE /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		D6B736F27A8DE710FD145AC2 /* Pods-Skins.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Skins.release.xcconfig"; path = "Target Support Files/Pods-Skins/Pods-Skins.release.xcconfig"; sourceTree = "<group>"; };
 		F3DBC2310428533357E25409 /* Pods-SkinsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SkinsTests.release.xcconfig"; path = "Target Support Files/Pods-SkinsTests/Pods-SkinsTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -170,26 +168,6 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		B2348D5C24144068003EBAE5 /* Hole */ = {
-			isa = PBXGroup;
-			children = (
-				B2348D5A24141163003EBAE5 /* HoleScoreHelperViewController.swift */,
-				B27A9E692412E6FE008AFD96 /* HolePageViewController.swift */,
-				B232BA0324101D2A00309FD9 /* HoleScoreViewController.swift */,
-			);
-			path = Hole;
-			sourceTree = "<group>";
-		};
-		B236FC65240B04CE0011BF05 /* Cells */ = {
-			isa = PBXGroup;
-			children = (
-				B2F2A43A2862F0FD00FDD630 /* ScoresheetViewLayout.swift */,
-				B2336DCE240EDEB500482D80 /* GolferScoreTableViewCell.swift */,
-				B26AB395241FE226008DCC65 /* ScoresheetCollectionViewCell.swift */,
-			);
-			path = Cells;
-			sourceTree = "<group>";
-		};
 		B23C1EF323FBBC1B00B7308A = {
 			isa = PBXGroup;
 			children = (
@@ -236,31 +214,13 @@
 			path = SkinsTests;
 			sourceTree = "<group>";
 		};
-		B23C1F2323FBBD6900B7308A /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				B236FC65240B04CE0011BF05 /* Cells */,
-				B2348D5C24144068003EBAE5 /* Hole */,
-				B2F2A43C2862F10D00FDD630 /* ScoresheetViewLayout.swift */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		B23FEFDE2845F30600EE2575 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				B23247E3241B136C00409AD1 /* ScoresheetViewController.swift */,
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
 		B23FEFDF2845F31600EE2575 /* GolfRound */ = {
 			isa = PBXGroup;
 			children = (
-				B2B67E472485A43C007EC84A /* GameCreation */,
 				B2336DCD240ED38D00482D80 /* Model */,
-				B23FEFDE2845F30600EE2575 /* Controller */,
-				B23C1F2323FBBD6900B7308A /* Views */,
+				B2B67E472485A43C007EC84A /* GameCreation */,
+				B2A2F32C2A4FFB1F00F16A72 /* Hole */,
+				B2A2F32B2A4FFAB100F16A72 /* Scoresheet */,
 			);
 			path = GolfRound;
 			sourceTree = "<group>";
@@ -292,14 +252,6 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
-		B23FEFE52845F44100EE2575 /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				B236FC68240B06150011BF05 /* NewGameViewController.swift */,
-			);
-			path = Controllers;
-			sourceTree = "<group>";
-		};
 		B23FEFE62845F46700EE2575 /* Stats */ = {
 			isa = PBXGroup;
 			children = (
@@ -309,23 +261,52 @@
 			path = Stats;
 			sourceTree = "<group>";
 		};
-		B2B67E472485A43C007EC84A /* GameCreation */ = {
-			isa = PBXGroup;
-			children = (
-				B23FEFE52845F44100EE2575 /* Controllers */,
-				B2B67E482485A459007EC84A /* Views */,
-			);
-			path = GameCreation;
-			sourceTree = "<group>";
-		};
-		B2B67E482485A459007EC84A /* Views */ = {
+		B2A2F32A2A4FFA7800F16A72 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
 				B236FC66240B04EF0011BF05 /* NewGolferTableViewCell.swift */,
 				B2282296247CB3F000C6CCBF /* InvitedGolferTableViewCell.swift */,
 				B2A2F3272A412B1800F16A72 /* AddNewPlayerTableViewCell.swift */,
 			);
-			path = Views;
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		B2A2F32B2A4FFAB100F16A72 /* Scoresheet */ = {
+			isa = PBXGroup;
+			children = (
+				B2F2A43A2862F0FD00FDD630 /* ScoresheetViewLayout.swift */,
+				B26AB395241FE226008DCC65 /* ScoresheetCollectionViewCell.swift */,
+				B23247E3241B136C00409AD1 /* ScoresheetViewController.swift */,
+			);
+			path = Scoresheet;
+			sourceTree = "<group>";
+		};
+		B2A2F32C2A4FFB1F00F16A72 /* Hole */ = {
+			isa = PBXGroup;
+			children = (
+				B2A2F32D2A4FFB3900F16A72 /* Cells */,
+				B2348D5A24141163003EBAE5 /* HoleScoreHelperViewController.swift */,
+				B27A9E692412E6FE008AFD96 /* HolePageViewController.swift */,
+				B232BA0324101D2A00309FD9 /* HoleScoreViewController.swift */,
+			);
+			path = Hole;
+			sourceTree = "<group>";
+		};
+		B2A2F32D2A4FFB3900F16A72 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				B2336DCE240EDEB500482D80 /* GolferScoreTableViewCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		B2B67E472485A43C007EC84A /* GameCreation */ = {
+			isa = PBXGroup;
+			children = (
+				B2A2F32A2A4FFA7800F16A72 /* Cells */,
+				B236FC68240B06150011BF05 /* NewGameViewController.swift */,
+			);
+			path = GameCreation;
 			sourceTree = "<group>";
 		};
 		B2F1689A248DE5AA00B7A5DC /* Friends */ = {
@@ -548,7 +529,6 @@
 				B2282297247CB3F000C6CCBF /* InvitedGolferTableViewCell.swift in Sources */,
 				B21F344F2A2724DA00B9B2A4 /* PreviousGamesTableViewCell.swift in Sources */,
 				B27A9E6A2412E6FE008AFD96 /* HolePageViewController.swift in Sources */,
-				B2F2A43D2862F10D00FDD630 /* ScoresheetViewLayout.swift in Sources */,
 				B2F2A43B2862F0FD00FDD630 /* ScoresheetViewLayout.swift in Sources */,
 				B2F1689D248DE5E400B7A5DC /* FriendsListTableViewController.swift in Sources */,
 				B236FC69240B06150011BF05 /* NewGameViewController.swift in Sources */,
