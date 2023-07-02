@@ -48,7 +48,7 @@ class Hole: NSObject, FirestoreConverter, Codable {
             }
         }
         
-        return lowScore <= par && lsCount == 1
+        return lowScore > par || lsCount > 1
     }
     
     func playerToWinHole() -> String? {

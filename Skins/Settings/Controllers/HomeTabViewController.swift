@@ -82,7 +82,7 @@ class HomeTabViewController: UITabBarController, SignInPassback, GolfGameCallbac
     func endGame() {
         if (liveGame != nil) {
             print("Ending game \(String(describing: liveGame!.gameID))")
-            liveGame!.summarizeHoles(startNextHole: false)
+            liveGame!.summarizeHoles()
             appDelegate.user!.stats.writeNewGame(game: liveGame!)
             appDelegate.user!.stats.eraseLiveGame(game: liveGame!)
             
@@ -102,11 +102,20 @@ class HomeTabViewController: UITabBarController, SignInPassback, GolfGameCallbac
     func updateCurrentGame(game: GolfGame) {
         liveGame = game
     }
-
-    func updateHoles(startNextHole: Bool = false) {
+    
+    func holeDidChange(hole: Int) {
         if (liveGame != nil) {
-            liveGame?.summarizeHoles(startNextHole: startNextHole)
-        
+            liveGame!.holeDidChange(holeNumber: hole)
+            
+            // Update in Firestore
+            appDelegate.user?.stats.writeLiveGame(game: liveGame!)
+        }
+    }
+    
+    func startNextHole() {
+        if (liveGame != nil) {
+            liveGame!.startNextHole()
+            
             // Update in Firestore
             appDelegate.user?.stats.writeLiveGame(game: liveGame!)
         }

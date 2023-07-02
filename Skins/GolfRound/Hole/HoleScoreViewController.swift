@@ -41,10 +41,6 @@ class HoleScoreViewController: UIViewController, UITableViewDelegate, UITableVie
         updateUI()
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        golfGameCallback?.updateHoles(startNextHole: false)
-    }
-    
     func updateHole(hole: Hole) {
         currHole = hole
     }
@@ -109,15 +105,21 @@ class HoleScoreViewController: UIViewController, UITableViewDelegate, UITableVie
                     currHole.golfers[player.uid]!.extraSkin = false
                 }
                 else {
-                    currHole.golfers[player.uid]!.extraSkin = true
+                    currHole.golfers[player.uid]!.extraSkin = cell.ldOrCTP.isOn
                 }
             }
         }
+        self.holeDidChange()
     }
     
     func strokesUpdated(cell: GolferScoreTableViewCell, strokes: Int) {
         let player = cell.player
         currHole.golfers[player!.uid]!.strokes = strokes
+        self.holeDidChange()
+    }
+    
+    private func holeDidChange() {
+        self.golfGameCallback?.holeDidChange(hole: self.currHole.holeNumber-1)
     }
     
 }

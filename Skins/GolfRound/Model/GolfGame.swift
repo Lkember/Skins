@@ -30,7 +30,8 @@ protocol GolfGameCallback {
     
     func createNewGame(golfers: [Player])
     func updateCurrentGame(game: GolfGame)
-    func updateHoles(startNextHole: Bool)
+    func holeDidChange(hole: Int)
+    func startNextHole()
     func endGame()
 }
 
@@ -52,7 +53,7 @@ class GolfGame: NSObject, FirestoreConverter, Codable {
     
     // MARK: - Holes
     // Summarize all holes
-    func summarizeHoles(startNextHole: Bool) {
+    func summarizeHoles() {
         for i in 0..<holes.count {
             let hole = holes[i]
             if (i == 0) {
@@ -64,9 +65,22 @@ class GolfGame: NSObject, FirestoreConverter, Codable {
             
             hole.awardSkinsForHole()
         }
-        
-        if (startNextHole) {
-            self.startNextHole()
+    }
+    
+    // When a hole changes, update that hole and all later holes
+    func holeDidChange(holeNumber: Int) {
+        for i in holeNumber..<holes.count {
+            let hole = holes[i]
+            if (i == 0) {
+                hole.carryOverSkins = 0
+            }
+            else {
+                hole.carryOverSkins = holes[i-1].shouldSkinCarryOver()
+                    ? holes[i-1].carryOverSkins + 1
+                    : 0
+            }
+            
+            hole.awardSkinsForHole()
         }
     }
     
@@ -80,14 +94,7 @@ class GolfGame: NSObject, FirestoreConverter, Codable {
         holes.append(nextHole)
     }
     
-    func addNextHole() {
-        if (holes.first != nil) {
-            holes.append(
-                Hole.init(holeNumber: holes.last!.holeNumber + 1, players: self.players)
-            )
-        }
-    }
-    
+    // MARK: - Score Summary
     func getTotalsForGolfer(_ golfer: Player) -> GolfSummary {
         var strokes = 0
         var skins = 0

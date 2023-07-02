@@ -39,19 +39,19 @@ class HoleScoreHelperViewController: UIViewController, TitleUpdateCallback {
     }
     
     @IBAction func newHoleTouched(_ sender: Any) {
-        self.passbackDelegate?.updateHoles(startNextHole: true)
+        // Update the last hole
+        self.passbackDelegate?.holeDidChange(
+            hole: (self.passbackDelegate?.liveGame?.holes.count ?? 1) - 1
+        )
+        
+        // Start the next hole
+        self.passbackDelegate?.startNextHole()
+        
         pageControlCallback?.pageCountChanged()
     }
     
     @IBAction func endGameTouched(_ sender: Any) {
         self.passbackDelegate?.endGame()
-        
-        // TODO - This probably doesn't work
-        _ = navigationController?.popViewController(animated: true)
-    }
-    
-    @IBAction func viewScorecardTouched(_ sender: Any) {
-        self.passbackDelegate?.updateHoles(startNextHole: false)
     }
     
     // MARK: - UpdateTitleCallback
